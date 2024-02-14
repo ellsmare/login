@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:fragment="navFragment">
+    <!--Top -->
+    <div class="p-5 bg-primary text-white text-center">
+        <!--localhost:8082/v1 :: index.html-->
+        <h1>NewsFeed Page</h1>
+        <p>Resize this responsive page to see the effect!</p>
+    </div>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">Logo home </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/auth/signUp-page}">Link signUp</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/auth/signIn-page}">Link signIn</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/users/info-page}">Link info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/users/logout}">Link logout</a>
+                    </li>
+
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" th:href="@{/}">Link</a>-->
+<!--                    </li>-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" th:href="@{/static}" role="button" data-bs-toggle="dropdown">Dropdown APItest</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/auth/postsList-page}">Link postsList</a></li>
+                            <li><a class="dropdown-item" th:href="@{/users/postDetail-page}">Link postDetail  </a></li>
+                            <li><a class="dropdown-item" th:href="@{/users/postEdit-page}">Link postEdit</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</th:block>
+</html>

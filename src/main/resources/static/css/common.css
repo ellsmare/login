@@ -1,0 +1,39 @@
+/*Bootstrap CSS*/
+body {
+    min-height: 100vh;
+    background: #0466f3;
+    color: #ffffff;
+    font-size: 20rem;
+    text-align: center;
+    /*align-items: center;*/
+    margin:0 auto;
+    /*max-height: 100vh;*/
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*position: relative;*/
+    /*flex-wrap: nowrap;*/
+}
+
+#footer-contain{
+    color: #ffffff;
+    font-size: 20rem;
+    text-align: center;
+}
+
+#error{
+    margin-top: 10%;
+    padding :10px;
+    background: #000000;
+    color: #ffffff;
+    max-font-size: 20em;
+    min-width:45%;
+    min-height:30vh;
+}
+
+textarea {
+    width: 100%;
+}
+
+input[type=submit] {
+    margin-top: 10px;
+}

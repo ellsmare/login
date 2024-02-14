@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" >
+
+    <div th:fragment="footerFragment">
+        <div class="footer-contain">
+            <p class="mb-1">&copy; 2024 project newsfeed</p><br>
+            <p class="mb-1">Created by eNoh</p><br>
+            <p class="mb-1">CopyRight :: bootstrap </p><br>
+            <p class="mb-1">https://github.com/ellsmare/newsfeed_boot.git</p><br>
+            <a href="#" class=""></a>
+        </div>
+     </div>
+</html>
+
+<!--
+https://velog.io/@dhk22/Thymeleaf-Fragment-%EA%B3%B5%ED%86%B5%EC%98%81%EC%97%AD%EC%B2%98%EB%A6%AC
+<footer th:fragment="footerFragmentParam (param1, param2)">
+  <p> COPYRIGHT@ dhk22</p><br/>
+  <p th:text="|Hi, ${param1}|"></p>
+  <p th:text="|Im ${param2}|"></p>
+</footer>
+Thymeleaf의 상수 표현식인 |..|와 변수 표현식인 ${...}를 사용
+-->

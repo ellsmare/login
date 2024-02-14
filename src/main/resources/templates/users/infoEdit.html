@@ -1,0 +1,51 @@
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{common/layouts/layout}">
+
+<head>
+    <!--css/js PageByPage start-->
+    <th:block layout:fragment="cssByPage">
+        <link rel="stylesheet"  type="text/css"  th:href="${principal.user.username}">
+    </th:block>
+    <!--css/js PageByPage end-->
+</head>
+
+<!-- Content -->
+<th:block layout:fragment="content" >
+    <form>
+        <input type="hidden" id="id" value="{}">
+
+    </form>
+    <div class="container">
+        <div class="member-container">
+            <div class="header">
+                <h1> 개인정보 수정 페이지 </h1><br>
+            </div>
+            <div class="user-info">
+                <div class="user-info-name">
+                    <div>img</div>
+                    <input type="image" />
+                </div>
+                <div class="user-info-name">
+                    <div>자기소개</div>
+                    <input type="text" />
+                </div>
+                <div class="user-info-email">
+                    <div>* nickname</div>
+                    <input type="text" />
+                </div>
+                <div class="user-info-pw">
+                    <div> 비밀번호</div>
+                    <input type="password"/>
+                </div>
+            </div>
+            <div class="btn">
+                <button>가입하기</button>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="jsByPage">
+
+</th:block>
+</html>

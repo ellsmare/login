@@ -1,0 +1,45 @@
+<html layout:decorate="~{common/layouts/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <!--css/js PageByPage start-->
+    <th:block layout:fragment="cssByPage">
+        <link rel="stylesheet"  type="text/css"  th:href="@{/css/article.css}">
+    </th:block>
+    <!--css/js PageByPage end-->
+</head>
+
+<!-- Content -->
+<th:block layout:fragment="content">
+    <h1> 글 목록 </h1>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xs-12">
+                <table class="freeBoard">
+                    <caption>자유게시판</caption>
+                    <thead>
+                    <tr>
+                        <th class="number">No</th>
+                        <th class="title">제목</th>
+                        <th class="name">글쓴이</th>
+                        <th class="time">작성시간</th>
+                        <th class="view">좋아요</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="number">1</td>
+                        <td class="title">테이블 영역 연습하기</td>
+                        <td class="name">그린컴퓨터</td>
+                        <td class="time">22-07-14</td>
+                        <td class="view">10</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- 글쓰기/ 조회 -->
+
+        </div>
+    </div>
+</th:block>
+</html>

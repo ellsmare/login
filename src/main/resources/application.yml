@@ -1,0 +1,54 @@
+#application.yml
+server:
+  port: 8081
+  servlet:
+    context-path: /
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/dbtest?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+    username: testId
+    password: test
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: true
+  thymeleaf:
+    enabled: true
+    prefix=classpath: /template/
+    suffix: .html
+    encoding: UTF-8
+    mvc:
+      static-path-pattern: /static/** # korean ? 한국어
+    # todo cache: true 배포확인
+    cache: false
+    check-template-location: true
+  devtools:
+    livereload:
+      #정적자원실시간반영
+      enabled: true
+    remote:
+      restart:
+        #변화감지 자동재시작
+        enabled: true
+# https://aljjabaegi.tistory.com/650 타임리프 설정 사용하기
+# https://kimfk567.tistory.com/105 타임리프 세션값
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+
+
+  #    createDatabaseIfNotExist=true ?????? ??? ?? ??
+  #&useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&useSSL=true
+
+jwt.secret.key: 7Iqk7YyM66W07YOA7L2U65Sp7YG065+9U3ByaW5n6rCV7J2Y7Yqc7YSw7LWc7JuQ67mI7J6F64uI64ukLg==

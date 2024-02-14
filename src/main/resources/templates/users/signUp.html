@@ -1,0 +1,113 @@
+<html layout:decorate="~{common/layouts/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+        <!--css/js PageByPage start-->
+        <th:block layout:fragment="cssByPage">
+        <link rel="stylesheet"  type="text/css"  th:href="@{/css/signup.css}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        </th:block>
+         <!--css/js PageByPage end-->
+</head>
+
+<!-- Content -->
+<th:block layout:fragment="content">
+    <div class="form-signUp">
+<!--        <form action="/auth/signUp" method="post">-->
+        <form>
+            <div class="input-form-backgroud row" id="inputBox">
+                <div class="input-form col-md-12 mx-auto">
+                    <h4 class="mb-3" id="joinBoxTitle">회원가입</h4>
+                        <!-- <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.signup}" />-->
+                        <!-- 아이디-->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="username">아이디</label>
+                                <input type="text" name="username" id="username" class="form-control" placeholder="아이디는 4~10자입니다" value="" required autofocus>
+                                <div class="invalid-feedback"> 아이디는 4~10자 영문 소문자, 숫자를 사용하세요. </div>
+
+                                <!--  <button class="btn btn-primary btn-lg btn-block" type="submit">중복확인</button>-->
+                            </div>
+                        </div>
+                        <!--비밀번호-->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="password">비밀번호</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="패스워드를 입력해주세요" autocomplete="off" value=""required>
+                                <div class="invalid-feedback"> 비밀번호는 8~15자 영문 대문자, 소문자, 숫자, 특수문자를 사용하세요.</div>
+                            </div>
+                            <!--                        <div >-->
+                            <!--                            <label for="password">비밀번호 확인</label>-->
+                            <!--                            <input type="password" id="password_confirm" name="password_confirm" class="form-control" placeholder="password_confirm" required>-->
+                            <!--                        </div>-->
+                        </div>
+                        <!--  이메일-->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="email">이메일</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
+                                <div class="invalid-feedback">
+                                </div>
+                            </div>
+                        </div>
+                        <!--관리자 이메일 :: 이메일 인증-->
+                        <div class="mb-3">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="admin-check" name="admin" onclick="onclickAdmin()">
+                                <label class="custom-control-label" for="admin-check">관리자</label>
+                            </div>
+                        </div>
+                        <input id="admin-token" type="password" name="adminToken" placeholder="관리자 암호" class="form-control" style="display:none;">
+
+                        <hr class="mb-4">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="aggrement" required>
+                        <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+                        </div>
+                        <div class="mb-4"></div>
+                    <button class="btn btn-lg btn-primary btn-block" id="btn-save" >가입 완료</button>
+                </div>
+            </div>
+        </form>
+  </div>
+</th:block>
+<th:block layout:fragment="jsByPage">
+    <script type="text/javascript" th:src="@{/js/signup.js}"></script>
+</th:block>
+</html>
+
+<!--회원가입 상태코드,메세지-->
+<!--<p th:text="${/}"></p>-->
+<!--<p th:text="${/}"></p>-->
+<!--표현식: <div th:[속성]=”서버에서 받는 값 및 조건식”/>   validatorResult.put(validKeyName, error.getDefaultMessage());-->
+
+
+<!--<script>-->
+<!--    &lt;!&ndash; 유효성 검사기능 추가&ndash;&gt;-->
+<!--    // HTML의 <form>은 입력 필드 요소가 required 속성을 가지고 있으면 자동으로 유효성을 검사-->
+<!--    // <form>에 novalidate 속성을 설정-->
+<!--    window.addEventListener('load', () => {-->
+<!--        const forms = do                            cument.getElementsByClassName('validation-form');-->
+
+<!--        Array.prototype.filter.call(forms, (form) => {-->
+<!--            form.addEventListener('submit', function (event) {-->
+<!--                if (form.checkValidity() === false) {-->
+<!--                    event.preventDefault();-->
+<!--                    event.stopPropagation();-->
+<!--                }-->
+
+<!--                form.classList.add('was-validated');-->
+<!--            }, false);-->
+<!--        });-->
+<!--    }, false);-->
+<!--</script>-->
+
+<!--
+모든 요청은 디스패처 서블릿(프론트 컨트롤러)을 통해 컨트롤러로 전달
+전달 과정은 ArgumentResolver,  @Valid도 처리-유효성 검사를 진행
+검증에 오류가 있다면 400 BadRequest 에러가 발생
+@Valid는 기본적으로 컨트롤러에서만 동작
+출처: https://mangkyu.tistory.com/174 [MangKyu's Diary:티스토리]
+
+-->

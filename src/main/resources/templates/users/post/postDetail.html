@@ -1,0 +1,22 @@
+<html layout:decorate="~{common/layouts/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!--css/js PageByPage start-->
+    <th:block layout:fragment="cssByPage">
+        <link rel="stylesheet"  type="text/css"  th:href="@{/css/articleEdit.css}">
+    </th:block>
+    <!--css/js PageByPage end-->
+</head>
+
+<!-- Content -->
+<th:block layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1> 글 목록에서 회원만 글 상세 확인가능 </h1>
+                <h1> 글 상세에서 작성자만 글 수정/삭제가능 </h1>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

@@ -1,0 +1,97 @@
+<html layout:decorate="~{common/layouts/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <!--css/js PageByPage start-->
+    <th:block layout:fragment="PageBy">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet"  type="text/css"  th:href="@{/css/signin.css}">
+    </th:block>
+    <!--css/js PageByPage end-->
+</head>
+
+<!-- Content -->
+<th:block layout:fragment="content">
+    <div class="form-signIn">
+        <form>   <!--th:action="@{/auth/}" th:object="${userinfo}" -->
+<!--       <form class="form-signin" th:action="@{/api/join}" method="post" name="joinForm" th:object="${key}" >  -->
+    <!--<form class="form-signin" th:action="@{/auth/signIn}" method="post"> --> <!-- 요청 보내기-->
+            <div class="input-form-backgroud row" id="inputBox">
+                <div class="input-form col-md-12 mx-auto">
+                    <h4 class="mb-3" id="loginBoxTitle">로그인</h4>
+                    <form class="validation-form" novalidate>
+                        <!-- <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.signup}" />-->
+                        <!-- 아이디-->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="username">아이디</label>
+                                <input type="text" name="username" id="username" class="form-control" autocomplete="on">
+                            </div>
+                        </div>
+                        <!--비밀번호-->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="password">비밀번호</label>
+                                <input  type="password" id="password" name="password" class="form-control" autocomplete="off">
+                             </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <!--form 로그인 -->
+        <!--<button class="btn btn-lg btn-primary btn-block" id="btn-login" type="submit">로그인</button> -->
+        </form>
+
+        <!--ajax 로그인 -->
+        <button class="btn btn-lg btn-primary btn-block" id="btn-login" onclick="onLogin()">로그인</button>
+    </div>
+</th:block>
+<th:block layout:fragment="jsByPage">
+    <script type="text/javascript" th:src="@{/js/signin.js}"></script>
+</th:block>
+</html>
+
+<!--    <div id="login-form">-->
+<!--    <div id="login-failed" style="display: none" class="alert alert-danger" role="alert">로그인에 실패하였습니다.</div>-->
+<!--</div>-->
+<!--    <div id="login-title">Login</div>-->
+<!--    <br>-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <button id="login-id-btn" onclick="location.href='/users/signUp'">-->
+<!--        로그인 페이지-->
+<!--    </button>-->
+
+    <!--로그인 상태코드,메세지-->
+    <!--<p th:text="${/}"></p>-->
+    <!--<p th:text="${/}"></p>-->
+<!--<script>-->
+<!--    const href = location.href;-->
+<!--    const queryString = href.substring(href.indexOf("?")+1)-->
+<!--    if (queryString === 'error') {-->
+<!--        const errorDiv = document.getElementById('login-failed');-->
+<!--        errorDiv.style.display = 'block';-->
+<!--    }-->
+<!--</script>-->
+
+
+<!--타임리프 인라인 작성 방법 -->
+<!--    <h1>[[${haha}]]            [[${haha}]]        </h1>-->
+
+<!--thymeleaf-extras-springsecurity6-->
+<!--출처: https://luvstudy.tistory.com/227 [파란하늘의 지식창고:티스토리]-->
+
+<!--//ROLE_ADMIN 권한이 있는 경우만 표시됨-->
+<!--<li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin}">관리자 페이지</a></li>-->
+
+<!--//ROLE_USER 권한이 있는 경우만 표시됨-->
+<!--<li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/books}">책 목록</a></li>-->
+
+<!--//로그인이 되지 않은 경우 표시-->
+<!--<li sec:authorize="!isAuthenticated()"><a th:href="@{/users}">회원가입</a></li>-->
+
+<!--//로그인 된 경우의 username을 출력-->
+<!--<li sec:authorize="isAuthenticated()"><span sec:authentication="principal.username"></span></li>-->
+
+<!--//변수처럼 사용하고 싶은 경우-->
+<!--<a th:href="@{'/users/'+ ${#authentication.principal.id}}">마이페이지</a>-->

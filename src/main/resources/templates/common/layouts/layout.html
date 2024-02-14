@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lagn="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <!--head-->
+    <head>
+        <!--Required meta tags -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>뉴스피스</title>
+
+        <!-- css-->
+        <link rel="stylesheet"  th:href="@{/css/common.css}">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <!--favicon.ico-->
+        <link rel="icon" href="data:;base64,=">
+        <!-- Bootstrap CSS, js -->
+        <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!--JS start-->
+        <!--jquery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/basic.js}"></script>
+        <!--JS end-->
+
+        <!--css/js PageByPage start-->
+        <th:block layout:fragment="cssByPage">
+        </th:block>
+        <!--css/js PageByPage end-->
+    </head>
+
+    <!--body-->
+    <body>
+        <!-- top start-->
+        <div th:replace="~{common/fragments/nav :: navFragment}"></div>
+        <!-- top end -->
+        <!-- <div id="content-wrapper" class="d-flex">-->
+
+        <!--content start-->
+        <th:block layout:fragment="content"></th:block>
+        <!--content end-->
+
+        <!--JS start-->
+        <script type="text/javascript" th:src="@{/js/basic.js}"></script>
+        <!--JS end-->
+
+        <!--css/js PageByPage start-->
+        <th:block layout:fragment="jsByPage">
+        </th:block>
+        <!--css/js PageByPage end-->
+
+        <!-- footer start -->
+        <th block th:if="${'footer' == 'no'}">
+            <div th:replace="~{common/fragments/footer :: footerFragment}"></div>
+        </th>
+        <!-- footer end -->
+    </body>
+</html>
+
+<!--    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE"></title>-->
+<!--<th:block layout:fragment="title">-->
+    <!-- 각 페이지의 title -->
+<!--</th:block>-->
+
+<!--<th:block layout:fragment="css">-->
+    <!-- 각 페이지의 css -->
+<!--</th:block>-->
