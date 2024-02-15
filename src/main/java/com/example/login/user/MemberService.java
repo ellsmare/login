@@ -17,7 +17,7 @@ public class MemberService {
     private final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
 
-
+    //내 정보 수정
 
 
 

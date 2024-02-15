@@ -28,12 +28,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="number">1</td>
-                            <td class="title">테이블 영역 연습하기</td>
-                            <td class="name">그린컴퓨터</td>
-                            <td class="time">22-07-14</td>
-                            <td class="view">10</td>
+                        <tr th:each="post:${list}">
+                            <td class="number" th:text="${post.id}"></td>
+                            <td class="title" th:text="${post.title}"></td>
+<!--                            <td class="name" th:text="${post.nickname}"></td>-->
+                            <td class="time" th:text="${post.createdDate}"></td>
+                            <td class="view" th:text="${post.count}"></td>
                         </tr>
                     </table>
                 </div>

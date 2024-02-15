@@ -6,6 +6,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,14 +37,9 @@ public class ApiUserController {
         return response;
     }
 
-    //findAll -userEntity :: admin??
-    @GetMapping("/user/user")
-    public List<UserEntity> list(){
-        return memberRepository.findAll();
-    }
 
-    //pageList -userEntity 페이징 :: 또 안됨,,, 삭제해서 다시 작성했는데...
-  /*  @GetMapping("/test/user/page")
+    //pageList -userEntity 페이징
+    @GetMapping("/test/user/page")
     public List<UserEntity> pageList(@PageableDefault(size = 2, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
 
         Page<UserEntity> pageUser = memberRepository.findAll(pageable);
@@ -50,9 +49,9 @@ public class ApiUserController {
 //        }
         List<UserEntity> user = pageUser.getContent();
         return user;
-    }*/
+    }
 
-//  생성일/수정일 수정하기 todo
+
 //
 //    public UserEntity detail(@PathVariable long idx){
 //
@@ -68,7 +67,14 @@ public class ApiUserController {
 //        return
 //    }
 
-    //findById - 내 정보 수정
+    //findAll -userEntity :: admin??
+    @GetMapping("/user/user")
+    public List<UserEntity> list(){
+        return memberRepository.findAll();
+    }
+
+
+    //findById - 내 정보 수정  update
    /* @PostMapping("/test/user/{idx}")
     public ResponseDto<String> saveInfo(@PathVariable long idx) throws Exception {
         UserEntity userEntity  = memberService.getInfo(idx);

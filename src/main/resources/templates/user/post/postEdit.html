@@ -18,7 +18,7 @@
 <th:block layout:fragment="content">
     <div class="content-body">
     <div class="container">
-        <!--    취소버튼이 안된다 찾아보기  사진첨부, 등등  썸머노트 안되네;;; js문제일거 같은데 정리한다고 삭제한거 있어서.. todo
+        <!--    취소버튼이 안된다 찾아보기  사진첨부, 등등  썸머노트 안되네;;;
                 폰트 넣는 방법 찾아보기
                 설명이 있어서 좋긴한데 첫줄이 가린다 공백 띄우는법 찾아보기
          -->
@@ -49,14 +49,15 @@
     </div>
     <h1> 글 상세에서 작성자만 글 수정/삭제가능 보이기 </h1>
     <h1> 로그인 후 글 상세 확인 가능 </h1>
-</th:block>
-<th:block layout:fragment="jsByPage">
+    <script th:src="@{/js/post.js}"></script>
     <script>
         $('.summernote').summernote({
             tabsize: 2,
             height: 300
         });
     </script>
+</th:block>
+<th:block layout:fragment="jsByPage">
 </th:block>
 <!--<th:block layout:fragment="jsByPage">-->
 <!--        <script>-->
