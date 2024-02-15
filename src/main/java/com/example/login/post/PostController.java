@@ -19,7 +19,7 @@ public class PostController {
 
 
     // 게시판 목록 페이지
-    @GetMapping("/auth/postsList-page")
+    @GetMapping("/auth/postList-page")
     public String postList() {
         return "users/post/postList";
     }

@@ -17,6 +17,28 @@ public class ApiPostController {
     public final PostRepository postRepository;
 
 /*
+    //페이징
+     @GetMapping("/list")
+    public String listMethod(Model model,
+                             @PageableDefault(
+                                     page = 0,
+                                     size = 10,
+                                     sort = "id",
+                                     direction = Sort.Direction.DESC)
+                                     Pageable pageable,
+                                     String searchKeyword )
+    {
+
+        Page<BoardEntity> list = null;
+        if (searchKeyword == null) {
+            // 검색기능이 없다면, 그냥 다 불러오고
+            list = boardRepository.findAll(pageable);
+        } else {
+            // searchKeyword= 값이 있다면, 해당 값과 일치하는 정보를 갖고옴
+            list = boardRepository.findByTitleContaining(searchKeyword, pageable);
+        }
+[출처] 다시 만들어본 게시판|작성자 민우의 코딩일지
+
     // 게시글 수정
     @PutMapping("/board/{id}")
     public ResponseEntity<BoardResponseDto> updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, HttpServletRequest request) {
@@ -43,7 +65,7 @@ public class ApiPostController {
     */
 
     // post save
-/*
+
   @PostMapping("/test/post/save")
     public ResponseDTO<String> save(@RequestBody PostFormDTO postFormDTO, HttpServletRequest request) throws IOException {
         System.out.println("save post ::" + postFormDTO);
@@ -53,6 +75,6 @@ public class ApiPostController {
         ResponseDTO response = new ResponseDTO<>(HttpStatus.OK.value(), "성공");
         return response;
     }
-*/
+
 
 }

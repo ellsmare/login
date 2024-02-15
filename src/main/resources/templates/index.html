@@ -11,7 +11,7 @@
     <style>
         .fakeimg {
             height: 200px;
-            background: #aaa;
+            background: rgba(101, 150, 169, 0.5);
         }
 
         #container {
@@ -22,90 +22,92 @@
 
 <!-- Content-->
 <th:block layout:fragment="content">
-<!--    <div style="margin: 0 auto; padding-top: 5px; ">-->
-<!--        <a sec:authorize="isAnonymous()" href="/auth/signIn-page">로그인</a>-->
-<!--        <a sec:authorize="isAuthenticated()" href="/users/info-page">내정보</a>-->
-<!--        <a sec:authorize="isAuthenticated()" href="/logout">로그아웃</a>-->
-<!--        <a sec:authorize="isAnonymous()" href="/auth/signUp-page">회원가입</a>-->
-<!--        <a sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" href="/users/info">내정보</a><br>-->
-<!--        <a sec:authorize="hasAuthority('ADMIN')" href="/users/admin">admin</a><br>-->
-<!--    </div>-->
+    <div class="content-body">
 
-    <div>
-        <ul>
-            <li th:href="@{/auth/signIn}">로그인</li>
-            <li th:href="@{/auth/signUp}">회원가입</li>
-        </ul>
-    </div>
-       <div>
-        <ul>
-            <li th:href="@{/users/logout}">로그아웃</li>
-            <li th:href="@{/users/info}">마이페이지</li>
-            <li th:href="@{/users/postEdit}">글쓰기</li>
-        </ul>
-    </div>
+        <!--    <div style="margin: 0 auto; padding-top: 5px; ">-->
+        <!--        <a sec:authorize="isAnonymous()" href="/auth/signIn-page">로그인</a>-->
+        <!--        <a sec:authorize="isAuthenticated()" href="/users/info-page">내정보</a>-->
+        <!--        <a sec:authorize="isAuthenticated()" href="/logout">로그아웃</a>-->
+        <!--        <a sec:authorize="isAnonymous()" href="/auth/signUp-page">회원가입</a>-->
+        <!--        <a sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" href="/users/info">내정보</a><br>-->
+        <!--        <a sec:authorize="hasAuthority('ADMIN')" href="/users/admin">admin</a><br>-->
+        <!--    </div>-->
 
-    <div id="container" class="container mt-5">
-        <div class="row">
-            <div class="col-sm-3">
-                <h2>About Me</h2>
-                <h5>Photo of me:</h5>
-                <div class="fakeimg">Fake Image</div>
-                <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-                <!--                <h3 class="mt-4">Some Links</h3>-->
-                <!--                <p>Lorem ipsum dolor sit ame.</p>-->
-                <!--                <ul class="nav nav-pills flex-column">-->
-                <!--                    <li class="nav-item">-->
-                <!--                        <a class="nav-link active" href="#">Active</a>-->
-                <!--                    </li>-->
-                <!--                    <li class="nav-item">-->
-                <!--                        <a class="nav-link" href="#">Link</a>-->
-                <!--                    </li>-->
-                <!--                    <li class="nav-item">-->
-                <!--                        <a class="nav-link" href="#">Link</a>-->
-                <!--                    </li>-->
-                <!--                    <li class="nav-item">-->
-                <!--                        <a class="nav-link disabled" href="#">Disabled</a>-->
-                <!--                    </li>-->
-                <!--                </ul>-->
-                <hr class="d-sm-none">
+        <div class="container" style="margin-top:30px">
+<!--        <div id="container" class="container mt-5">-->
+            <div class="row">
+                <ul class="col-2">
+                    <li th:href="@{/auth/signIn}">로그인</li>
+                    <li th:href="@{/auth/signUp}">회원가입</li>
+                </ul>
+                <ul class="col-2">
+                    <li th:href="@{/users/logout}">로그아웃</li>
+                    <li th:href="@{/users/info}">마이페이지</li>
+                    <li th:href="@{/users/postEdit}">글쓰기</li>
+                </ul>
             </div>
-            <!--    </nav>-->
-            <!--    &lt;!&ndash;콘텐츠영역&ndash;&gt;-->
-            <!--    <div th:id="login-true">-->
-            <!--        &lt;!&ndash;토글 버튼&ndash;&gt;-->
-            <!--        <button type="button" class="btn btn-info" id="sidebarToggle">-->
-            <!--            사이드 메뉴 숨기기-->
-            <!--        </button>-->
-            <!--    </div>-->
-            <!--    <div th:id="login-false">-->
-            <!--        &lt;!&ndash;토글 버튼&ndash;&gt;-->
-            <!--        <button type="button" class="btn btn-info" id="sidebarToggle">-->
-            <!--            사이드 메뉴 숨기기-->
-            <!--        </button>-->
-            <!--    </div>-->
 
-            <!--            테이블 수정?? 카드?? -->
-            <div class="col-sm-8">
-                <h2>TITLE HEADING</h2>
-                <h5>Title description, Dec 7, 2020</h5>
-                <div class="fakeimg">Fake Image</div>
-                <p>Some text</p>
-                <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco.</p>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h2>About Me</h2>
+                    <h5>Photo of me:</h5>
+                    <div class="fakeimg">Fake Image</div>
+                    <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+<!--                    <h3>Some Links</h3>-->
+<!--                    <p>Lorem ipsum dolor sit ame.</p>-->
+<!--                    <ul class="nav nav-pills flex-column">-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link active" href="#">Active</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="#">Link</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="#">Link</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link disabled" href="#">Disabled</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+                    <hr class="d-sm-none">
+                </div>
+                <!--    </nav>-->
+                <!--    &lt;!&ndash;콘텐츠영역&ndash;&gt;-->
+                <!--    <div th:id="login-true">-->
+                <!--        &lt;!&ndash;토글 버튼&ndash;&gt;-->
+                <!--        <button type="button" class="btn btn-info" id="sidebarToggle">-->
+                <!--            사이드 메뉴 숨기기-->
+                <!--        </button>-->
+                <!--    </div>-->
+                <!--    <div th:id="login-false">-->
+                <!--        &lt;!&ndash;토글 버튼&ndash;&gt;-->
+                <!--        <button type="button" class="btn btn-info" id="sidebarToggle">-->
+                <!--            사이드 메뉴 숨기기-->
+                <!--        </button>-->
+                <!--    </div>-->
 
-                <h2 class="mt-5">TITLE HEADING</h2>
-                <h5>Title description, Sep 2, 2020</h5>
-                <div class="fakeimg">Fake Image</div>
-                <p>Some text</p>
-                <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco.</p>
+                <!--            테이블 수정?? 카드?? -->
+                <div class="col-sm-8">
+                    <h2>TITLE HEADING</h2>
+                    <h5>Title description, Dec 7, 2020</h5>
+                    <div class="fakeimg">Fake Image</div>
+                    <p>Some text</p>
+                    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco.</p>
+                    <br>
+                    <h2>TITLE HEADING</h2>
+<!--                    <h2 class="mt-5">TITLE HEADING</h2>-->
+                    <h5>Title description, Sep 2, 2020</h5>
+                    <div class="fakeimg">Fake Image</div>
+                    <p>Some text</p>
+                    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco.</p>
+                </div>
             </div>
         </div>
     </div>
-
 </th:block>
 
 <html>
@@ -126,5 +128,6 @@
     <td><span th:text="${book.author}"> Author </span></td>
 </tr>
 </tbody>
+
 
 -->
