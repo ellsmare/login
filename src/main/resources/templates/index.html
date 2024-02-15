@@ -37,13 +37,13 @@
 <!--        <div id="container" class="container mt-5">-->
             <div class="row">
                 <ul class="col-2">
-                    <li th:href="@{/auth/signIn}">로그인</li>
-                    <li th:href="@{/auth/signUp}">회원가입</li>
+                    <a th:href="@{/auth/signIn-page}">로그인</a>
+                    <a th:href="@{/auth/signUp-page}">회원가입</a>
                 </ul>
                 <ul class="col-2">
-                    <li th:href="@{/users/logout}">로그아웃</li>
-                    <li th:href="@{/users/info}">마이페이지</li>
-                    <li th:href="@{/users/postEdit}">글쓰기</li>
+                    <a th:href="@{/user/dologout}">로그아웃</a>
+                    <a th:href="@{/user/info-page}">마이페이지</a>
+                    <a th:href="@{/user/postEdit-page}">글쓰기</a>
                 </ul>
             </div>
 

@@ -12,27 +12,33 @@ public class UserController {
 
 
     // infoEdit 페이지
-    @GetMapping("/users/infoEdit-page")
+    @GetMapping("/user/infoEdit-page")
     public String infoEdit() {
-        return "users/infoEdit";
+        return "user/infoEdit";
     }
 
     // info 페이지
-    @GetMapping("/users/info-page")
+    @GetMapping("/user/info-page")
     public String info() {
-        return "users/info";
+        return "user/info";
+    }
+
+    // 로그아웃 페이지
+    @GetMapping("/user/dologout")
+    public String logout() {
+        return "redirect:/";
     }
 
     // 로그인 페이지
     @GetMapping("/auth/signIn-page")
     public String signIn() {
-        return "users/signIn";
+        return "user/signIn";
     }
 
     // 회원가입 페이지
     @GetMapping("/auth/signUp-page")
     public String signUp() {
-        return "users/signUp";
+        return "user/signUp";
     }
 
 }

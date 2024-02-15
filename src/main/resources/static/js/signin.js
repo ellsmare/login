@@ -63,13 +63,13 @@ let into = {
             }
         })
             /* 전송 후 */
-            .done(function (resp){ //controller에서 return받은 message부분
+            .done(function (resp) { //controller에서 return받은 message부분
                 alert('로그인 완료');
-                console.log(resp.status)
+                console.log(resp)
                 alert('로그인 완료');
-                location.href ='http://localhost:8081/';  //저장이 완료된 이후 이동하는 url
+                location.href = 'http://localhost:8081/';  //저장이 완료된 이후 이동하는 url
             })
-            .fail(function(error) { // xhr: XMLHttpRequest 객체를 가리키는 변수, xhr, status,
+            .fail(function (error) { // xhr: XMLHttpRequest 객체를 가리키는 변수, xhr, status,
                 console.log(error);
             });
     }

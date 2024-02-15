@@ -2,6 +2,7 @@ package com.example.login.post;
 
 import com.example.login.user.MemberRepository;
 import com.example.login.user.UserEntity;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,15 +51,16 @@ public class PostService {
 
     //글작성
     @Transactional
-    public void savePost(PostFormDto postFormDTO, UserEntity userEntity) {
+    public void savePost(PostFormDto postFormDTO,  HttpSession session) {
         //UserEntity userEntity = getUserFromToken(request);
         //HttpSession session = request.getSession();
+        UserEntity userentity = (UserEntity) session.getAttribute("username"); //todo
 
         PostEntity postEntity = PostEntity.builder()
                 .count(0)
                 .title(postFormDTO.getTitle())
                 .content(postFormDTO.getContent())
-                .userEntity(userEntity)
+                .userEntity(userentity)
                 .build();
 
         postRepository.save(postEntity);

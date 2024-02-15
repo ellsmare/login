@@ -9,8 +9,7 @@ let index = {
         //alert('save함수 호출됨');
         let data = {
             title: $('#title').val(),     // id=title 
-            content: $('#content').val(), //  id=comment   content 확인하기
-            username: $('#username').val()
+            content: $('#content').val() //  id=comment   content 확인하기
         };
          // console.log(data);
         $.ajax({

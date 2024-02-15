@@ -1,7 +1,10 @@
 package com.example.login.post;
 
+import com.example.login.user.MemberRepository;
 import com.example.login.user.ResponseDto;
 import com.example.login.user.UserEntity;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiPostController {
     public final PostService postService;
     public final PostRepository postRepository;
+    public final MemberRepository memberRepository;
 
 /*
     //페이징
@@ -38,25 +42,25 @@ public class ApiPostController {
 [출처] 다시 만들어본 게시판|작성자 민우의 코딩일지
 
     // 게시글 수정
-    @PutMapping("/post/{id}")
+    @PutMapping("/user/post/{id}")
     public ResponseEntity<BoardResponseDto> updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, HttpServletRequest request) {
         return ResponseEntity.ok(boardService.updateBoard(id, requestDto, request));
     }
 
     // 게시글 삭제
-    @DeleteMapping("/post/{id}")
+    @DeleteMapping("/user/post/{id}")
     public ResponseEntity<MsgResponseDto> deleteBoard(@PathVariable Long id, HttpServletRequest request) {
         return ResponseEntity.ok(boardService.deleteBoard(id, request));
     }
 
     // 게시글 전체 조회
-    @GetMapping("/post")
+    @GetMapping("/user/post")
     public ResponseEntity<List<BoardResponseDto>> getBoardList() {
         return ResponseEntity.ok(boardService.getBoardList());
     }
 
     // 게시글 선택 조회
-    @GetMapping("/post/{id}")
+    @GetMapping("/user/post/{id}")
     public ResponseEntity<BoardResponseDto> getBoard(@PathVariable Long id) {
         return ResponseEntity.ok(boardService.getBoard(id));
     }
@@ -64,12 +68,15 @@ public class ApiPostController {
 
     // post save
 
-  @PostMapping("/post")
-    public ResponseDto<String> save(@RequestBody PostFormDto postFormDTO, UserEntity userEntity) {
+  @PostMapping("/user/post")
+    public ResponseDto<String> save(@RequestBody PostFormDto postFormDTO, HttpSession session) {
         System.out.println("save post ::" + postFormDTO);
+        System.out.println("save post ::" + session);
+
+
 
         // 포함된 데이터를 게시물 작성하기
-        postService.savePost(postFormDTO, userEntity);
+        postService.savePost(postFormDTO, session);
 
         ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
         return response;

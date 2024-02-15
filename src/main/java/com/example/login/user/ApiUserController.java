@@ -33,7 +33,7 @@ public class ApiUserController {
     }
 
     //findAll -userEntity :: admin??
-    @GetMapping("/test/user")
+    @GetMapping("/user/user")
     public List<UserEntity> list(){
         return memberRepository.findAll();
     }
@@ -78,7 +78,7 @@ public class ApiUserController {
 
 
     //getInfo - 내정보조회
-    @GetMapping("/users/info")
+    @GetMapping("/user/info")
     public UserEntity getInfo(@PathVariable long idx) throws Exception {
         UserEntity userEntity  = memberService.getInfo(idx);
        // ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
@@ -87,7 +87,7 @@ public class ApiUserController {
 
 
     //logout :: 모든 session 삭제
-    @GetMapping("/users/logout")
+    @GetMapping("/user/logout")
     public ResponseDto<String> logout(HttpSession session){
         session.invalidate(); //
         ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");

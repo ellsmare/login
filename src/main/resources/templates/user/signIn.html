@@ -25,7 +25,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="username">아이디</label>
-                                <input type="text" name="username" id="username" class="form-control" autocomplete="on">
+                                <input type="text" name="username" id="username" class="form-control" value="${cookie.username.value}" autocomplete="on">
                             </div>
                         </div>
                         <!--비밀번호-->
@@ -44,55 +44,8 @@
 
         <!--ajax 로그인 -->
         <button class="btn btn-lg btn-primary btn-block" id="btn-login" onclick="onLogin()">로그인</button>
+        <script type="text/javascript" th:src="@{/js/signin.js}"></script>
     </div>
     </div>
-</th:block>
-<th:block layout:fragment="jsByPage">
-    <script type="text/javascript" th:src="@{/js/signin.js}"></script>
 </th:block>
 </html>
-
-<!--    <div id="login-form">-->
-<!--    <div id="login-failed" style="display: none" class="alert alert-danger" role="alert">로그인에 실패하였습니다.</div>-->
-<!--</div>-->
-<!--    <div id="login-title">Login</div>-->
-<!--    <br>-->
-<!--    </div>-->
-<!--    <br>-->
-<!--    <button id="login-id-btn" onclick="location.href='/users/signUp'">-->
-<!--        로그인 페이지-->
-<!--    </button>-->
-
-    <!--로그인 상태코드,메세지-->
-    <!--<p th:text="${/}"></p>-->
-    <!--<p th:text="${/}"></p>-->
-<!--<script>-->
-<!--    const href = location.href;-->
-<!--    const queryString = href.substring(href.indexOf("?")+1)-->
-<!--    if (queryString === 'error') {-->
-<!--        const errorDiv = document.getElementById('login-failed');-->
-<!--        errorDiv.style.display = 'block';-->
-<!--    }-->
-<!--</script>-->
-
-
-<!--타임리프 인라인 작성 방법 -->
-<!--    <h1>[[${haha}]]            [[${haha}]]        </h1>-->
-
-<!--thymeleaf-extras-springsecurity6-->
-<!--출처: https://luvstudy.tistory.com/227 [파란하늘의 지식창고:티스토리]-->
-
-<!--//ROLE_ADMIN 권한이 있는 경우만 표시됨-->
-<!--<li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin}">관리자 페이지</a></li>-->
-
-<!--//ROLE_USER 권한이 있는 경우만 표시됨-->
-<!--<li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/books}">책 목록</a></li>-->
-
-<!--//로그인이 되지 않은 경우 표시-->
-<!--<li sec:authorize="!isAuthenticated()"><a th:href="@{/users}">회원가입</a></li>-->
-
-<!--//로그인 된 경우의 username을 출력-->
-<!--<li sec:authorize="isAuthenticated()"><span sec:authentication="principal.username"></span></li>-->
-
-<!--//변수처럼 사용하고 싶은 경우-->
-<!--<a th:href="@{'/users/'+ ${#authentication.principal.id}}">마이페이지</a>-->

@@ -20,23 +20,23 @@
         <!-- Bootstrap start-->
         <!-- <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+        <!--ajax -jquery slim 오류 -->
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>-->
         <!--드롭바가 5버전만 됨;; 탬플릿안에 드롭바는 다른 걸까?-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Bootstrap end -->
-
         <!-- include summernote css/js -->
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
-        <!--JS start-->
+        <!--common JS start-->
         <script type="text/javascript" th:src="@{/js/basic.js}"></script>
-        <!--JS end-->
+        <!--common JS end-->
 
         <!--css/js PageByPage start-->
-        <th:block layout:fragment="cssByPage">
+        <th:block layout:fragment="">
         </th:block>
         <!--css/js PageByPage end-->
     </head>
@@ -52,8 +52,7 @@
         <!--content end-->
 
         <!--css/js PageByPage start-->
-        <th:block layout:fragment="jsByPage">
-
+        <th:block layout:fragment="">
         </th:block>
         <!--css/js PageByPage end-->
 
