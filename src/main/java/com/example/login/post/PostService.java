@@ -49,12 +49,11 @@ public class PostService {
 */
 
 
-    //글작성
+    //글작성  session
     @Transactional
-    public void savePost(PostFormDto postFormDTO,  HttpSession session) {
+    public PostEntity savePost(PostFormDto postFormDTO,  UserEntity userentity) {
         //UserEntity userEntity = getUserFromToken(request);
-        //HttpSession session = request.getSession();
-        UserEntity userentity = (UserEntity) session.getAttribute("username"); //todo
+        System.out.println("____글쓰기 savePost: "+userentity);
 
         PostEntity postEntity = PostEntity.builder()
                 .count(0)
@@ -63,7 +62,12 @@ public class PostService {
                 .userEntity(userentity)
                 .build();
 
-        postRepository.save(postEntity);
+        PostEntity savePost = postRepository.save(postEntity);
+        if (savePost == null) {
+            System.out.println("session 실패:: savePost null");
+            throw new IllegalArgumentException("글쓰기에 실패했습니다.");
+        }
+        return savePost;
     }
 
 

@@ -64,20 +64,33 @@ public class ApiPostController {
     public ResponseEntity<BoardResponseDto> getBoard(@PathVariable Long id) {
         return ResponseEntity.ok(boardService.getBoard(id));
     }
+
+      session.setAttribute("principal",principal);     //세션 만들기, 세션 저장 "principal"
+        session.setAttribute("loginOk", "ingLoin"); //로그인 상태  "loginOk"
+        System.out.println(session.getAttribute("principal"));
+
+
     */
 
     // post save
 
-  @PostMapping("/user/post")
+    @PostMapping("/user/post")
     public ResponseDto<String> save(@RequestBody PostFormDto postFormDTO, HttpSession session) {
         System.out.println("save post ::" + postFormDTO);
         System.out.println("save post ::" + session);
 
+        UserEntity userentity = (UserEntity) session.getAttribute("principal");
+        System.out.println("____글쓰기 savePost: "+userentity);
 
+        //로그인 상태==글쓰기 가능
+        if (userentity == null) {
+            System.out.println(session.getAttribute("loginOk"));
+            throw new IllegalArgumentException("글쓰기는 로그인 회원만 가능합니다.");
+        }
 
-        // 포함된 데이터를 게시물 작성하기
-        postService.savePost(postFormDTO, session);
-
+        // 게시물 작성하기
+        postService.savePost(postFormDTO, userentity);
+        System.out.println("____글쓰기 postService 통과: ");
         ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
         return response;
     }

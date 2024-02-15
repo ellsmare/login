@@ -55,6 +55,12 @@ public class MemberService {
     }
 
     //*로그인- (jwt) -> security */
+    /**
+     * 로그인
+     * @param //username - 로그인 ID
+     * @param //password - 비밀번호
+     * @return 회원 상세정보
+     */
     // @Transactional(readOnly = true)
     public UserEntity login (LoginRequestDto loginRequestDto){
         String loginId = loginRequestDto.getUsername();
@@ -89,7 +95,7 @@ public class MemberService {
     }
 
 
-    /*회원가입 :: 회원가입 로직 1(성공)/ -1(실패 ROLLBACK) */
+    /*회원가입 */
     // @Transactional
     public void register (@Valid RegisterRequestDto requestDto){
         System.out.println("register::" + requestDto);
