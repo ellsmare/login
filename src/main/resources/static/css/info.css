@@ -4,7 +4,7 @@
     font-style: normal;
 }
 
-body {
+.content-body {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -34,14 +34,29 @@ body {
     margin-bottom: 70px;
 }
 
-.header {
-    width: 466px;
-    height: 94px;
-    font-weight: 700;
+/*.header {*/
+/*    width: 466px;*/
+/*    height: 94px;*/
+/*    font-weight: 700;*/
+/*    font-size: 32px;*/
+/*    line-height: 47px;*/
+/*    color: #0068ff;*/
+/*}*/
+
+
+#infoBoxTitle {
+    text-align: center;
+    color:#000000;
+    font-weight: bold;
     font-size: 32px;
-    line-height: 47px;
-    color: #0068ff;
+    text-transform: uppercase;
+    padding: 5px;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #270a09, #8ca6ce);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
+
 
 .user-info {
     margin-top: 39px;

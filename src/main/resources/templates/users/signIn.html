@@ -12,6 +12,7 @@
 
 <!-- Content -->
 <th:block layout:fragment="content">
+    <div class="content-body">
     <div class="form-signIn">
         <form>
 <!--       <form class="form-signin" th:action="@{/api/join}" method="post" name="joinForm" th:object="${key}" >  -->
@@ -44,6 +45,7 @@
 
         <!--ajax 로그인 -->
         <button class="btn btn-lg btn-primary btn-block" id="btn-login" onclick="onLogin()">로그인</button>
+    </div>
     </div>
 </th:block>
 <th:block layout:fragment="jsByPage">

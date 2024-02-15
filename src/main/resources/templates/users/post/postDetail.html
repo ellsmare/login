@@ -15,6 +15,29 @@
             <div class="col-xs-12">
                 <h1> 글 목록에서 회원만 글 상세 확인가능 </h1>
                 <h1> 글 상세에서 작성자만 글 수정/삭제가능 </h1>
+                <div class="container">
+                    <form>
+                        <!--        <form action="users/article" method="post">-->
+                        <!--      자동생성?      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+<!--                        <input type="hidden" name="postNum" value="${post.postNum}">-->
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="title" id="title" name="title" value="${post.title}" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Comment</label>
+                            <textarea class="form-control summernote" rows="5" id="comment" name="content" >${post.content}</textarea>
+                        </div>
+
+                        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                            <input type="submit" class="btn btn-default" value="글쓰기">
+                            <input type="submit" class="btn btn-default" value="수정하기">
+                            <input type="button" class="btn btn-default" value="취소" onclick="document.location.href='/bbs/content.bbs?articleNumber=${articleNumber}&pageNum=${pageNum}'">
+                            <!--                <input type="button" class="btn btn-default" value="취소" onclick="document.location.href='/bbs/content.bbs?articleNumber=${articleNumber}&pageNum=${pageNum}'">-->
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>

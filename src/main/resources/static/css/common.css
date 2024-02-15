@@ -1,4 +1,11 @@
 /*Bootstrap CSS*/
+
+* {
+    box-sizing: border-box;
+    font-family: "Noto Sans CJK KR";
+    font-style: normal;
+}
+
 body {
     min-height: 100vh;
     background: #0466f3;
@@ -6,7 +13,7 @@ body {
     font-size: 20rem;
     text-align: center;
     /*align-items: center;*/
-    margin:0 auto;
+    margin:0px auto;
     /*max-height: 100vh;*/
     /*display: flex;*/
     /*justify-content: center;*/
@@ -14,11 +21,19 @@ body {
     /*flex-wrap: nowrap;*/
 }
 
+.content-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 #footer-contain{
     color: #ffffff;
     font-size: 20rem;
     text-align: center;
 }
+
+
 
 #error{
     margin-top: 10%;

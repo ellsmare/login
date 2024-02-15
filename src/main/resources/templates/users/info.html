@@ -11,41 +11,42 @@
 </head>
 <!-- Content -->
 <th:block layout:fragment="content">
-    <div class="container">
-        <div class="member-container">
-            <div class="header">
-                <h1> info  </h1><br>
-            </div>
-            <div class="user-info">
-                <div class="user-info-name">
-                    <div>img</div>
-                    <input type="image" />
+    <div class="content-body">
+        <div class="container">
+            <div class="member-container">
+                <div class="header" id="infoBoxTitle">
+                    <h1> info  </h1><br>
                 </div>
-                <div class="user-info-name">
-                    <div>자기소개</div>
-                    <input type="text" />
+                <div class="user-info">
+                    <div class="user-info-name">
+                        <div>img</div>
+                        <input type="image" />
+                    </div>
+                    <div class="user-info-name">
+                        <div>자기소개</div>
+                        <input type="text" />
+                    </div>
+                    <div class="user-info-email">
+                        <div>* nickname</div>
+                        <input type="text" />
+                    </div>
+                    <hr>
+                    <div class="user-info-email">
+                        <div>* 내가 쓴 게시글 // 목록이동, 최근 게시물</div>
+                        <input type="text" />
+                    </div>
+                    <div class="user-info-email">
+                        <div>내가 쓴 댓글 // 목록이동, 최근 댓글</div>
+                        <input type="text" />
+                    </div>
+                    <div class="user-info-email">
+                        <div>팔로워 숫자?? </div>
+                        <input type="text" />
+                    </div>
                 </div>
-                <div class="user-info-email">
-                    <div>* nickname</div>
-                    <input type="text" />
+                <div class="btn">
+                    <button>개인정보 수정</button>
                 </div>
-                <hr>
-                <div class="user-info-email">
-                    <div>* 내가 쓴 게시글 // 목록이동, 최근 게시물</div>
-                    <input type="text" />
-                </div>
-                <div class="user-info-email">
-                    <div>내가 쓴 댓글 // 목록이동, 최근 댓글</div>
-                    <input type="text" />
-                </div>
-                <div class="user-info-email">
-                    <div>팔로워 숫자?? </div>
-                    <input type="text" />
-                </div>
-            </div>
-
-            <div class="btn">
-                <button>개인정보 수정</button>
             </div>
         </div>
     </div>

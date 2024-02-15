@@ -10,7 +10,8 @@ public class PostController {
         return "users/post/postDetail";
     }
 
-    // 게시판 글쓰기 페이지(에디터 폼)
+
+    // 게시판 글쓰기 페이지(에디터 폼) user권한필요
     @GetMapping("/users/postEdit-page")
     public String posts() {
         return "users/post/postEdit";

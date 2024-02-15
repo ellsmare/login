@@ -43,6 +43,7 @@ public class ApiPostController {
     */
 
     // post save
+/*
   @PostMapping("/test/post/save")
     public ResponseDTO<String> save(@RequestBody PostFormDTO postFormDTO, HttpServletRequest request) throws IOException {
         System.out.println("save post ::" + postFormDTO);
@@ -52,5 +53,6 @@ public class ApiPostController {
         ResponseDTO response = new ResponseDTO<>(HttpStatus.OK.value(), "성공");
         return response;
     }
+*/
 
 }
