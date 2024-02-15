@@ -1,17 +1,14 @@
 package com.example.login.user;
 
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,7 +19,7 @@ public class ApiUserController {
 
     // findUsername 찾기
     @PostMapping("/test/user/findUsername")
-    public  ResponseDTO<String> findUsername(@RequestParam("email") String email) {
+    public ResponseDto<String> findUsername(@RequestParam("email") String email) {
         //System.out.println(email);
         String username = memberService.findUsernameByEmail(email);
 
@@ -31,7 +28,7 @@ public class ApiUserController {
             throw new IllegalArgumentException("멤버 조회 실패");
         }
 
-        ResponseDTO response = new ResponseDTO<>(HttpStatus.OK.value(), "성공");
+        ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
         return response;
     }
 
@@ -72,9 +69,9 @@ public class ApiUserController {
 
     //findById - 내 정보 수정
    /* @PostMapping("/test/user/{idx}")
-    public ResponseDTO<String> saveInfo(@PathVariable long idx) throws Exception {
+    public ResponseDto<String> saveInfo(@PathVariable long idx) throws Exception {
         UserEntity userEntity  = memberService.getInfo(idx);
-        ResponseDTO response = new ResponseDTO<>(HttpStatus.OK.value(), "성공");
+        ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
         return userEntity;
     }
 */
@@ -84,23 +81,23 @@ public class ApiUserController {
     @GetMapping("/users/info")
     public UserEntity getInfo(@PathVariable long idx) throws Exception {
         UserEntity userEntity  = memberService.getInfo(idx);
-       // ResponseDTO response = new ResponseDTO<>(HttpStatus.OK.value(), "성공");
+       // ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
         return userEntity;
     }
 
 
     //logout :: 모든 session 삭제
     @GetMapping("/users/logout")
-    public ResponseDTO<String> logout(HttpSession session){
+    public ResponseDto<String> logout(HttpSession session){
         session.invalidate(); //
-        ResponseDTO response = new ResponseDTO<>(HttpStatus.OK.value(), "성공");
+        ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
         return response;
     }
 
     /* 로그인 - session */
     /*principal :: 접근주체*/
     @PostMapping("/auth/signIn")
-    public ResponseDTO<String> signIn(@RequestBody LoginRequestDto loginRequestDto, HttpSession session) throws Exception{
+    public ResponseDto<String> signIn(@RequestBody LoginRequestDto loginRequestDto, HttpSession session) throws Exception{
         System.out.println("MemberApiController post: login 호출" + loginRequestDto);
 
         UserEntity principal = memberService.login(loginRequestDto);
@@ -109,18 +106,18 @@ public class ApiUserController {
         if(principal==null) throw new Exception("로그인실패");
        /* if (principal == null) {
             System.out.println("로그인:: 실패했습니다");
-            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "로그인실패");
+            return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), "로그인실패");
         }*/
 
         session.setAttribute("principal", principal); //세션만들기
-        ResponseDTO response = new ResponseDTO<>(HttpStatus.OK.value(), "로그인성공");
+        ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "로그인성공");
         System.out.println("로그인성공:: "+response);
         return response;
     }
 
     /*회원가입  */
     @PostMapping("/auth/signUp")
-    public ResponseDTO<String> signup(@Valid @RequestBody RegisterRequestDTO registerRequestDTO) {
+    public ResponseDto<String> signup(@Valid @RequestBody RegisterRequestDto registerRequestDTO) {
         System.out.println("MemberApiController post: save 호출" + registerRequestDTO.getUsername());
         System.out.println("MemberApiController post: save 호출" + registerRequestDTO.getPassword());
         System.out.println("MemberApiController post: save 호출" + registerRequestDTO.getEmail());
@@ -128,7 +125,7 @@ public class ApiUserController {
         memberService.register(registerRequestDTO);
         System.out.println("memberService register 통과");
 
-        ResponseDTO response = new ResponseDTO<String>(HttpStatus.OK.value(), "회원가입성공"); //(HttpStatus status,data)
+        ResponseDto response = new ResponseDto<String>(HttpStatus.OK.value(), "회원가입성공"); //(HttpStatus status,data)
 
         System.out.println("memberService 회원가입성공 :: "+response);
         return response;

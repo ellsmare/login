@@ -1,15 +1,11 @@
 package com.example.login.user;
 
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 @RequiredArgsConstructor
 @Service
@@ -95,7 +91,7 @@ public class MemberService {
 
     /*회원가입 :: 회원가입 로직 1(성공)/ -1(실패 ROLLBACK) */
     // @Transactional
-    public void register (@Valid RegisterRequestDTO requestDto){
+    public void register (@Valid RegisterRequestDto requestDto){
         System.out.println("register::" + requestDto);
 
         String password = passwordEncoder.encode(requestDto.getPassword());

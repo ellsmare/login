@@ -1,15 +1,13 @@
 package com.example.login.post;
 
-import com.example.login.user.ResponseDTO;
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.login.user.ResponseDto;
+import com.example.login.user.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 @RequiredArgsConstructor
 @RestController
 public class ApiPostController {
@@ -40,25 +38,25 @@ public class ApiPostController {
 [출처] 다시 만들어본 게시판|작성자 민우의 코딩일지
 
     // 게시글 수정
-    @PutMapping("/board/{id}")
+    @PutMapping("/post/{id}")
     public ResponseEntity<BoardResponseDto> updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, HttpServletRequest request) {
         return ResponseEntity.ok(boardService.updateBoard(id, requestDto, request));
     }
 
     // 게시글 삭제
-    @DeleteMapping("/board/{id}")
+    @DeleteMapping("/post/{id}")
     public ResponseEntity<MsgResponseDto> deleteBoard(@PathVariable Long id, HttpServletRequest request) {
         return ResponseEntity.ok(boardService.deleteBoard(id, request));
     }
 
     // 게시글 전체 조회
-    @GetMapping("/board")
+    @GetMapping("/post")
     public ResponseEntity<List<BoardResponseDto>> getBoardList() {
         return ResponseEntity.ok(boardService.getBoardList());
     }
 
     // 게시글 선택 조회
-    @GetMapping("/board/{id}")
+    @GetMapping("/post/{id}")
     public ResponseEntity<BoardResponseDto> getBoard(@PathVariable Long id) {
         return ResponseEntity.ok(boardService.getBoard(id));
     }
@@ -66,15 +64,30 @@ public class ApiPostController {
 
     // post save
 
-  @PostMapping("/test/post/save")
-    public ResponseDTO<String> save(@RequestBody PostFormDTO postFormDTO, HttpServletRequest request) throws IOException {
+  @PostMapping("/post")
+    public ResponseDto<String> save(@RequestBody PostFormDto postFormDTO, UserEntity userEntity) {
         System.out.println("save post ::" + postFormDTO);
 
         // 포함된 데이터를 게시물 작성하기
-        postService.savePost(postFormDTO, request);
-        ResponseDTO response = new ResponseDTO<>(HttpStatus.OK.value(), "성공");
+        postService.savePost(postFormDTO, userEntity);
+
+        ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
         return response;
     }
+
+   /*
+   // post save jwt
+    @PostMapping("/test/post")
+    public ResponseDto<String> save(@RequestBody PostFormDto postFormDTO, @AuthenticationPrincipal PrincipalDetail principal)  {
+        System.out.println("save post ::" + postFormDTO);
+
+
+        // 포함된 데이터를 게시물 작성하기
+        postService.savePost(postFormDTO, principal.getUser());
+        ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
+        return response;
+    }
+*/
 
 
 }

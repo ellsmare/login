@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ResponseDTO<T> {
-    /** ResponseDTO :: 상태코드, 메세지  */
+public class ResponseDto<T> {
+    /** ResponseDto :: 상태코드, 메세지  */
 
     int status;
     T data;

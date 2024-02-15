@@ -35,7 +35,7 @@
 //         });
 // }
 //
-let index = {
+let into = {
     init: function() {
         $('#btn-login').on('click', () => {
             this.login();
@@ -74,7 +74,7 @@ let index = {
             });
     }
 }
-index.init();
+into.init();
 
 // <!--    <script>-->
 // <!--        jQuery(document).ready(function() {-->

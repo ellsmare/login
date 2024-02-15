@@ -1,5 +1,6 @@
 package com.example.login.user;
 
+import com.example.login.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -17,7 +18,7 @@ import java.sql.Timestamp;
 public class UserEntity {
     @Id //식별자 pk
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idx;
+    private long userId;
 
     @Column(nullable = false, unique = true)
     private String username; //아이디

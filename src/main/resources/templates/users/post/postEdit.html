@@ -33,12 +33,12 @@
                         <input type="title" id="title" name="title" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="comment">Comment</label>
-                        <textarea class="form-control summernote" rows="5" id="comment" name="content"></textarea>
+                        <label for="content">Content</label>
+                        <textarea class="form-control summernote" rows="5" id="content" name="content"></textarea>
                     </div>
                 </form>
                 <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                    <input type="submit" class="btn btn-default" value="저장하기">
+                    <button type="submit" class="btn btn-default" id="btn-save">저장하기</button>
                     <input type="submit" class="btn btn-default" value="수정하기">
                     <input type="button" class="btn btn-default" value="취소"
                            onclick="document.location.href='/bbs/content.bbs?articleNumber=${articleNumber}&pageNum=${pageNum}'">

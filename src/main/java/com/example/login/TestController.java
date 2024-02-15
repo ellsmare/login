@@ -22,7 +22,7 @@ public class TestController {
     //findPassword 찾기  -- 비밀번호 post
 //
 //    @PostMapping("/test/user/findPassword")
-//    public ResponseDTO<String> findPassword(@RequestBody @Valid PwRequestDto pwRequestDto){
+//    public ResponseDto<String> findPassword(@RequestBody @Valid PwRequestDto pwRequestDto){
 //        if(!memberRepository.existsByEmail(pwRequestDto.getEmail())){
 //            System.out.println("existsByEmail 실패했습니다:: email null");
 //            throw new IllegalArgumentException("멤버 조회 실패");
@@ -39,7 +39,7 @@ public class TestController {
 //        }
 //        System.out.println("findByIdx: "+idx);
 //
-//        ResponseDTO response = new ResponseDTO<>(HttpStatus.OK.value(), "성공");
+//        ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
 //        return response;
 //    }
 

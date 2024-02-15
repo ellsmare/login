@@ -2,9 +2,9 @@ package com.example.login.post;
 
 import com.example.login.user.MemberRepository;
 import com.example.login.user.UserEntity;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -13,6 +13,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
 
+    //상세 페이지
 /*
 
 	// 게시글 삭제
@@ -44,21 +45,27 @@ public class PostService {
         return new BoardResponseDto(board);
     }
 
-
-
-    //글작성
-    public void savePost(PostFormDTO postFormDTO, HttpServletRequest request) {
-        //UserEntity userEntity = getUserFromToken(request);
-
-        PostEntity postEntity = PostEntity(postFormDTO, userEntity);
-        //저장
-        PostEntity savePost= memberRepository.save(postEntity);
-        return savePost;
-    }
 */
 
 
-    //상세 페이지
+    //글작성
+    @Transactional
+    public void savePost(PostFormDto postFormDTO, UserEntity userEntity) {
+        //UserEntity userEntity = getUserFromToken(request);
+        //HttpSession session = request.getSession();
+
+        PostEntity postEntity = PostEntity.builder()
+                .count(0)
+                .title(postFormDTO.getTitle())
+                .content(postFormDTO.getContent())
+                .userEntity(userEntity)
+                .build();
+
+        postRepository.save(postEntity);
+    }
+
+
+
 
 
 }

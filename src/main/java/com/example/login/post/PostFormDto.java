@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostFormDTO {
+public class PostFormDto {
     private String title;
     private String content;
 }

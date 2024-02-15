@@ -35,11 +35,6 @@ spring:
     remote:
       restart:
         enabled: true   #변화감지 자동재시작
-  spring:
-    data:
-      redis:
-        host: localhost
-        port: 6370   
 logging:
   level:
     org.hibernate.SQL: debug

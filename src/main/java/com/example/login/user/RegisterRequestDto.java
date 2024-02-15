@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterRequestDTO {
+public class RegisterRequestDto {
 
     @NotBlank(message = "아이디를 입력해주세요.")
     @Pattern(regexp = "(?=.*[a-z0-9]).{4,10}", message = "아이디는 4~10자 영문 소문자, 숫자를 사용하세요.")
