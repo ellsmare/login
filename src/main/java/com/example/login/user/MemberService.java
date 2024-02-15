@@ -116,14 +116,16 @@ public class MemberService {
         }
 
         // 사용자 ROLE 확인
-        if (requestDto.isAdmin()) {
+        if (requestDto.isAdmin()) {  //여기서 모르는듯? dto entity 확인하기
             if (!ADMIN_TOKEN.equals(requestDto.getAdminToken())) {
                 throw new IllegalArgumentException("관리자 암호가 틀려 등록이 불가능합니다.");
             }
-            role = UserRole.ADMIN;
+            role = UserRole.ADMIN;   //todo 실패했다. 수정하기
+            System.out.println(role);
         }
 
         UserEntity userEntity = new UserEntity(username, username, password, email, role);
+        System.out.println(role);
 
         try {
             System.out.println("save resiger try::" + username);
