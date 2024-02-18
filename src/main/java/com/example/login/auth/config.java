@@ -21,8 +21,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class config {
-    //private final JwtUtil jwtUtil;
-   // private final UserDetailsServiceImpl userDetailsService;
+    private final JwtUtil jwtUtil;
+    private final UserDetailsServiceImpl userDetailsService;
     private final AuthenticationConfiguration authenticationConfiguration;
 
 
@@ -39,7 +39,7 @@ public class config {
     }
 
     //로그인 및 JWT 생성
-   /* @Bean
+    @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
         JwtAuthenticationFilter filter = new JwtAuthenticationFilter(jwtUtil);
         filter.setAuthenticationManager(authenticationManager(authenticationConfiguration));
@@ -50,7 +50,7 @@ public class config {
     @Bean
     public JwtAuthorizationFilter jwtAuthorizationFilter() {
         return new JwtAuthorizationFilter(jwtUtil, userDetailsService);
-    }*/
+    }
 
     //Spring Security 람다 DSL
     //HttpSecurity #authorizeHttpRequests인증 규칙
@@ -58,9 +58,9 @@ public class config {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf((csrf) -> csrf.disable());
         // 기본 설정인 Session 방식은 사용하지 않고 JWT 방식을 사용하기 위한 설정
-//        http.sessionManagement((sessionManagement) ->
-//                sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//        );
+        http.sessionManagement((sessionManagement) ->
+                sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        );
         http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
                 .anyRequest().permitAll());
                 //.requestMatchers("/css/**", "/js/**", "/images/**", "/plugin/**", "/vendor/**", "/", "/auth/**").permitAll()    // 정적 리소스
@@ -72,15 +72,16 @@ public class config {
 //        );
 
         http
-                .formLogin((formLogin) -> formLogin.loginPage("/auth/signIn-page").defaultSuccessUrl("/"))
-                .logout((logout) -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
-                        .logoutSuccessUrl("/").invalidateHttpSession(true)
-                );
+                .formLogin((formLogin) -> formLogin
+                        .loginPage("/auth/signin-form"));
+//                .logout((logout) -> logout
+//                        .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+//                        .logoutSuccessUrl("/").invalidateHttpSession(true)
+//                );
 
         // 필터 관리
-        //http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);
-       // http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

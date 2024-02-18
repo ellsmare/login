@@ -11,7 +11,7 @@ body {
 
 }
 
-.form-signIn{
+.form-sign {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);

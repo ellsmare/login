@@ -7,38 +7,38 @@ public class UserController {
 
 
 
-    // 회원 관련 정보 받기
+
 
 
 
     // infoEdit 페이지
-    @GetMapping("/user/infoEdit-page")
+    @GetMapping("/users/info-edit-form")
     public String infoEdit() {
-        return "user/infoEdit";
+        return "user/infoEditForm";
     }
 
     // info 페이지
-    @GetMapping("/user/info-page")
+    @GetMapping("/users/info-form")
     public String info() {
-        return "user/info";
+        return "user/infoForm";
     }
 
     // 로그아웃 페이지
-    @GetMapping("/user/dologout")
+    @GetMapping("/users/logout")
     public String logout() {
-        return "redirect:/";
+        return "index";
     }
 
     // 로그인 페이지
-    @GetMapping("/auth/signIn-page")
+    @GetMapping("/auth/signin-form")
     public String signIn() {
-        return "user/signIn";
+        return "user/signInForm";
     }
 
     // 회원가입 페이지
-    @GetMapping("/auth/signUp-page")
+    @GetMapping("/auth/signup-form")
     public String signUp() {
-        return "user/signUp";
+        return "user/signUpForm";
     }
 
 }

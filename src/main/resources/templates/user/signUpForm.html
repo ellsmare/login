@@ -1,32 +1,33 @@
-<html layout:decorate="~{common/layouts/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<html layout:decorate="~{common/layouts/layout}"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      lang="ko">
 
 <head>
+    <title>뉴스피스</title>
     <meta charset="UTF-8">
-        <!--css/js PageByPage start-->
-    <th:block layout:fragment="signForm">
-        <link rel="stylesheet"  type="text/css"  th:href="@{/css/signup.css}">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        <!--css/js start-->
+        <link rel="stylesheet"  type="text/css"  th:href="@{/css/sign.css}">
+        <link rel="stylesheet"  th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    </th:block>
-         <!--css/js PageByPage end-->
+
+         <!--css/js  end-->
 </head>
 <!-- Content -->
 <th:block layout:fragment="content">
     <div class="content-body">
-        <div class="form-signUp">
-            <!--        <form action="/auth/signUp" method="post">-->
+        <div class="form-sign signIn">
+            <!--        <form action="/auth/signup" method="post">-->
             <form>
                 <div class="input-form-backgroud row" id="inputBox">
                     <div class="input-form col-md-12 mx-auto">
                         <h4 class="mb-3" id="joinBoxTitle">회원가입</h4>
-                        <!-- <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.signup}" />-->
                         <!-- 아이디-->
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="username">아이디</label>
-                                <input type="text" name="username" id="username" class="form-control" placeholder="아이디는 4~10자입니다" value=""  autocomplete="on" required autofocus>
+                                <input type="text" name="username" id="username" class="form-control" placeholder="아이디는 4~10자입니다" autocomplete="on" required autofocus>
                                 <div class="invalid-feedback"> 아이디는 4~10자 영문 소문자, 숫자를 사용하세요. </div>
-                                <!--  <button class="btn btn-primary btn-lg btn-block" type="submit">중복확인</button>-->
                             </div>
                         </div>
                         <!--비밀번호-->
@@ -51,15 +52,16 @@
                                 </div>
                             </div>
                         </div>
-                        <!--관리자 이메일 :: 이메일 인증-->
+                        <!--관리자 이메일 :: 이메일 인증 리패토링 수정-->
                         <div class="mb-3">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="admin-check" name="admin" onclick="onclickAdmin()">
                                 <label class="custom-control-label" for="admin-check">관리자</label>
                             </div>
                         </div>
-                        <input id="admin-token" type="current-password" name="adminToken" placeholder="관리자 암호" class="form-control" style="display:none;">
-
+                        <label>
+                        <input id="admin-token" type="password" name="adminToken" placeholder="관리자 암호" class="form-control" style="display:none;">
+                        </label>
                         <hr class="mb-4">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="aggrement" required>
@@ -70,10 +72,14 @@
                 </div>
             </form>
             <button class="btn btn-lg btn-primary btn-block" id="btn-save" >가입 완료</button>
-            <script type="text/javascript" th:src="@{/js/user.js}"></script>
+            <script type="text/javascript" th:src="@{/js/signUp.js}"></script>
         </div>
     </div>
-</th:block>
-<th:block layout:fragment="signFormJs">
+    <script>
+<!--onclickAdmin  todo -->
+    </script>
 </th:block>
 </html>
+<!--
+HTML의 <form>은 입력 필드 요소가 required 속성을 가지고 있으면 자동으로 유효성을 검사
+<form>에 novalidate 속성을 설정:: 유효성검사안함-->

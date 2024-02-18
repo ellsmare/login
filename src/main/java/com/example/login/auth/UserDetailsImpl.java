@@ -19,7 +19,7 @@ public class UserDetailsImpl implements UserDetails {
     private UserEntity userEntity; //콤포지션
 
     // PrincipalDetailsServiceImpl 필요, 안하면 null
-    // @RequiredArgsConstructor 리팩토리시
+    // @RequiredArgsConstructor 리팩토리시 일부러 안한걸까?
     public UserDetailsImpl(UserEntity userEntity) {
         this.userEntity = userEntity;
     }

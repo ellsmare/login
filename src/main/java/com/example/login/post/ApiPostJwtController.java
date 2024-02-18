@@ -3,28 +3,28 @@ package com.example.login.post;
 import com.example.login.user.MemberRepository;
 import com.example.login.user.ResponseDto;
 import com.example.login.user.UserEntity;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
-public class ApiPostController {
+//@RequestMapping("/api")
+public class ApiPostJwtController {
     public final PostService postService;
     public final PostRepository postRepository;
     public final MemberRepository memberRepository;
 
+    //(로그인 첫 시도, 쿠키지원x)타임리프 같은 템플릿-jsessionid 를 URL에 자동으로 포함 :: 세션
+    // :: server.servlet.session.tracking-modes=cookie   todo 리팩토링 or jwt
+    //출처: https://jddng.tistory.com/268 [IT 개발자들의 울타리:티스토리]
+
+    //HttpserveltRequest와 HttpSession 차이??
 
 
     // 게시글 삭제
-    @DeleteMapping("/user/post/{id}")
+    @DeleteMapping("/users/boards/{id}")
     public ResponseDto<String> deleteBoard(@PathVariable Long id, HttpSession session) {
         UserEntity userentity = (UserEntity) session.getAttribute("principal");
         //검증만 사용
@@ -37,9 +37,8 @@ public class ApiPostController {
         return response;
     }
 
-
     // 게시글 수정
-    @PutMapping("/user/post/{id}")
+    @PutMapping("/users/boards/{id}")
     public ResponseDto<String> updatePost(@PathVariable Long id, @RequestBody PostFormDto requestDto, HttpSession session) {
         UserEntity userentity = (UserEntity) session.getAttribute("principal");
         System.out.println("_____ 수정 updatePost : "+userentity);
@@ -68,7 +67,7 @@ public class ApiPostController {
 
     // 게시글 상세보기  getPostDetail
     // 선택 조회   findPostById
-    @GetMapping("/user/post/{id}")
+    @GetMapping("/users/boards/{id}")
     public ResponseDto<String> getPostDetail(@PathVariable Long id) {
         System.out.println("_____findPostById : "+id);
 
@@ -78,9 +77,8 @@ public class ApiPostController {
         return response;
     }
 
-
     // 게시글 전체 조회  필요없으면 또는 충돌나면 주석
-    @GetMapping("/auth/post")
+    @GetMapping("/auth/boards")
     public ResponseDto<String> postList() {
         if(postRepository.findAll() ==null){
             System.out.println("_____postList 실패");
@@ -91,9 +89,8 @@ public class ApiPostController {
 
     }
 
-
     // post save
-    @PostMapping("/user/post")
+    @PostMapping("/users/board")
     public ResponseDto<String> save(@RequestBody PostFormDto postFormDTO, HttpSession session) {
         System.out.println("save post ::" + postFormDTO);
         System.out.println("save post ::" + session);
@@ -115,17 +112,15 @@ public class ApiPostController {
     }
 
 
-
-
    /*
    // post save jwt
-    @PostMapping("/test/post")
+    @PostMapping("/test/board")
     public ResponseDto<String> save(@RequestBody PostFormDto postFormDTO, @AuthenticationPrincipal PrincipalDetail principal)  {
         System.out.println("save post ::" + postFormDTO);
 
 
         // 포함된 데이터를 게시물 작성하기
-        postService.savePost(postFormDTO, principal.getUser());
+        postService.saveBoard(postFormDTO, principal.getUser());
         ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
         return response;
     }

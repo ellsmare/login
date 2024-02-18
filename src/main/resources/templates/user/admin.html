@@ -1,0 +1,56 @@
+<html layout:decorate="~{common/layouts/layout}"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ko">
+
+<head>
+    <title>뉴스피스</title>
+    <meta charset="UTF-8">
+    <style>
+
+    </style>
+</head>
+
+<!-- Content-->
+<th:block layout:fragment="content">
+    <div class="content-body">
+
+        <div style="margin: 0 auto; padding-top: 5px; ">
+            <a sec:authorize="isAnonymous()" th:href="@{/auth/signin-form}">로그인</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/users/info-form}">내정보</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/users/logout}">로그아웃</a>
+            <a sec:authorize="isAnonymous()" th:href="@{/auth/signup-form}">회원가입</a>
+            <!--        <a sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" href="/users/info">내정보</a><br>-->
+            <!--        <a sec:authorize="hasAuthority('ADMIN')" href="/users/admin">admin</a><br>-->
+        </div>
+
+        <h1>admin</h1>
+
+
+
+    </div>
+</th:block>
+
+</html>
+<!--var token = $("meta[name='_csrf']").attr("content");-->
+<!--var header = $("meta[name='_csrf_header']").attr("content");-->
+<!--출처: https://chung-develop.tistory.com/8 [춍춍 블로그:티스토리]-->
+
+<!--
+<span th:text="${attributeName}"></span>
+<li>th:utext 사용<span th:utext="${data}"></span></li>
+<span>hello [[${attributeName}]]</span>
+<h1><span th:inline="none">[[...]] vs [(...)]</span> </h1>
+<li><a th:href="@{/hello(param1=${param1}, param2=${param2})}">hello query param</a></li>
+
+<tr th:if="${books.empty}">
+    <td colspan="2"> No Books Available </td>a
+</tr>
+<tr th:each="book : ${books}">
+    <td><span th:text="${book.title}"> Title </span></td>
+    <td><span th:text="${book.author}"> Author </span></td>
+</tr>
+</tbody>
+
+
+-->

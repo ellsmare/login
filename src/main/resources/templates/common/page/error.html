@@ -1,12 +1,15 @@
 <html layout:decorate="~{common/layouts/layout}"
-      xmlns:layout="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+      xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.w3.org/1999/xhtml"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ko">
+
 <head>
+    <title>뉴스피스</title>
     <meta charset="UTF-8">
-    <!--css/js PageByPage start-->
-    <th:block layout:fragment="cssByPage">
-    </th:block>
-    <!--css/js PageByPage end-->
+    <!--jwt 현재 페이지에서 사용할 수 있는 변수 :: principal-->
+    <sec:authorize access="isAuthenticated()">
+        <span sec:authentication property="principal" th:var="principal"></span>
+    </sec:authorize>
 </head>
 
 <!-- Content -->
@@ -24,6 +27,3 @@
 </th:block>
 </html>
 
-<!--var token = $("meta[name='_csrf']").attr("content");-->
-<!--var header = $("meta[name='_csrf_header']").attr("content");-->
-<!--출처: https://chung-develop.tistory.com/8 [춍춍 블로그:티스토리]-->

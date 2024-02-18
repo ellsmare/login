@@ -3,6 +3,7 @@ server:
   port: 8081
   servlet:
     context-path: /
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,16 +23,16 @@ spring:
         format_sql: true
     open-in-view: true
   thymeleaf:
+    prefix: classpath:/templates/
     enabled: true
-    prefix=classpath: /template/
     suffix: .html
     encoding: UTF-8
-    mvc:
-      static-path-pattern: /static/** # korean ? 한국어
-    check-template-location: true    # todo cache: DevTools 찾아보기
+    check-template-location: true
+  mvc:
+    static-path-pattern: /static/** # korean ? 한국어
   devtools:
     livereload:
-      enabled: true  #정적자원실시간반영
+      enabled: true  #정적자원 실시간반영
     remote:
       restart:
         enabled: true   #변화감지 자동재시작
@@ -39,3 +40,8 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+
+jwt:
+  secretKey: VGhlIHBsYWNlIHdoZXJlIG9wdGltaXNtIG1vc3QgZmxvdXJpc2hlcyBpcyB0aGUgbHVuYXRpYyBhc3lsdW0u
+#  VGhlIHBsYWNlIHdoZXJlIG9wdGltaXNtIG1vc3QgZmxvdXJpc2hlcyBpcyB0aGUgbHVuYXRpYyBhc3lsdW0u #32글자 이상의 비밀키
+#  7Iqk7YyM66W07YOA7L2U65Sp7YG065+9U3ByaW5n6rCV7J2Y7Yqc7YSw7LWc7JuQ67mI7J6F64uI64ukLg==

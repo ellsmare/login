@@ -1,0 +1,76 @@
+<html layout:decorate="~{common/layouts/layout}"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ko">
+
+<head>
+    <title>뉴스피스</title>
+    <meta charset="UTF-8">
+
+    <!--css/js start-->
+    <link rel="stylesheet" th:href="@{/css/info.css}">
+    <!--css/js end-->
+</head>
+
+<!-- Content -->
+<th:block layout:fragment="content">
+    <div class="content-body">
+        <div class="container">
+            <div class="member-container">
+                <div class="header">
+                    <h1> 개인정보 수정 페이지  - 순서정리하기 </h1><br>
+                    <h1> info 랑 프로필  </h1><br>
+                    <h1> 개인정보 수정은 비밀번호 제외 바로 수정가능 </h1><br>
+                </div>
+
+                <div class="user-info">
+                    <div class="user-info-name">
+                        <div>img</div>
+                        <input type="image" alt=""/>
+                    </div>
+                    <!--자기소개-->
+                    <div class="user-info-name">
+                        <div>자기소개</div>
+                        <label>
+                            <input type="text" />
+                        </label>
+                    </div>
+                    <div class="user-info-nickname">
+                        <div>nickname</div>
+                        <label>
+                            <input type="text" />
+                        </label>
+                    </div>
+                    <div class="user-info-username">
+                        <div>아이디</div>
+                    </div>
+                    <div class="user-info-pw">
+                        <div> 비밀번호</div>
+                        <label>
+                        <input type="password"/>
+                        </label>
+                    </div>
+                    <div class="user-info-email">
+                        <div>email</div>
+                    </div>
+
+                </div>
+                <div class="btn">
+                    <button>수정하기</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 0 auto; padding-top: 5px; ">
+            <a sec:authorize="isAnonymous()" href="/auth/signin-form">로그인</a>
+            <a sec:authorize="isAuthenticated()" href="/users/info-form">내정보</a>
+            <a sec:authorize="isAuthenticated()" href="/users/logout">로그아웃</a>
+            <a sec:authorize="isAnonymous()" href="/auth/signup-form">회원가입</a>
+            <!--        <a sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" href="/users/info">내정보</a><br>-->
+            <!--        <a sec:authorize="hasAuthority('ADMIN')" href="/users/admin">admin</a><br>-->
+        </div>
+    </div>
+</th:block>
+<th:block layout:fragment="jsByPage">
+</th:block>
+</html>

@@ -15,7 +15,7 @@ public class MainController {
     }
 
     // 오류 페이지
-    @GetMapping("/auth/page/error-page")
+    @GetMapping("/auth/error-form")
     public String error() {
         return "common/page/error";
     }

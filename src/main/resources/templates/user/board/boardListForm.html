@@ -1,11 +1,15 @@
-<html layout:decorate="~{common/layouts/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<html layout:decorate="~{common/layouts/layout}"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ko">
 
 <head>
+    <title>뉴스피스</title>
     <meta charset="UTF-8">
-    <!--css/js PageByPage start-->
-    <th:block layout:fragment="cssByPage">
-        <link rel="stylesheet" type="text/css" th:href="@{/css/article.css}">
-    </th:block>
+
+    <!--css/js start-->
+        <link rel="stylesheet" type="text/css" th:href="@{/css/postForm.css}">
+
     <!--css/js PageByPage end-->
 </head>
 
@@ -31,13 +35,21 @@
                         <tr th:each="post:${list}">
                             <td class="number" th:text="${post.id}"></td>
                             <td class="title" th:text="${post.title}"></td>
-<!--                            <td class="name" th:text="${post.nickname}"></td>-->
+                            <td class="name" th:text="${post.nickname}"></td>
                             <td class="time" th:text="${post.createdDate}"></td>
                             <td class="view" th:text="${post.count}"></td>
                         </tr>
                     </table>
                 </div>
                 <!-- 글쓰기/ 조회 -->
+                <div style="margin: 0 auto; padding-top: 5px; ">
+                    <a sec:authorize="isAnonymous()" href="/auth/signin-form">로그인</a>
+                    <a sec:authorize="isAuthenticated()" href="/users/info-form">내정보</a>
+                    <a sec:authorize="isAuthenticated()" href="/users/logout">로그아웃</a>
+                    <a sec:authorize="isAnonymous()" href="/auth/signup-form">회원가입</a>
+                    <!--        <a sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" href="/users/info">내정보</a><br>-->
+                    <!--        <a sec:authorize="hasAuthority('ADMIN')" href="/users/admin">admin</a><br>-->
+                </div>
             </div>
         </div>
     </div>
