@@ -1,7 +1,5 @@
-
-
-const host = 'http://' + window.location.host;
-
+//
+// const host = 'http://' + window.location.host;
 function logout() {
     // 토큰 삭제
     Cookies.remove('Authorization', {path: '/'});
@@ -17,6 +15,78 @@ function getToken() {
 
     return auth;
 }
+
+/*$(document).ready(function () {
+    // 토큰 삭제
+    Cookies.remove('Authorization', {path: '/'});
+});
+
+const host = 'http://' + window.location.host;
+
+const href = location.href;
+const queryString = href.substring(href.indexOf("?")+1)
+if (queryString === 'error') {
+    const errorDiv = document.getElementById('login-failed');
+    errorDiv.style.display = 'block';
+}*/
+
+// 파라미터로 받은 토큰이 있다면, 토큰을 로컬 스토리지로 저장한다.
+const token = searchParam('token')
+
+if (token) {
+    localStorage.setItem("access_token", token)
+}
+
+function searchParam(key){
+    return new URLSearchParams(location.search).get(key)
+}
+
+
+// HTTP 요청을 보내는 함수
+function httpRequest(method, url, body, success, fail){
+    fetch(url, {
+        method: method,
+        headers: {
+            // 로컬 스토리지에서 액세스 토큰 값을 가져와 헤더에 추가한다.
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+            "Content-Type": "application/json"
+        },
+        body: body
+    }).then((response) => {
+        if (response.status === 200 || response.status == 201){
+            return success()
+        }
+        const refresh_token = getCookie("refresh_token")
+        // access_token 이 만료되어 권한이 없고, 리프레시 토큰이 있다면 그 리프레시 토큰을 이용해서 새로운 access token 을 요청
+        if (response.status === 401 && refresh_token) {
+            fetch("/api/token", {
+                method: "POST",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("access_token"),
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    refresh_token: getCookie("refresh_token")
+                })
+            }).then((res) => {
+                if (res.ok){
+                    return res.json()
+                }
+            }).then((result) => {
+                // refresh token 재발급에 성공하면 로컬 스토리지 값을 새로운 access token 으로 교체
+                localStorage.setItem("access_token", result.accessToken)
+                // 새로운 access token 으로 http 요청을 보낸다.
+                httpRequest(method, url, body, success, fail)
+            })
+        }
+        else {
+            return fail()
+        }
+    })
+}
+
+//https://kimjingyu.tistory.com/entry/JWT를-조금-더-안전하게-저장하기-쿠키와-웹-스토리지 [JingyuKim:티스토리]
+
 
 // function sign_up() {
 //     let username = $("#input-username").val()

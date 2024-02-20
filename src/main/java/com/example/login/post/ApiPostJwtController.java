@@ -1,11 +1,14 @@
 package com.example.login.post;
 
+import com.example.login.auth.UserDetailsImpl;
 import com.example.login.user.MemberRepository;
 import com.example.login.user.ResponseDto;
 import com.example.login.user.UserEntity;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -24,7 +27,7 @@ public class ApiPostJwtController {
 
 
     // 게시글 삭제
-    @DeleteMapping("/users/boards/{id}")
+    @DeleteMapping("/users/posts/{id}")
     public ResponseDto<String> deleteBoard(@PathVariable Long id, HttpSession session) {
         UserEntity userentity = (UserEntity) session.getAttribute("principal");
         //검증만 사용
@@ -33,12 +36,11 @@ public class ApiPostJwtController {
         
         postService.deletePost(id);
 
-        ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
-        return response;
+        return new ResponseDto<>(HttpStatus.OK.value(), "성공");
     }
 
     // 게시글 수정
-    @PutMapping("/users/boards/{id}")
+    @PutMapping("/users/posts/{id}")
     public ResponseDto<String> updatePost(@PathVariable Long id, @RequestBody PostFormDto requestDto, HttpSession session) {
         UserEntity userentity = (UserEntity) session.getAttribute("principal");
         System.out.println("_____ 수정 updatePost : "+userentity);
@@ -60,55 +62,23 @@ public class ApiPostJwtController {
 
         postService.updatePost(id, post);
 
-        ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
-        return response;
+        return new ResponseDto<>(HttpStatus.OK.value(), "성공");
     }
 
 
-    // 게시글 상세보기  getPostDetail
-    // 선택 조회   findPostById
-    @GetMapping("/users/boards/{id}")
-    public ResponseDto<String> getPostDetail(@PathVariable Long id) {
-        System.out.println("_____findPostById : "+id);
-
-        postService.getPost(id);
-
-        ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
-        return response;
-    }
-
-    // 게시글 전체 조회  필요없으면 또는 충돌나면 주석
-    @GetMapping("/auth/boards")
-    public ResponseDto<String> postList() {
-        if(postRepository.findAll() ==null){
-            System.out.println("_____postList 실패");
-            throw new IllegalArgumentException("게시글을 찾을 수 없습니다.");
-        }
-        ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
-        return response;
-
-    }
+//@RequestBody PostFormDto postFormDTO,  @AuthenticationPrincipal UserEntity userDetails
 
     // post save
-    @PostMapping("/users/board")
-    public ResponseDto<String> save(@RequestBody PostFormDto postFormDTO, HttpSession session) {
+    @PostMapping("/users/posts")
+    public ResponseDto<String> posts(@RequestBody PostFormDto postFormDTO, @AuthenticationPrincipal UserDetailsImpl principal) {
         System.out.println("save post ::" + postFormDTO);
-        System.out.println("save post ::" + session);
-
-        UserEntity userentity = (UserEntity) session.getAttribute("principal");
-        System.out.println("____글쓰기 savePost: "+userentity);
-
-        //로그인 상태==글쓰기 가능
-        if (userentity == null) {
-            System.out.println(session.getAttribute("loginOk"));
-            throw new IllegalArgumentException("글쓰기는 로그인 회원만 가능합니다.");
-        }
+        System.out.println("save post ::" + principal);
 
         // 게시물 작성하기
-        postService.savePost(postFormDTO, userentity);
+        postService.savePost(postFormDTO, principal);
         System.out.println("____글쓰기 postService 통과: ");
-        ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
-        return response;
+
+        return new ResponseDto<>(HttpStatus.OK.value(), "성공");
     }
 
 

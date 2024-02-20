@@ -22,7 +22,7 @@ public class TestController {
     //findPassword 찾기  -- 비밀번호 post
 //
 //    @PostMapping("/test/user/findPassword")
-//    public ResponseDto<String> findPassword(@RequestBody @Valid PwRequestDto pwRequestDto){
+//    public ResponseDto<String> findPassword(@RequestBody @Valid InfoRequestDto pwRequestDto){
 //        if(!memberRepository.existsByEmail(pwRequestDto.getEmail())){
 //            System.out.println("existsByEmail 실패했습니다:: email null");
 //            throw new IllegalArgumentException("멤버 조회 실패");
@@ -44,7 +44,7 @@ public class TestController {
 //    }
 
 //    @PutMapping("/test/user/chagePw")
-//    public  Optional<UserEntity> chagePassword(@RequestBody PwRequestDto pwRequestDto){
+//    public  Optional<UserEntity> chagePassword(@RequestBody InfoRequestDto pwRequestDto){
 //        System.out.println(pwRequestDto.getIdx());
 //        System.out.println(pwRequestDto.getPassword());
 //

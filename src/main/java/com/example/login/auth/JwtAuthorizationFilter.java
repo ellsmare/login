@@ -15,8 +15,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.List;
 
 @Slf4j(topic = "JWT 검증 및 인가")
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
@@ -79,6 +77,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private Authentication createAuthentication(String username) {
         // username가 DB에 있는지 확인 후 객체 생성
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        System.out.println("-------------------Authentication   createAuthentication  userDetails : " + userDetails);
+
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 }

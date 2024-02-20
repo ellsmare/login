@@ -15,6 +15,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import java.io.IOException;
 
+import static com.example.login.auth.JwtUtil.AUTHORIZATION_HEADER;
+
 @Slf4j(topic = "로그인 및 JWT 생성") //  Authorization 헤더 JWT 토큰을 추출
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     /**
@@ -22,18 +24,31 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
      */
     private final JwtUtil jwtUtil;
 
+
     public JwtAuthenticationFilter(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
-        setFilterProcessesUrl("/auth/signIn");
+        setFilterProcessesUrl("/auth/login");
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        log.info("로그인 시도" + getUsernameParameter());
+        log.info("로그인 시도:: " + request.getParameter(getUsernameParameter()));
         try {
+
+            log.info("getParameter :: " +request.getParameter(getUsernameParameter()));
+
+            //json to java object
             LoginRequestDto requestDto = new ObjectMapper().readValue(request.getInputStream(), LoginRequestDto.class);
 
-             // getAuthenticationManager().authenticate -- UsernamePasswordAuthenticationToken
+            /*
+            // form post
+            LoginRequestDto requestDto = new LoginRequestDto();
+            requestDto.setUsername(request.getParameter(getUsernameParameter()));
+            requestDto.setPassword(request.getParameter(getPasswordParameter()));
+
+            log.info("______________getParameter   requestDto :: " + requestDto);*/
+
+            //return this.getAuthenticationManager().authenticate(authRequest);
             return getAuthenticationManager().authenticate(
                     new UsernamePasswordAuthenticationToken(
                             requestDto.getUsername(),
@@ -41,7 +56,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                             null
                     )
             );
-        } catch (IOException e) {
+        } catch (IOException e) { //IOException
             log.error(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
@@ -50,10 +65,22 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         log.info("로그인 성공 및 JWT 생성");
+        //log.info("authResult__ :: "+((UserDetailsImpl) authResult.getPrincipal()).getUsername());
+
         String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
         UserRole role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
         String token = jwtUtil.createToken(username, role);
+        log.info("successfulAuthentication token :: " + token);
+
         jwtUtil.addJwtToCookie(token, response); //쿠키에 담기
+
+        response.addHeader(AUTHORIZATION_HEADER, token); //헤더 담기 spring master 4주차
+
+        log.info("successfulAuthentication addHeader v:: " + response.getHeader(AUTHORIZATION_HEADER));
+        log.info("successfulAuthentication username :: " + authResult);
+
+        log.info("로그인 성공 및 JWT 생성");
+
     }
 
     @Override

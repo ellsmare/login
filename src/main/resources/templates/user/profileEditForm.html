@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html layout:decorate="~{common/layouts/layout}"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.w3.org/1999/xhtml"
@@ -10,6 +11,10 @@
     <!--css/js start-->
     <link rel="stylesheet" th:href="@{/css/info.css}">
     <!--css/js end-->
+
+<!--    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>-->
+<!--    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>-->
+
 </head>
 
 <!-- Content -->
@@ -25,7 +30,11 @@
 
                 <div class="user-info">
                     <div class="user-info-name">
-                        <div>img</div>
+                        <div>
+                            enctype="multipart/form-data"
+                            img
+<!--                            https://chung-develop.tistory.com/75-->
+                        </div>
                         <input type="image" alt=""/>
                     </div>
                     <!--자기소개-->

@@ -2,39 +2,32 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<th:block th:fragment="navFragment">
-    <div class="jumbotron text-center" id="nav-top">
-        <h1>NewsFeed Page</h1>
-        <p>Resize this responsive page to see the effect!</p>
-    </div>
+<nav th:block th:fragment="navFragment">
+    <!-- nav -->
     <div class="nav-body">
-        <!--Top -->
-
-        <div class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" id="nav-content">
-
-            <!-- Brand -->
+        <div class="jumbotron text-center" id="nav-top">
+            <h1>NewsFeed Page</h1>
+            <p>Resize this responsive page to see the effect!</p>
+        </div>
+        <!-- Brand -->
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <a class="navbar-brand" th:href="@{/}">Navbar home </a>
-            <!--
-             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-             <span class="navbar-toggler-icon"></span></button>
-            -->
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault" >
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/auth/signin-form}"> Home <span class="sr-only">(current)</span></a> <!--sr-only :: 스크린리더 width, height 1px(감지)-->
+                    <li class="nav-item" >
+                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/auth/login-form}">로그인</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" sec:authorize="isAnonymous()" th:href="@{/auth/signin-form}">로그인</a>
+                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/auth/signup-form}">회원가입</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" sec:authorize="isAnonymous()" th:href="@{/auth/signup-form}">회원가입</a>
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/users/info-form}">내정보</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" sec:authorize="isAuthenticated()" th:href="@{/users/info-form}">내정보</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" sec:authorize="isAuthenticated()" th:href="@{/users/logout}">로그아웃</a>
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/users/logout}" onclick="logout()">로그아웃</a>
                     </li>
                     <li class="nav-item">
                         <!--        <a class="nav-link disabled" sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" href="/users/info">내정보</a><br>-->
@@ -42,25 +35,28 @@
                     <li class="nav-item">
                         <!--        <a class="nav-link disabled" sec:authorize="hasAuthority('ADMIN')" href="/users/admin">admin</a><br>-->
                     </li>
-
-                    <!-- Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
-                           aria-expanded="false">postsList</a>
-                    <li class="nav-item dropdown">
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" th:href="@{/auth/boards-form}">Link postsList</a>
-                            <a class="dropdown-item" th:href="@{/users/boards-detail-form}">Link postDetail </a>
-                            <a class="dropdown-item" th:href="@{/users/boards-edit-form}">Link postEdit</a>
-                        </div>
-                    </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                <form class="form-inline my-2 my-lg-0" th:action="@{/users/logout}" method="post" sec:authorize="isAuthenticated()">
+                    <span class="text-white mr-2 mx-2" sec:authentication="name">사용자</span>
+                    <span class="text-white mr-2 mx-2" sec:authentication="principal.authorities">권한</span>
                 </form>
+                <!-- Dropdown -->
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        Dropdown button
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item-text" th:href="@{/auth/post-form}">Link postsList</a>
+                        <a class="dropdown-item" th:href="@{/users/post-detail-form}">Link postDetail </a>
+                        <a class="dropdown-item" th:href="@{/users/post-edit-form}">Link postEdit</a>
+                    </div>
+                </div>
             </div>
-        </div>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" id="search-input" placeholder="Search" aria-label="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
     </div>
-</th:block>
+</nav>
 </html>

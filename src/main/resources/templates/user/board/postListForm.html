@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html layout:decorate="~{common/layouts/layout}"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.w3.org/1999/xhtml"
@@ -26,21 +27,29 @@
                         <tr>
                             <th class="number">No</th>
                             <th class="title">제목</th>
-                            <th class="name">글쓴이</th>
+                            <th class="name">내용</th>
                             <th class="time">작성시간</th>
-                            <th class="view">좋아요</th>
+                            <th class="count">조회수</th>
+                            <th class="hit">좋아요</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="post:${list}">
-                            <td class="number" th:text="${post.id}"></td>
-                            <td class="title" th:text="${post.title}"></td>
-                            <td class="name" th:text="${post.nickname}"></td>
-                            <td class="time" th:text="${post.createdDate}"></td>
-                            <td class="view" th:text="${post.count}"></td>
+                        <tr th:each="board:${boards}">
+                            <td class="number" th:text="${board.id}"></td>
+                            <td class="title" th:text="${board.title}"></td>
+<!--                            <td class="title" th:text="${board.content}"></td>-->
+<!--                            <td class="name" th:text="${board.nickname}"></td>-->
+                            <td class="time" th:text="${board.createdDate}"></td>
+                            <td class="count" th:text="${board.count}"></td>
+<!--                            <td class="hit" th:text="${board.hit}"></td>-->
                         </tr>
                     </table>
                 </div>
+
+                <button class="btn btn-outline-info btn-primary btn-block" type="submit" id="btn-save">글쓰기</button>
+
+
+
                 <!-- 글쓰기/ 조회 -->
                 <div style="margin: 0 auto; padding-top: 5px; ">
                     <a sec:authorize="isAnonymous()" href="/auth/signin-form">로그인</a>

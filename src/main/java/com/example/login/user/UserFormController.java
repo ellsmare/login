@@ -1,39 +1,36 @@
 package com.example.login.user;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+@RequiredArgsConstructor
 @Controller
-public class UserController {
-
-
-
-
-
+public class UserFormController {
+    public final MemberRepository memberRepository;
 
 
     // infoEdit 페이지
     @GetMapping("/users/info-edit-form")
     public String infoEdit() {
-        return "user/infoEditForm";
+        return "profleEditForm";
     }
+
 
     // info 페이지
     @GetMapping("/users/info-form")
-    public String info() {
+    public String info(Model model) {
+        model.addAttribute("users", memberRepository.findAll());  //findAll
         return "user/infoForm";
     }
 
-    // 로그아웃 페이지
-    @GetMapping("/users/logout")
-    public String logout() {
-        return "index";
+    // 로그인 페이지
+    @GetMapping("/auth/login-form")
+    public String login() {
+        return "user/loginForm";
     }
 
-    // 로그인 페이지
-    @GetMapping("/auth/signin-form")
-    public String signIn() {
-        return "user/signInForm";
-    }
 
     // 회원가입 페이지
     @GetMapping("/auth/signup-form")

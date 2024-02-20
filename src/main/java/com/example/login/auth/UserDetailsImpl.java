@@ -3,7 +3,6 @@ package com.example.login.auth;
 import com.example.login.user.UserEntity;
 import com.example.login.user.UserRole;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,41 +11,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 
-@Getter
-@Slf4j
+
 // 시큐리티의 세션저장소에 UserDetailsImpl가 저장    UserDetailsServiceImpl
 public class UserDetailsImpl implements UserDetails {
-    private UserEntity userEntity; //콤포지션
 
-    // PrincipalDetailsServiceImpl 필요, 안하면 null
-    // @RequiredArgsConstructor 리팩토리시 일부러 안한걸까?
-    public UserDetailsImpl(UserEntity userEntity) {
+    private final UserEntity userEntity; //콤포지션
+
+    public UserDetailsImpl(UserEntity userEntity) { // UserDetailsServiceImpl 필요, 안하면 null
         this.userEntity = userEntity;
     }
 
     public UserEntity getUser() {
         return userEntity;
     }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        //권한반환 Collection<? extends GrantedAuthority //익명메소드 상속> 타입
-
-        UserRole role = userEntity.getRole();
-        String authority = role.getAuthority();  // "Role_" 스프링 규칙!!  return :: ROLE_USER/ROLE_ADMIN
-
-        log.info("---------- PrincipalDetailsImpl : " + authority);
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(authority);
-        Collection<GrantedAuthority> collections = new ArrayList<>();
-        //Collection<GrantedAuthority> authorities  = new ArrayList<>();
-        collections.add(simpleGrantedAuthority);
-
-        return collections;
-    }
-
-    // spring master 10.'Spring Security'-Authentication todo
-    // Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
 
     @Override
     public String getPassword() {
@@ -57,6 +34,30 @@ public class UserDetailsImpl implements UserDetails {
     public String getUsername() {
         return userEntity.getUsername();
     }
+
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        //권한반환 Collection<? extends GrantedAuthority //익명메소드 상속> 타입
+
+        UserRole role = userEntity.getRole();
+        String authority = role.getAuthority();  // "Role_" 스프링 규칙!!  return :: ROLE_USER/ROLE_ADMIN
+
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(authority);
+        System.out.println("---------- PrincipalDetailsImpl simpleGrantedAuthority : " + simpleGrantedAuthority);
+
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(simpleGrantedAuthority);
+        System.out.println("---------- PrincipalDetailsImpl collections: " + authorities);
+
+        return authorities;
+    }
+
+    // spring master 10.'Spring Security'-Authentication todo
+    // Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
+
 
     @Override
     public boolean isAccountNonExpired() {

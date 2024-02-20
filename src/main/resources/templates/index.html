@@ -1,7 +1,9 @@
+<!DOCTYPE html>
 <html layout:decorate="~{common/layouts/layout}"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.w3.org/1999/xhtml"
-      lang="ko">
+      lang="ko"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <title>뉴스피스</title>
@@ -23,6 +25,7 @@
     <!--                <li>request = <span th:text="${#request}"></span></li>-->
     <!--                <li>response = <span th:text="${#response}"></span></li>-->
     <!--                <li>session = <span th:text="${#session}"></span></li>-->
+<!--
     <li>servletContext = <span th:text="${#servletContext}"></span></li>
 
     <li>session = <span th:text="${session.sessionData}"></span></li>
@@ -32,10 +35,22 @@
     <li><a th:href="@{/hello(param1=${param1}, param2=${param2})}">query param</a></li>
     <li><a th:href="@{/hello/{param1}/{param2}(param1=${param1}, param2=${param2})}">path variable</a></li>
     <li><a th:href="@{/hello/{param1}(param1=${param1}, param2=${param2})}">path variable + query parameter</a></li>
+-->
 
     <!--  고정된 값      <span th:text="|hello ${data}|">-->
     <!--/* [[${data}]] */-->
 
+    <!--jwt 현재 페이지에서 사용할 수 있는 변수 :: principal-->
+                <sec:authorize access="isAuthenticated()">
+                    <sec:authentication th:property="principal" th:var="principal" />
+                </sec:authorize>
+<!--    Set-Cookie: <cookie-name>=<cookie-value>-->
+<!--  오류
+   <sec:authorize access="isAuthenticated()" th:text="|로그인: ${principal.name}님 ${principal.authorities}|">-->
+<!--    </sec:authorize>-->
+    <div class="main-head" sec:authorize="hasRole('ROLE_ADMIN')" >관리자님 환영합니다.</div>
+
+    <a href="/">메인으로 이동</a>
 
     <div class="content-body">
         <div class="row">
@@ -106,11 +121,11 @@
         // var xhr = new XMLHttpRequest();
         // xhr.withCredentials = true; // Enable sending cookies
         //
-        // function logout() {
-        //     // 토큰 삭제
-        //     Cookies.remove('Authorization', {path: '/'});
-        //     //window.location.href = host + '/api/user/login-page';
-        // }
+        function logout() {
+            // 토큰 삭제
+            Cookies.remove('Authorization', {path: '/'});
+            //window.location.href = host + '/api/user/login-page';
+        }
 
     </script>
 </th:block>

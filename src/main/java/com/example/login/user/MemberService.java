@@ -1,8 +1,8 @@
 package com.example.login.user;
 
 import com.example.login.auth.JwtUtil;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -59,7 +59,7 @@ public class MemberService {
         return username;
     }
 
-    //*로그인- (jwt) -> security */
+    //*로그인- (jwt) -> security  sesssion--> jwt*/
     /**
      * 로그인
      * @param //username - 로그인 ID
@@ -67,11 +67,9 @@ public class MemberService {
      * @return 회원 상세정보
      */
     // @Transactional(readOnly = true)
-    public UserEntity login (LoginRequestDto loginRequestDto, HttpServletResponse res){
+    public UserEntity signIn (LoginRequestDto loginRequestDto, HttpServletResponse res){
         String loginId = loginRequestDto.getUsername();
         String loginPw = loginRequestDto.getPassword();
-        System.out.println(loginId);
-        System.out.println(loginPw);
 
         // 사용자 확인
         // Optional<UserEntity> member = memberRepository.findByUsername(username);
@@ -91,16 +89,16 @@ public class MemberService {
         System.out.println("비밀번호가:: " + loginPw);
         System.out.println("비밀번호가:: " + userPW);
 
-        // JWT 생성 및 쿠키에 저장 후 Response 객체에 추가 .왜 넘어 간걸까?
+        // JWT 생성 및 쿠키에 저장 후 Response 객체에 추가
         String token = jwtUtil.createToken(principal.getUsername(), principal.getRole());
         jwtUtil.addJwtToCookie(token, res);
 
-        System.out.println("서비스 통과" + principal);
+        System.out.println("서비스 통과 : " + principal);
         return principal;
     }
 
-    /*회원가입 */   // 문제 :: 관리자 전환 안됨id="btn-login
-    // @Transactional
+    /*회원가입 */   // 문제 :: 관리자 전환 안됨 id="btn-login  함수
+     @Transactional
     public void register (@Valid RegisterRequestDto requestDto){
         System.out.println("register::" + requestDto);
 
@@ -140,10 +138,7 @@ public class MemberService {
             memberRepository.save(userEntity);
 
         } catch (Exception e) {
-            e.printStackTrace();
-            /* bindingResult.reject("service -signupFailed : ", e.getMessage());*/
             System.out.println("service -signupFailed : " + e.getMessage());
         }
     }
 }
-//todo log.~

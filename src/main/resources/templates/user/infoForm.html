@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html layout:decorate="~{common/layouts/layout}"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.w3.org/1999/xhtml"
@@ -6,7 +7,6 @@
 <head>
     <title>뉴스피스</title>
     <meta charset="UTF-8">
-
 
     <!--css/js  start-->
         <link rel="stylesheet" type="text/css" th:href="@{/css/info.css}">
@@ -17,44 +17,43 @@
 <!-- Content -->
 <th:block layout:fragment="content">
     <div class="content-body">
-        <div class="container">
+        <h1> 개인정보 수정은 비밀번호 제외 바로 수정가능 </h1><br>
+        <div class="form-sign info">
             <div class="member-container">
-                <div class="header" id="infoBoxTitle">
-                    <h1> info 랑 프로필  </h1><br>
-                    <h1> 개인정보 수정은 비밀번호 제외 바로 수정가능 </h1><br>
-                </div>
-                <div class="user-info">
-                    <div class="user-info-">
-                        <div>img</div>
-                        <input type="image" alt="" />
+                <form>
+                    <div class="header">
+                        <h1 class="mb-3 boxTitle" id="infoBoxTitle" >info 랑 프로필 </h1><br>
                     </div>
-                    <div class="user-info-">
-                        <div>자기소개</div>
-                        <label>
-                            <input type="text" />
-                        </label>
+                    <div class="user-info">
+                        <div class="user-info-">
+                            <div>img</div>
+                            <input type="image" alt="" />
+                        </div>
+                        <div class="user-info-">
+                            <div>자기소개</div>
+<!--                            <div class="title" th:value="${info.text}" th:text="" ></div>-->
+                        </div>
+                        <div class="user-info-">
+                            <div>* nickname</div>
+<!--                            <div class="title" th:text="${info.nickname}"></div>-->
+                        </div>
+<!--                        <hr>-->
+<!--                        <div class="user-info-">-->
+<!--                            <div>* 내가 쓴 게시글 // 목록이동, 최근 게시물</div>-->
+<!--                        </div>-->
+<!--                        <div class="user-info-">-->
+<!--                            <div>내가 쓴 댓글 // 목록이동, 최근 댓글</div>-->
+<!--                        </div>-->
+<!--                        <div class="user-info-">-->
+<!--                            <div>팔로워 숫자?? </div>-->
+<!--                        </div>-->
                     </div>
-                    <div class="user-info-">
-                        <div>* nickname</div>
-                        <label>
-                            <input type="text" />
-                        </label>
-                    </div>
+                    <div class="btn">
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" id="btn-save">수정하기</button>
 
-                    <hr>
-                    <div class="user-info-">
-                        <div>* 내가 쓴 게시글 // 목록이동, 최근 게시물</div>
+
                     </div>
-                    <div class="user-info-">
-                        <div>내가 쓴 댓글 // 목록이동, 최근 댓글</div>
-                    </div>
-                    <div class="user-info-">
-                        <div>팔로워 숫자?? </div>
-                    </div>
-                </div>
-                <div class="btn">
-                    <button>개인정보 수정</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
