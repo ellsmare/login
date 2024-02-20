@@ -31,7 +31,6 @@ public class MemberService {
     /* getInfo */
     public UserEntity getInfo(long id) {
 
-        //value="${principal.userentity?.username}"
         UserEntity userEntity = memberRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
         );
@@ -45,7 +44,7 @@ public class MemberService {
         System.out.println(email);
         boolean ok = memberRepository.existsByEmail(email);
         System.out.println(ok);
-        if (ok == false) {
+        if (!ok ) {
             System.out.println("existsByEmail 실패했습니다:: existsByEmail null");
             throw new IllegalArgumentException("등록된 사용자가 없습니다.");
         }
@@ -67,7 +66,7 @@ public class MemberService {
      * @return 회원 상세정보
      */
     // @Transactional(readOnly = true)
-    public UserEntity signIn (LoginRequestDto loginRequestDto, HttpServletResponse res){
+   /* public UserEntity signIn (LoginRequestDto loginRequestDto, HttpServletResponse res){
         String loginId = loginRequestDto.getUsername();
         String loginPw = loginRequestDto.getPassword();
 
@@ -95,7 +94,7 @@ public class MemberService {
 
         System.out.println("서비스 통과 : " + principal);
         return principal;
-    }
+    }*/
 
     /*회원가입 */   // 문제 :: 관리자 전환 안됨 id="btn-login  함수
      @Transactional

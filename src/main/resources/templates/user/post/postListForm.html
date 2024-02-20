@@ -2,19 +2,18 @@
 <html layout:decorate="~{common/layouts/layout}"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ko">
-
+      lang="ko">
 <head>
     <title>뉴스피스</title>
     <meta charset="UTF-8">
 
     <!--css/js start-->
-        <link rel="stylesheet" type="text/css" th:href="@{/css/postForm.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/post.css}">
 
     <!--css/js PageByPage end-->
 </head>
 
-<!-- Content -->
+<!-- freeBoard  Content -->
 <th:block layout:fragment="content">
     <div class="content-body">
         <div class="container">
@@ -37,28 +36,29 @@
                         <tr th:each="board:${boards}">
                             <td class="number" th:text="${board.id}"></td>
                             <td class="title" th:text="${board.title}"></td>
-<!--                            <td class="title" th:text="${board.content}"></td>-->
-<!--                            <td class="name" th:text="${board.nickname}"></td>-->
+                            <!--                            <td class="title" th:text="${board.content}"></td>-->
+                            <!--                            <td class="name" th:text="${board.nickname}"></td>-->
                             <td class="time" th:text="${board.createdDate}"></td>
                             <td class="count" th:text="${board.count}"></td>
-<!--                            <td class="hit" th:text="${board.hit}"></td>-->
+                            <!--                            <td class="hit" th:text="${board.hit}"></td>-->
                         </tr>
+
+<!--                        <tr th:each="board:${boards}">-->
+<!--                            <td class="number" th:text="${board.id}"></td>-->
+<!--                            <td class="title" th:text="${board.title}"></td>-->
+<!--&lt;!&ndash;                            <td class="title" th:text="${board.content}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <td class="name" th:text="${board.nickname}"></td>&ndash;&gt;-->
+<!--                            <td class="time" th:text="${board.createdDate}"></td>-->
+<!--                            <td class="count" th:text="${board.count}"></td>-->
+<!--&lt;!&ndash;                            <td class="hit" th:text="${board.hit}"></td>&ndash;&gt;-->
+<!--                        </tr>-->
                     </table>
                 </div>
 
                 <button class="btn btn-outline-info btn-primary btn-block" type="submit" id="btn-save">글쓰기</button>
 
-
-
                 <!-- 글쓰기/ 조회 -->
-                <div style="margin: 0 auto; padding-top: 5px; ">
-                    <a sec:authorize="isAnonymous()" href="/auth/signin-form">로그인</a>
-                    <a sec:authorize="isAuthenticated()" href="/users/info-form">내정보</a>
-                    <a sec:authorize="isAuthenticated()" href="/users/logout">로그아웃</a>
-                    <a sec:authorize="isAnonymous()" href="/auth/signup-form">회원가입</a>
-                    <!--        <a sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" href="/users/info">내정보</a><br>-->
-                    <!--        <a sec:authorize="hasAuthority('ADMIN')" href="/users/admin">admin</a><br>-->
-                </div>
+
             </div>
         </div>
     </div>

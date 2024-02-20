@@ -3,12 +3,10 @@ package com.example.login.post;
 import com.example.login.BaseTimeEntity;
 import com.example.login.user.UserEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
+
 
 @Data
 @NoArgsConstructor
@@ -27,7 +25,10 @@ public class PostEntity extends BaseTimeEntity{
 
     @Lob  //대용량
     private String content;  //썸머노트 라이브러리
+
     private int count; //조회수
+
+    private int hit;   //좋아요
 
     @ManyToOne(cascade = CascadeType.DETACH) // 연관관계 : 읽기옵션 m:1
     @JoinColumn(name = "userId")  //fk           db는 오브젝트 저장 못함

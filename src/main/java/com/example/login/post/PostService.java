@@ -23,13 +23,6 @@ import java.util.List;
 //@Transactional
 public class PostService {
     private final PostRepository postRepository;
-    private final MemberRepository memberRepository;
-
-
-/*
-
-
-    }*/
 
 
     // 게시글 삭제
@@ -65,30 +58,26 @@ public class PostService {
 
 
     //글작성
-    public void savePost(PostFormDto postFormDTO, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        System.out.println("____글쓰기 savePost: " + userDetails);
-
-
-        UserEntity user = userDetails.getUser();
-        System.out.println("____글쓰기 savePost  getUser: " + user);
-
+    @Transactional
+    public void savePost(PostFormDto postFormDTO, UserEntity principal) {
+        System.out.println("____글쓰기 savePost: " + principal);
 
         PostEntity postEntity = PostEntity.builder()
                 .count(0)
                 .title(postFormDTO.getTitle())
                 .content(postFormDTO.getContent())
-                .userEntity(user)
+                .userEntity(principal)
                 .build();
 
-
        postRepository.save(postEntity);
+        System.out.println("____글쓰기 savePost  postRepository 통과: " + principal);
+
     }
 
     //게시글 목록
     public Page<PostEntity> postList(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
-
 }
 
 

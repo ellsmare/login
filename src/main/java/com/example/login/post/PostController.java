@@ -17,27 +17,27 @@ public class PostController {
     /** controller  return "templates path"   -form */
 
     // 게시판 상세 페이지(수정,삭제 버튼) user권한필요  getPostDetail findById
-    @GetMapping("/users/post-detail-form")
+    @GetMapping("/users/post-detail-form/{id}")
     public String postDetail(@PathVariable Long id) {
         System.out.println("_____findPostById : "+id);
         postService.getPost(id);
-        return "postDetailForm";
+        return "user/post/postDetailForm";
     }
 
 
     // 게시판 글쓰기 페이지(에디터 폼) user권한필요
     @GetMapping("/users/post-edit-form")
     public String postEdit() {
-        return "postEditForm";
+        return "user/post/postEditForm";
     }
 
 
     // 게시판 목록 페이지 boards-page
     @GetMapping("/auth/post-form")
-    public String posts(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String posts(Model model, @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
-        model.addAttribute("boards",postService.postList(pageable));  //pageable
-        return "postListForm";
+        model.addAttribute("postEntity",postService.postList(pageable));  //pageable
+        return "user/post/postListForm";
     }
 
 

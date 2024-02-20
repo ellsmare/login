@@ -18,7 +18,6 @@ public class PostResponseDto {
     private Long writerMno;    // UserEntity fk
     private String writerName; // UserEntity
     private int count; //조회수
-    private UserEntity userEntity;  //객체지향 오브젝트 저장가능
 
 
 }

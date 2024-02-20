@@ -2,18 +2,17 @@
 <html layout:decorate="~{common/layouts/layout}"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ko">
-
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="ko">
 <head>
     <title>뉴스피스</title>
     <meta charset="UTF-8">
-
     <!--css/js  start-->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/board.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/post.css}">
 
 </head>
 
-<!-- Content -->
+<!-- postEdit Content -->
 <th:block layout:fragment="content">
     <div class="content-body">
         <div class="container">
@@ -36,7 +35,7 @@
             <button type="button" id="btn-post-delete" class="btn btn-default" value="삭제"></button>
         </div>
     </div>
-
+    <script th:src="@{/js/post.js}"></script>
 
 </th:block>
 </html>

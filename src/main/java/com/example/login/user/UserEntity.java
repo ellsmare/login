@@ -1,14 +1,8 @@
 package com.example.login.user;
 
 import com.example.login.BaseTimeEntity;
-import com.example.login.post.ReplyEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.sql.Timestamp;
-import java.util.List;
 
 @Data
 @ToString
@@ -54,6 +48,7 @@ public class UserEntity extends BaseTimeEntity{
         this.email = email;
         this.role = role;
     }
+
 
 
 }

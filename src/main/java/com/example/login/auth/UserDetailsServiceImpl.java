@@ -18,11 +18,11 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity principal = memberRepository.findByUsername(username)
-                .orElseThrow(() -> {
-                    return new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다. :" +username);
-                });
+                .orElseThrow(() -> new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다. : " + username));
         
-        return new UserDetailsImpl(principal); //조회된 회원 정보(principal) 시큐리티 세션에 user 정보 저장, UserDetailsImpl 타입
+        //조회된 회원 정보(principal) 시큐리티 세션에 user 저장, UserDetailsImpl 타입
+        System.out.println(principal);
+        return new UserDetailsImpl(principal);
     }
 }
 

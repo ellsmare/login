@@ -2,13 +2,9 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<nav th:block th:fragment="navFragment">
+<th:block th:fragment="navFragment">
     <!-- nav -->
     <div class="nav-body">
-        <div class="jumbotron text-center" id="nav-top">
-            <h1>NewsFeed Page</h1>
-            <p>Resize this responsive page to see the effect!</p>
-        </div>
         <!-- Brand -->
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <a class="navbar-brand" th:href="@{/}">Navbar home </a>
@@ -43,12 +39,12 @@
                 <!-- Dropdown -->
                 <div class="dropdown">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        Dropdown button
+                        post
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item-text" th:href="@{/auth/post-form}">Link postsList</a>
-                        <a class="dropdown-item" th:href="@{/users/post-detail-form}">Link postDetail </a>
+                        <a class="dropdown-item" th:href="@{/auth/post-form}">Link List</a>
                         <a class="dropdown-item" th:href="@{/users/post-edit-form}">Link postEdit</a>
+                        <a class="dropdown-item-text" th:href="@{/users/info-form}">Link info</a>
                     </div>
                 </div>
             </div>
@@ -58,5 +54,5 @@
             </form>
         </nav>
     </div>
-</nav>
+</th:block>
 </html>

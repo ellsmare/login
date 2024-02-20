@@ -63,10 +63,10 @@ function onLogin() {
             alert(token);
             alert(document.cookie)
 
-            $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+           /* $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
                 jqXHR.setRequestHeader('Authorization', token);
-                alert(jqXHR.setRequestHeader);
-            });
+                alert("ajaxPrefilter");
+            });*/
 
             window.location.href = host;
         })

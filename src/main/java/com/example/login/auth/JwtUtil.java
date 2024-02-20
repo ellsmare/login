@@ -114,6 +114,7 @@ public class JwtUtil {
 */
 
 
+
     // JWT Cookie 에 저장
     public void addJwtToCookie(String token, HttpServletResponse res) {
         try {
@@ -134,14 +135,6 @@ public class JwtUtil {
             logger.info("addJwtToCookie_ addCookie getHeader(token) : " +res.getHeader(cookie.getValue()));
             logger.info("addJwtToCookie_ addCookie getStatus : " +res.getStatus());
 
-            // 토큰 생성 AccessToken, refreshToken
-            // Set-Cookie
-            // res.setHeader("Set-Cookie",
-            //    "refreshToken=" + refreshToken + "; Path=/; HttpOnly; SameSite=None; Secure; expires=" + date););
-
-            // Access 토큰을 헤드에 저장
-            // res.addHeader(AUTHORIZATION_HEADER, token);
-
             // httpOnly 쿠키 :: XSS 안전, 암호화x, csrf 위협, 문자열만 저장
             // js private variable (localStorage) :: CSRF안전, html5 지원 브라우저, xss 위협
 
@@ -149,7 +142,6 @@ public class JwtUtil {
             logger.error(e.getMessage());
         }
     }
-
 
     // JWT 토큰 substring 접두사제거
     public String substringToken(String tokenValue) {
@@ -167,6 +159,7 @@ public class JwtUtil {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (SecurityException | MalformedJwtException | SignatureException e) {
+            //경고:(169, 62) 'io.jsonwebtoken.SignatureException'은(는) 더 이상 사용되지 않습니다
             logger.error("Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
         } catch (ExpiredJwtException e) {
             logger.error("Expired JWT token, 만료된 JWT token 입니다.");

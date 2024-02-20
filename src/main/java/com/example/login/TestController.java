@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class TestController {
 
-    private final MemberRepository memberRepository;
-    private final MemberService memberService;
+   // private final MemberRepository memberRepository;
+    //private final MemberService memberService;
 
 
 

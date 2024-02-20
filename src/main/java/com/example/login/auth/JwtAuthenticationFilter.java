@@ -32,13 +32,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        log.info("로그인 시도:: " + request.getParameter(getUsernameParameter()));
+        log.info("***************************로그인 시도*********************");
+        log.info("로그인 시도 request :: " + request);
         try {
-
-            log.info("getParameter :: " +request.getParameter(getUsernameParameter()));
+            //log.info("로그인 시도 getParameter :: " +request.getParameter(getUsernameParameter()));
 
             //json to java object
             LoginRequestDto requestDto = new ObjectMapper().readValue(request.getInputStream(), LoginRequestDto.class);
+            log.info("로그인 시도:: " + requestDto);
 
             /*
             // form post
@@ -64,7 +65,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        log.info("로그인 성공 및 JWT 생성");
+        log.info("***************************로그인 성공 및 JWT 생성*********************");
         //log.info("authResult__ :: "+((UserDetailsImpl) authResult.getPrincipal()).getUsername());
 
         String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
@@ -74,12 +75,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         jwtUtil.addJwtToCookie(token, response); //쿠키에 담기
 
-        response.addHeader(AUTHORIZATION_HEADER, token); //헤더 담기 spring master 4주차
+        //response.addHeader(AUTHORIZATION_HEADER, token); //헤더 담기 spring master 4주차
+
+        // 토큰 생성 AccessToken, refreshToken
+        // Set-Cookie
+        // res.setHeader("Set-Cookie",
+        //    "refreshToken=" + refreshToken + "; Path=/; HttpOnly; SameSite=None; Secure; expires=" + date););
 
         log.info("successfulAuthentication addHeader v:: " + response.getHeader(AUTHORIZATION_HEADER));
         log.info("successfulAuthentication username :: " + authResult);
 
-        log.info("로그인 성공 및 JWT 생성");
 
     }
 

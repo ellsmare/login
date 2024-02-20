@@ -8,9 +8,10 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j(topic = "post 게시판 api")
 @RequiredArgsConstructor
 @RestController
 //@RequestMapping("/api")
@@ -31,8 +32,7 @@ public class ApiPostJwtController {
     public ResponseDto<String> deleteBoard(@PathVariable Long id, HttpSession session) {
         UserEntity userentity = (UserEntity) session.getAttribute("principal");
         //검증만 사용
-        
-        System.out.println("_____ 삭제 deleteBoard : "+userentity);
+        log.info("_____ 삭제 deleteBoard : "+userentity);
         
         postService.deletePost(id);
 
@@ -43,7 +43,8 @@ public class ApiPostJwtController {
     @PutMapping("/users/posts/{id}")
     public ResponseDto<String> updatePost(@PathVariable Long id, @RequestBody PostFormDto requestDto, HttpSession session) {
         UserEntity userentity = (UserEntity) session.getAttribute("principal");
-        System.out.println("_____ 수정 updatePost : "+userentity);
+        log.info("_____ 수정 updatePost : "+userentity);
+
 
         //로그인 상태==글쓰기 가능, 접근이 불가능하지만 혹시모르니깐
         if (userentity== null) {
@@ -70,31 +71,21 @@ public class ApiPostJwtController {
 
     // post save
     @PostMapping("/users/posts")
-    public ResponseDto<String> posts(@RequestBody PostFormDto postFormDTO, @AuthenticationPrincipal UserDetailsImpl principal) {
-        System.out.println("save post ::" + postFormDTO);
-        System.out.println("save post ::" + principal);
+    public ResponseDto<String> posts(@RequestBody PostFormDto postFormDTO, @AuthenticationPrincipal UserDetailsImpl userDetails, UserEntity principal) {
+        log.info("save post postFormDTO ::" + postFormDTO);
+        log.info("save post userDetails ::" + userDetails);
+        log.info("save post principal ::" + principal);
 
-        // 게시물 작성하기
-        postService.savePost(postFormDTO, principal);
-        System.out.println("____글쓰기 postService 통과: ");
+        // 인증 정보 확인
+        UserEntity user = userDetails.getUser();
 
-        return new ResponseDto<>(HttpStatus.OK.value(), "성공");
+        log.info("save post getUser ::" + user);
+
+        // postFormDTO 저장
+        postService.savePost(postFormDTO, user);
+        log.info("____글쓰기 postService 통과: ");
+
+        return new ResponseDto<>(HttpStatus.OK.value(), "글쓰기 성공");
     }
-
-
-   /*
-   // post save jwt
-    @PostMapping("/test/board")
-    public ResponseDto<String> save(@RequestBody PostFormDto postFormDTO, @AuthenticationPrincipal PrincipalDetail principal)  {
-        System.out.println("save post ::" + postFormDTO);
-
-
-        // 포함된 데이터를 게시물 작성하기
-        postService.saveBoard(postFormDTO, principal.getUser());
-        ResponseDto response = new ResponseDto<>(HttpStatus.OK.value(), "성공");
-        return response;
-    }
-*/
-
 
 }

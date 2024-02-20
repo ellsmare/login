@@ -2,6 +2,7 @@
 <html layout:decorate="~{common/layouts/layout}"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       lang="ko">
 <head>
     <title>뉴스피스</title>
@@ -10,23 +11,7 @@
         <link rel="stylesheet"  type="text/css"  th:href="@{/css/sign.css}">
         <link rel="stylesheet"  th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script>
-        function onclickAdmin() {
-            // Get the checkbox
-            // var checkBox = document.getElementById("admin-check");
-            const checkBox = document.getElementById("admin-check");
-            // Get the output text
-            // var box = document.getElementById("admin-token");
-            const box = document.getElementById("admin-token");
 
-            // If the checkbox is checked, display the output text
-            if (checkBox.checked === true) {
-                box.style.display = "block";
-            } else {
-                box.style.display = "none";
-            }
-        }
-    </script>
 
          <!--css/js  end-->
 </head>
@@ -90,12 +75,28 @@
                     </div>
                 </div>
             <button class="btn btn-lg btn-primary btn-block" id="btn-save" onclick="signup()">가입 완료</button>
-            <script type="text/javascript" th:src="@{/js/sign.js}"></script>
         </div>
     </div>
+    <script type="text/javascript" th:src="@{/js/sign.js}"></script>
+
     <script>
-<!--onclickAdmin  todo -->
+        function onclickAdmin() {
+            // Get the checkbox
+            // var checkBox = document.getElementById("admin-check");
+            const checkBox = document.getElementById("admin-check");
+            // Get the output text
+            // var box = document.getElementById("admin-token");
+            const box = document.getElementById("admin-token");
+
+            // If the checkbox is checked, display the output text
+            if (checkBox.checked === true) {
+                box.style.display = "block";
+            } else {
+                box.style.display = "none";
+            }
+        }
     </script>
+
 </th:block>
 </html>
 <!--

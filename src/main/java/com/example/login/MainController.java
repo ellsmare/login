@@ -12,15 +12,12 @@ import java.security.Principal;
 public class MainController {
 
 
-
-
     // 메인 페이지
     @GetMapping({"", "/"})
     public String index() {
         //  model.addAttribute("username", "username");
-        return "/index";
+        return "index";
     }
-
 
     // 오류 페이지
     @GetMapping("/auth/error-form")
@@ -28,11 +25,6 @@ public class MainController {
         return "common/page/error";
     }
 
-    //test
-    @GetMapping("/test")
-    public String test() {
-        return "타임리프 확인";
-    }
 
     // test
     @GetMapping("/thymeleaf")

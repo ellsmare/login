@@ -14,7 +14,7 @@ public class UserFormController {
     // infoEdit 페이지
     @GetMapping("/users/info-edit-form")
     public String infoEdit() {
-        return "profleEditForm";
+        return "user/profleEditForm";
     }
 
 

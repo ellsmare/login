@@ -2,7 +2,6 @@ package com.example.login.auth;
 
 import com.example.login.user.UserEntity;
 import com.example.login.user.UserRole;
-import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
