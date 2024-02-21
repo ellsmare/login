@@ -16,7 +16,7 @@ let index = {
         // console.log(data);
         $.ajax({
             type: "POST",
-            url: "/users/posts",
+            url: "/api/v1/users/posts",
             data: JSON.stringify(data),                     // http body 데이터(json형식)
             contentType: "application/json; charset=utf-8", // body데이터가 어떤 타입인지(MIME)
             dataType: "json"                                // 응답시 json 형태를 => javascript 오브젝트로 변환

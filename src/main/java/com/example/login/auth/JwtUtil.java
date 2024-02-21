@@ -1,5 +1,6 @@
 package com.example.login.auth;
 
+import com.example.login.user.ResponseDto;
 import com.example.login.user.UserRole;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -110,6 +112,9 @@ public class JwtUtil {
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();
+
+            // httpOnly 쿠키 :: XSS 안전, 암호화x, csrf 위협, 문자열만 저장
+            // js private variable (localStorage) :: CSRF안전, html5 지원 브라우저, xss 위협
     }
 */
 
@@ -117,6 +122,8 @@ public class JwtUtil {
 
     // JWT Cookie 에 저장
     public void addJwtToCookie(String token, HttpServletResponse res) {
+        logger.info("***************** addJwtToCookie ******************** ");
+
         try {
 
             token = URLEncoder.encode(token, "utf-8").replaceAll("\\+", "%20"); // Cookie Value 에는 공백이 불가능해서 encoding 진행
@@ -131,16 +138,11 @@ public class JwtUtil {
 
             // Response 객체에 Cookie 추가
             res.addCookie(cookie);
-            logger.info("addJwtToCookie_ addCookie getHeaderNames : " +res.getHeaderNames());
-            logger.info("addJwtToCookie_ addCookie getHeader(token) : " +res.getHeader(cookie.getValue()));
-            logger.info("addJwtToCookie_ addCookie getStatus : " +res.getStatus());
-
-            // httpOnly 쿠키 :: XSS 안전, 암호화x, csrf 위협, 문자열만 저장
-            // js private variable (localStorage) :: CSRF안전, html5 지원 브라우저, xss 위협
 
         } catch (UnsupportedEncodingException e) {
             logger.error(e.getMessage());
         }
+
     }
 
     // JWT 토큰 substring 접두사제거

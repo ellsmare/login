@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 /*Ctrl + Alt + O*/
 
 @Configuration
@@ -72,7 +73,7 @@ public class Config {
 
         http
                 .formLogin((formLogin) -> formLogin         //폼로그인 사용설정
-                        .loginPage("/auth/login-form")      // 로그인 View 제공
+                        .loginPage("/api/v1/auth/login-page")      // 로그인 View 제공
                         //.defaultSuccessUrl("/", false) // 로그인 완료 후 이전 페이지 이동
                         //.failureUrl("/auth/error-form")     // 로그인 실패 URL (기본 에러 페이지로 넘어감)
                        // .loginProcessingUrl("/auth/login")  // 로그인 처리 Url(POST /api/user/login)
@@ -84,7 +85,7 @@ public class Config {
                         //.invalidateHttpSession(true)
                         //.deleteCookies("JSESSIONID")
                         .logoutSuccessUrl("/")
-                        //.logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/api/v1/users/logout"))
                         .permitAll()
                 );
 

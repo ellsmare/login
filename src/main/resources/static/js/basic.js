@@ -1,4 +1,20 @@
-// //
+
+    function logout() {
+
+    var cookieDomain = getCookieDomain('Authorization');
+    alert(cookieDomain);
+    console.log(cookieDomain);
+
+    // 토큰 삭제
+    Cookies.remove('Authorization', {path: '/'});
+    //window.location.href = host + '/api/user/login-page';
+}
+
+
+
+
+
+
 // // const host = 'http://' + window.location.host;
 // function logout() {
 //     // 토큰 삭제

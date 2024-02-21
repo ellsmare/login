@@ -15,14 +15,14 @@ public class MainController {
 
 
     // 메인 페이지
-    @GetMapping({"", "/"})
+    @GetMapping({"", "/", "api/v1"})
     public String index() {
         //  model.addAttribute("username", "username");
         return "index";
     }
 
     // 오류 페이지
-    @GetMapping("/auth/error-form")
+    @GetMapping("/api/v1/auth/error")
     public String error() {
         return "common/page/error";
     }

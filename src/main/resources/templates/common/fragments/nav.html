@@ -14,16 +14,16 @@
             <div class="collapse navbar-collapse" id="navbarsExampleDefault" >
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item" >
-                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/auth/login-form}">로그인</a>
+                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/api/v1/auth/login-page}">로그인</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/auth/signup-form}">회원가입</a>
+                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/api/v1/auth/signup}">회원가입</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/users/info-form}">내정보</a>
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/api/v1/users/info}">내정보</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/users/logout}" onclick="logout()">로그아웃</a>
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:action="@{/api/v1/users/logout}" onclick="logout()">로그아웃</a>
                     </li>
                     <li class="nav-item">
                         <!--        <a class="nav-link disabled" sec:authorize="hasAuthority('ADMIN') or hasAuthority('USER')" href="/users/info">내정보</a><br>-->
@@ -32,7 +32,7 @@
                         <!--        <a class="nav-link disabled" sec:authorize="hasAuthority('ADMIN')" href="/users/admin">admin</a><br>-->
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0" th:action="@{/users/logout}" method="post" sec:authorize="isAuthenticated()">
+                <form class="form-inline my-2 my-lg-0" th:href="@{/api/v1/users/logout}" method="post" sec:authorize="isAuthenticated()">
                     <span class="text-white mr-2 mx-2" sec:authentication="name">사용자</span>
                     <span class="text-white mr-2 mx-2" sec:authentication="principal.authorities">권한</span>
                 </form>
@@ -42,9 +42,10 @@
                         post
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" th:href="@{/auth/post-form}">Link List</a>
-                        <a class="dropdown-item" th:href="@{/users/post-edit-form}">Link postEdit</a>
-                        <a class="dropdown-item-text" th:href="@{/users/info-form}">Link info</a>
+                        <a class="dropdown-item" th:href="@{/api/v1/auth/posts}">Link List</a>
+                        <a class="dropdown-item" th:href="@{/api/v1/users/post-edit}">Link postEdit</a>
+                        <a class="dropdown-item-text" th:href="@{/api/v1/users/info}">Link info Edit </a>
+                        <a class="dropdown-item-text" th:href="@{/api/v1/users/profile}">Link profile</a>
                     </div>
                 </div>
             </div>

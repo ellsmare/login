@@ -49,6 +49,7 @@
    <sec:authorize access="isAuthenticated()" th:text="|로그인: ${principal.name}님 ${principal.authorities}|">-->
 <!--    </sec:authorize>-->
     <div class="main-head" sec:authorize="hasRole('ROLE_ADMIN')" >관리자님 환영합니다.</div>
+    <div class="main-head" sec:authorize="hasRole('ROLE_USER')" > 사용자님 환영합니다.</div>
 
     <a href="/">메인으로 이동</a>
 
@@ -121,11 +122,7 @@
         // var xhr = new XMLHttpRequest();
         // xhr.withCredentials = true; // Enable sending cookies
         //
-        function logout() {
-            // 토큰 삭제
-            Cookies.remove('Authorization', {path: '/'});
-            //window.location.href = host + '/api/user/login-page';
-        }
+
 
     </script>
 </th:block>

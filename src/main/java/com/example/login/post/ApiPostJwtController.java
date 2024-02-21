@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j(topic = "post 게시판 api")
 @RequiredArgsConstructor
 @RestController
-//@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class ApiPostJwtController {
     public final PostService postService;
     public final PostRepository postRepository;
@@ -70,7 +70,7 @@ public class ApiPostJwtController {
 //@RequestBody PostFormDto postFormDTO,  @AuthenticationPrincipal UserEntity userDetails
 
     // post save
-    @PostMapping("/users/posts")
+    @GetMapping("/users/posts")
     public ResponseDto<String> posts(@RequestBody PostFormDto postFormDTO, @AuthenticationPrincipal UserDetailsImpl userDetails, UserEntity principal) {
         log.info("save post postFormDTO ::" + postFormDTO);
         log.info("save post userDetails ::" + userDetails);

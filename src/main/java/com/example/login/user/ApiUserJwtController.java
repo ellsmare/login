@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j(topic = "ApiUserJwtController")
 @RequiredArgsConstructor
 @RestController
-//@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class ApiUserJwtController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
@@ -56,19 +56,20 @@ public class ApiUserJwtController {
         return user;
     }
 */
+    
+/*
+    // 계정삭제  detail
+    public UserEntity detail(@PathVariable long idx){
 
+        memberService.update(idx);
 
-//    public UserEntity detail(@PathVariable long idx){
-//
-//        memberService.update(idx);
-//
-//        System.out.println("detail : " + userEntity);
-//        if(userEntity==null) {
-//            System.out.println("getInfo 실패했습니다:: response null");
-//            throw new IllegalArgumentException("로그인이 필요합니다.");
-//        };
-//        return
-//    }
+        System.out.println("detail : " + userEntity);
+        if(userEntity==null) {
+            System.out.println("getInfo 실패했습니다:: response null");
+            throw new IllegalArgumentException("로그인이 필요합니다.");
+        };
+        return
+    }*/
 
 
     //findById - 내 정보 수정  update
@@ -84,12 +85,19 @@ public class ApiUserJwtController {
 
 //        memberService.update(userDetails);
 
-
         new ResponseDto<>(HttpStatus.OK.value(), "성공");
     }*/
 
 
     /* 로그아웃  :: 시큐리티 + 프론트단 쿠키 삭제   todo 보통 토큰 만료 */
+    ///api/v1/users/logout
+    @PostMapping("/users/logout")
+    public ResponseDto<String> logout(){
+
+
+        return new ResponseDto<>(HttpStatus.OK.value(), "logout 성공");  //(HttpStatus status,data)
+    }
+
 
     /*로그인   :: 주석 경로가 겹치면 에러 */
 

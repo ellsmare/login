@@ -55,13 +55,11 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             Claims info = jwtUtil.getUserInfoFromToken(tokenValue);
 
             try {
-
                 log.info("getUserInfoFromToken  tokenValue: "+info.getSubject());
-                log.info("호출되나?????????? ");
-
 
                 // 호출, 토큰에서 추출된 사용자 이름을 전달, 사용자 인증을 시도
                 setAuthentication(info.getSubject());
+
             } catch (Exception e) {
                 log.error(e.getMessage());
                 return;

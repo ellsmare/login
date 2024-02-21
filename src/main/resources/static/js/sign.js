@@ -3,7 +3,7 @@ $(document).ready(function () {
     Cookies.remove('Authorization', {path: '/'});
 });
 
-const href = location.href;
+const href = location.href;   //현재 페이지의 전체 URL
 const host = 'http://' + window.location.host;
 
 /*********************************************************************/
@@ -19,7 +19,7 @@ function signup() {
     // console.log(username);
     $.ajax({
         type: "POST",
-        url: "/auth/signup",
+        url: "/api/v1/auth/signup",
         contentType: "application/json",
         data: JSON.stringify({username: username, password: password, email: email}),
     })
@@ -27,14 +27,15 @@ function signup() {
             if (res.status === 200) {
                 console.log(res)
                 alert('가입 완료');
-                window.location.href = host + '/auth/login-form'
+                window.location.href = host + '/api/v1/auth/login-form'
+                // 새로운 URL로 페이지를 리디렉션
             } else {
                 alert(res)
             }
         })
         .fail(function (res) {
             alert("회원 가입 Fail" +res);
-            window.location.href = host + '/auth/page/error'
+            window.location.href = host + '/api/v1/auth/error'
         });
 }
 
@@ -53,7 +54,7 @@ function onLogin() {
     // console.log(username);
     $.ajax({
         type: "POST",
-        url: "/auth/login",
+        url: "/api/v1/auth/login",
         contentType: "application/json",
         data: JSON.stringify({username: username, password: password}),
     })
@@ -72,7 +73,7 @@ function onLogin() {
         })
         .fail(function (jqXHR, textStatus) {
             alert("Login Fail");
-            window.location.href = host + '/auth/page/error'
+            window.location.href = host + '/api/v1/auth/error'
         });
 }
 
