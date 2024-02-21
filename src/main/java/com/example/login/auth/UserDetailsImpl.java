@@ -2,6 +2,7 @@ package com.example.login.auth;
 
 import com.example.login.user.UserEntity;
 import com.example.login.user.UserRole;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,9 +11,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 
-
-// 시큐리티의 세션저장소에 UserDetailsImpl가 저장    UserDetailsServiceImpl
-public class UserDetailsImpl implements UserDetails {
+@Slf4j(topic = "UserDetailsImpl ")
+public class UserDetailsImpl implements UserDetails { // 시큐리티의 세션저장소에 UserDetailsImpl가 저장
 
     private final UserEntity userEntity; //콤포지션
 
@@ -35,27 +35,27 @@ public class UserDetailsImpl implements UserDetails {
     }
 
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //권한반환 Collection<? extends GrantedAuthority //익명메소드 상속> 타입
+
+        log.info("************************** getAuthorities *********************");
 
         UserRole role = userEntity.getRole();
         String authority = role.getAuthority();  // "Role_" 스프링 규칙!!  return :: ROLE_USER/ROLE_ADMIN
 
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(authority);
-        System.out.println("---------- PrincipalDetailsImpl simpleGrantedAuthority : " + simpleGrantedAuthority);
+        log.info("simpleGrantedAuthority :: " + simpleGrantedAuthority);
+
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(simpleGrantedAuthority);
-        System.out.println("---------- PrincipalDetailsImpl collections: " + authorities);
+        log.info("authorities :: " + authorities);
 
         return authorities;
     }
 
-    // spring master 10.'Spring Security'-Authentication todo
-    // Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
+    // spring master 10. 'Spring Security'-Authentication
 
 
     @Override

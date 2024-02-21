@@ -1,22 +1,11 @@
 package com.example.login.post;
 
-import com.example.login.auth.UserDetailsImpl;
-import com.example.login.user.MemberRepository;
 import com.example.login.user.UserEntity;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -50,10 +39,12 @@ public class PostService {
     //상세 페이지
     //게시글 선택 조회 getPos -- 조회?
     public PostEntity getPost(long id) {
-        System.out.println("___getPost id : " + id);
+        System.out.println("___________________________________getPost id : " + id);
         return postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("페이지를 찾을 수 없습니다.")
         );
+
+
     }
 
 

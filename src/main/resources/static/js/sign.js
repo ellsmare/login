@@ -23,7 +23,7 @@ function signup() {
         contentType: "application/json",
         data: JSON.stringify({username: username, password: password, email: email}),
     })
-        .done(function (res, status, xhr) {
+        .done(function (res) {
             if (res.status === 200) {
                 console.log(res)
                 alert('가입 완료');
@@ -32,8 +32,8 @@ function signup() {
                 alert(res)
             }
         })
-        .fail(function (jqXHR, textStatus) {
-            alert("회원 가입 Fail");
+        .fail(function (res) {
+            alert("회원 가입 Fail" +res);
             window.location.href = host + '/auth/page/error'
         });
 }
@@ -63,10 +63,10 @@ function onLogin() {
             alert(token);
             alert(document.cookie)
 
-           /* $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
                 jqXHR.setRequestHeader('Authorization', token);
                 alert("ajaxPrefilter");
-            });*/
+            });
 
             window.location.href = host;
         })

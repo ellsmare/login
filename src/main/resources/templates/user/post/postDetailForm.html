@@ -20,19 +20,51 @@
           폰트 넣는 방법 찾아보기
           설명이 있어서 좋긴한데 첫줄이 가린다 공백 띄우는법 찾아보기
    -->
+
+            <!--    기본             <li>request = <span th:text="${#request}"></span></li>-->
+            <!--    편의             <li>Request Parameter = <span th:text="${param.paramData}"></span></li>-->
+            <!--                <li>session = <span th:text="${session.sessionData}"></span></li>-->
+
+            <!--                <li>request = <span th:text="${#request}"></span></li>-->
+            <!--                <li>response = <span th:text="${#response}"></span></li>-->
+            <!--                <li>session = <span th:text="${#session}"></span></li>-->
+            <!--
+                <li>servletContext = <span th:text="${#servletContext}"></span></li>
+
+                <li>session = <span th:text="${session.sessionData}"></span></li>
+                <li>Request Parameter = <span th:text="${param.paramData}"></span></li>
+
+                <li><a th:href="@{/hello}">basic url</a></li>
+                <li><a th:href="@{/hello(param1=${param1}, param2=${param2})}">query param</a></li>
+                <li><a th:href="@{/hello/{param1}/{param2}(param1=${param1}, param2=${param2})}">path variable</a></li>
+                <li><a th:href="@{/hello/{param1}(param1=${param1}, param2=${param2})}">path variable + query parameter</a></li>
+            -->
+
+            <!--  고정된 값      <span th:text="|hello ${data}|">-->
+            <!--/* [[${data}]] */-->
+
+
             <h1> postEdit </h1>
             <form id="postForm">
                 <div class="form-group">
-<!--                    <h3 th:text="${board.title}"></h3>-->
-                    <h3>${board.title}</h3>
+                    <label th:for="title">Title</label>
+                    <h3>${post.title}</h3>
+<!--                    <h3><span th:text="${post.title}"></span></h3>-->
+                    <p>Title = <span th:text="|hello ${post.title}|"></span></p>
                 </div>
                 <div class="form-group">
-<!--                    <h3 th:text="${board.content}"> </h3>-->
-                    <h3>${board.content}</h3>
+                    <label th:for="content">Content</label>
+                    <div>${post.content}</div>
+<!--                    <div><span th:text="${post.content}"></span></div>-->
+<!--                    <p>content = <span th:text="${post.content}"></span></p>-->
+                    <p>hello content = <span th:text="|hello ${post.title}|"></span></p>
+
                 </div>
             </form>
+            <!--글 작성자만 보이는 버튼-->
             <button type="button" id="btn-post-update" class="btn btn-default" value="수정"></button>
             <button type="button" id="btn-post-delete" class="btn btn-default" value="삭제"></button>
+
         </div>
     </div>
     <script th:src="@{/js/post.js}"></script>

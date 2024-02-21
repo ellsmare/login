@@ -17,10 +17,11 @@ public class PostController {
     /** controller  return "templates path"   -form */
 
     // 게시판 상세 페이지(수정,삭제 버튼) user권한필요  getPostDetail findById
-    @GetMapping("/users/post-detail-form/{id}")
-    public String postDetail(@PathVariable Long id) {
+    @GetMapping("/users/posts/{id}")
+    public String postDetail(@PathVariable Long id, Model model) {
         System.out.println("_____findPostById : "+id);
-        postService.getPost(id);
+
+        model.addAttribute("post", postService.getPost(id));
         return "user/post/postDetailForm";
     }
 
@@ -36,7 +37,7 @@ public class PostController {
     @GetMapping("/auth/post-form")
     public String posts(Model model, @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
-        model.addAttribute("postEntity",postService.postList(pageable));  //pageable
+        model.addAttribute("posts",postService.postList(pageable));  //pageable
         return "user/post/postListForm";
     }
 

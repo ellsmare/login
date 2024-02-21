@@ -10,8 +10,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserDetailsServiceImpl implements UserDetailsService  {
+public class UserDetailsServiceImpl implements UserDetailsService {
+
     private final MemberRepository memberRepository;
+
+   /* public UserDetailsServiceImpl(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }*/
 
     //시큐리티 로그인 가로채기:: username, password 변수 2개
     //username이 db에 있는지 확인
@@ -19,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity principal = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다. : " + username));
-        
+
         //조회된 회원 정보(principal) 시큐리티 세션에 user 저장, UserDetailsImpl 타입
         System.out.println(principal);
         return new UserDetailsImpl(principal);

@@ -1,7 +1,9 @@
 package com.example.login;
 
 import com.example.login.auth.UserDetailsImpl;
+import com.example.login.user.UserEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +31,10 @@ public class MainController {
     // test
     @GetMapping("/thymeleaf")
     public String thymeleaf(Model model) {
-        model.addAttribute("haha", "타임리프환결설정");
+        //model.addAttribute("haha", "타임리프환결설정");
+
         return "index";
     }
+
+
 }

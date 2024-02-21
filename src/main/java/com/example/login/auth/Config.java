@@ -13,14 +13,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 /*Ctrl + Alt + O*/
 
-@RequiredArgsConstructor
 @Configuration
-@EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true)
-public class config {
+@EnableWebSecurity // Spring Security 지원을 가능하게 함
+@RequiredArgsConstructor
+public class Config {
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthenticationConfiguration authenticationConfiguration;
@@ -83,10 +81,10 @@ public class config {
 
         http
                 .logout((logout) -> logout
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
+                        //.invalidateHttpSession(true)
+                        //.deleteCookies("JSESSIONID")
                         .logoutSuccessUrl("/")
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
+                        //.logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
                         .permitAll()
                 );
 

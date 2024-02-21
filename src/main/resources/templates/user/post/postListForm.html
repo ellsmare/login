@@ -33,13 +33,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="board:${boards}">
-                            <td class="number" th:text="${board.id}"></td>
-                            <td class="title" th:text="${board.title}"></td>
+                        <tr th:each="post:${posts}">
+                            <td class="number" th:text="${post.id}"></td>
+                            <td class="title" th:text="${post.title}"></td>
                             <!--                            <td class="title" th:text="${board.content}"></td>-->
                             <!--                            <td class="name" th:text="${board.nickname}"></td>-->
-                            <td class="time" th:text="${board.createdDate}"></td>
-                            <td class="count" th:text="${board.count}"></td>
+                            <td class="time" th:text="${post.createdDate}"></td>
+                            <td class="count" th:text="${post.count}"></td>
                             <!--                            <td class="hit" th:text="${board.hit}"></td>-->
                         </tr>
 
