@@ -9,7 +9,7 @@ let index = {
         //alert('save함수 호출됨');
         let data = {
             title: $('#title').val(),     // id=title
-            content: $('#content').val() //  id=content   content 확인하기
+            content: $('#content').val() //  id=content
             // img: $('#img').val()
         };
         //alert('save data : ' + data);
@@ -25,11 +25,13 @@ let index = {
             .done(function (resp) {                     //controller에서 return받은 message부분?? 페이지가 들어오는것 같다.
                 console.log(resp)
                 alert('글쓰기 완료');
-                location.href = '/api/v1/auth/posts';                 //저장이 완료된 이후 이동하는 url
+                window.location.replace("/api/v1/auth/posts")
+                //location.href = '/api/v1/auth/posts';                 //저장이 완료된 이후 이동하는 url
             })
             .fail(function (error) {
                 console.log(error);
             });
+
 
         /*   success: function (res) {
                if((res.status)===200){

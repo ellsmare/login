@@ -66,15 +66,15 @@ public class JwtConfig {
                 sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
         http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                //.anyRequest().permitAll());
+               .anyRequest().permitAll());
                 //.requestMatchers("/css/**", "/js/**", "/images/**", "/plugin/**", "/vendor/**", "/api/v1", "/api/v1/auth/signup").permitAll()    // 정적 리소스
-                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
-                .requestMatchers("/api/v1","/api/v1/auth/**").permitAll()                                     // 시작하는 요청 모두 접근
-                .requestMatchers("/api/v1/users/**").hasAnyRole("USER", "ADMIN")
-                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
-
-               .anyRequest().authenticated()
-        );
+//                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
+//                .requestMatchers("/api/v1","/api/v1/auth/**").permitAll()                                     // 시작하는 요청 모두 접근
+//                .requestMatchers("/api/v1/users/**").hasAnyRole("USER", "ADMIN")
+//                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+//
+//               .anyRequest().authenticated()
+//        );
 
         http
                 .formLogin((formLogin) -> formLogin         //폼로그인 사용설정

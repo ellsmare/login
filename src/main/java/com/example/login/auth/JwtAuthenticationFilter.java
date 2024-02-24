@@ -84,7 +84,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setCharacterEncoding("UTF-8");
         writer.print("{\"status\":\"success\",\"message\":\"login ok\"}");
         writer.close();
-        writer.flush();
+        writer.flush();  //버퍼쪽 문제가 없을 거라고 한다.
+        //클라이언트쪽 쿠키관련은 전부 빼버렸는데 처리해줘야하는게 맞다는데....
+        //지금 동작하는데 어떻하지? 제한 뒀을때 안되면 처리 추가해야 하나?
 
     }
 

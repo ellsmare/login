@@ -6,6 +6,7 @@ import com.example.login.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -46,14 +47,6 @@ public class PostEntity extends BaseTimeEntity{
     private List<PostFileEntity> postFile;
 
 
-//    @CreationTimestamp
-//    @Column(updatable = false)
-
-
-//    private Timestamp createdAt;
-//    @UpdateTimestamp
-//    private Timestamp modifiedAt;
-
 
     public void setTitle(String title) {
         this.title = title;
@@ -67,6 +60,14 @@ public class PostEntity extends BaseTimeEntity{
         this.title = title;
         this.content = content;
     }
+
+
+
+//    @CreationTimestamp
+//    @Column(updatable = false)
+//    private Timestamp createdAt;
+//    @UpdateTimestamp
+//    private Timestamp modifiedAt;
 
 }
 

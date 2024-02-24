@@ -11,8 +11,8 @@ function singUp() {
     let password = $('#password').val();
     let email = $('#email').val();
 
-    // alert(username);
     // console.log(username);
+    // alert(username);
     $.ajax({
         type: "POST",
         url: "/api/v1/auth/signup",

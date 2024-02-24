@@ -1,7 +1,14 @@
 package com.example.login.post;
 
+import com.example.login.auth.UserDetailsImpl;
 import com.example.login.user.MemberRepository;
+import com.example.login.user.ResponseDto;
+import com.example.login.user.UserEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -22,8 +29,32 @@ public class ApiReplyJwtController {
     // 상세보기
 
     // save
-
     // 조회
+
+
+
+
+    // save
+/*
+    @PostMapping("/users/posts/{id}")
+    public ResponseDto<String> posts(@RequestBody ReplyRequestDto replyRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        log.info("******posts 게시글 저장*********");
+
+        // 로그인 확인
+        UserEntity user = userDetails.getUser();
+
+        // postRequestDTO 저장
+        postService.savePost(postRequestDto, user);
+
+        // 반환 정보 추가 :: 팔로우, 좋아요, 댓글
+        log.info("******posts 게시글 저장*********");
+        return new ResponseDto<>(HttpStatus.OK.value(), "글쓰기 성공");
+    }
+
+*/
+
+
+
 
 
 

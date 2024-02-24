@@ -1,5 +1,8 @@
 package com.example.login.post;
 
+import com.example.login.post.file.FileRepository;
+import com.example.login.post.file.PostFileEntity;
+import com.example.login.post.file.PostFileRequestDto;
 import com.example.login.user.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
@@ -11,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.util.UUID;
 
@@ -19,6 +23,7 @@ import java.util.UUID;
 //@Transactional
 public class PostService {
     private final PostRepository postRepository;
+    private final FileRepository fileRepository;
 
 
     // 게시글 삭제
@@ -27,41 +32,30 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
-/*
+    //상세 페이지 조회
+    public PostResponseDto getPost(long id) {
+        System.out.println("_____상세페이지 조회 : " + id);
+        PostEntity posts = postRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("페이지를 찾을 수 없습니다.")
+        );
 
-    // 게시글 저장
-    @Transactional
-    public void savePost(PostEntity postEntity,
-                           PostRequestDto postRequestDto,
-                           UserEntity principal) {
-        System.out.println("____글쓰기 savePost: " + principal);
+        PostResponseDto responseDto = new PostResponseDto(posts);
 
-        // 작성자 확인
-        if(postEntity.getUserEntity().getId() != principal.getId()) {
-            throw new IllegalArgumentException("글수정은 작성자만 가능합니다.");
-        }
-
-        // 글 저장
-        PostEntity postDto = PostEntity.builder()
-                .count(0)
-                .title(postRequestDto.getTitle())
-                .content(postRequestDto.getContent())
-                .userEntity(principal)
-                .build();
-
-        postRepository.save(postDto);
-//
-//
-//        // CollectionUtils.isEmpty(객체)
-//        if(postRequestDto.getFiles() == null || postRequestDto.getFiles().isEmpty()){
-//            throw new IllegalArgumentException("저장할 수 없는 파일입니다.");
-//        }
-//
+        //System.out.println("_____상세페이지 조회 : " + posts);
+        System.out.println("_____상세페이지 조회 : " + responseDto);
+        return responseDto;
+    }
 
 
 
 
-*/
+
+
+
+    /*
+
+
+     */
 /*
 
 
@@ -104,21 +98,9 @@ public class PostService {
 */
 
 
-    //상세 페이지
-    public PostEntity getPost(long id) {
-        System.out.println("_____상세페이지 조회 : " + id);
-        PostEntity posts = postRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("페이지를 찾을 수 없습니다.")
-        );
-
-
-        System.out.println("_____상세페이지 조회 : " + posts);
-        return posts;
-    }
-
     //글작성
     @Transactional
-    public void savePost(PostRequestDto postRequestDto, UserEntity principal) {
+    public void savePost(PostRequestDto postRequestDto, PostFileRequestDto postFileRequestDto, UserEntity principal) {
         System.out.println("____글쓰기 : " + principal);
 
         // 글 저장
@@ -131,13 +113,53 @@ public class PostService {
 
         postRepository.save(postDto);
 
+        //img 저장   location: c:/intellij/post/
+        //파일 저장할 경우/아닐경우
+        if (postFileRequestDto.getFiles() != null && !postFileRequestDto.getFiles().isEmpty()) {
+            //MultipartFile 다중 파일 처리
+            for (MultipartFile file : postFileRequestDto.getFiles()) {
+
+                // 파일 확장자 추출
+                String fileExt =FilenameUtils.getExtension(file.getOriginalFilename());
+                String fileName = file.getOriginalFilename();
+
+                //
+                UUID uuid = UUID.randomUUID();
+                //중복x
+                String imageFileName = uuid + "_" + fileName;
+
+                File destinationFile = new File(uploadFolder + imageFileName);
+
+                try {
+                    file.transferTo(destinationFile);
+                } catch (IOException e) {
+                    System.out.println("____파일저장 : " + e.getMessage());
+                    throw new RuntimeException(e);
+                }
+
+                PostFileEntity image = PostFileEntity.builder()
+                        .fileName(fileName)
+                        .filepath("/file/" + imageFileName)
+                        .fileExt(fileExt)
+                        .fileSize()
+                        .postEntity(postDto)
+                        .build();
+
+                fileRepository.save(image);
+            }
+
+
+        postDto.getId();     //실패시 롤백처리
         System.out.println("____글쓰기 postRepository 통과 postDto : " + postDto.getUserEntity());
     }
+}
+
 
     //게시글 목록
     public Page<PostEntity> postList(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
+
 }
 
 

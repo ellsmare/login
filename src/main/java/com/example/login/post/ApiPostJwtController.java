@@ -1,6 +1,7 @@
 package com.example.login.post;
 
 import com.example.login.auth.UserDetailsImpl;
+import com.example.login.post.file.PostFileRequestDto;
 import com.example.login.user.MemberRepository;
 import com.example.login.user.ResponseDto;
 import com.example.login.user.UserEntity;
@@ -37,7 +38,7 @@ public class ApiPostJwtController {
 
 /*
 
-    // 게시글 저장 post???
+    // 게시글 저장 post??? 업데이트??
     @PutMapping("/users/posts/{id}")
     public ResponseDto<String> updatePost(@PathVariable Long id,
                                           @RequestBody PostRequestDto postRequestDto,
@@ -52,7 +53,7 @@ public class ApiPostJwtController {
                 () -> new IllegalArgumentException("페이지를 찾을 수 없습니다.")
         );
 
-        postService.savePost(postEntity, postRequestDto, userEntity);
+        postService.savePost(postEntity, postRequestDto);
 
         log.info("**** updatePost service 통과 *****");
 
@@ -63,13 +64,37 @@ public class ApiPostJwtController {
 
 */
 
-//@RequestBody PostRequestDto postFormDTO,  @AuthenticationPrincipal UserEntity userDetails
     // post save
     @PostMapping("/users/posts")
-    public ResponseDto<String> posts(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseDto<String> posts(@RequestBody PostRequestDto postRequestDto,
+                                     @ModelAttribute PostFileRequestDto postFileRequestDto,
+                                     @AuthenticationPrincipal UserDetailsImpl userDetails) throws Exception {
         log.info("******posts 게시글 저장*********");
 
+        // 로그인 확인
+        UserEntity user = userDetails.getUser();
 
+        // postRequestDTO 저장
+        postService.savePost(postRequestDto, postFileRequestDto,user);
+
+
+        // 반환 정보 추가 :: 팔로우, 좋아요, 댓글
+        log.info("******posts 게시글 저장*********");
+
+        return new ResponseDto<>(HttpStatus.OK.value(), "글쓰기 성공");
+    }
+
+
+
+
+
+
+
+    /* 이미지 수정중 백업 */
+    // post save
+/*    @PostMapping("/users/posts")
+    public ResponseDto<String> posts(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        log.info("******posts 게시글 저장*********");
 
         // 로그인 확인
         UserEntity user = userDetails.getUser();
@@ -80,31 +105,6 @@ public class ApiPostJwtController {
         // 반환 정보 추가 :: 팔로우, 좋아요, 댓글
         log.info("******posts 게시글 저장*********");
         return new ResponseDto<>(HttpStatus.OK.value(), "글쓰기 성공");
-    }
-
-
-/*
-
-    // post save
-    @PostMapping("/users/posts")
-    public ResponseDto<String> posts(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        log.info("******posts 게시글 저장*********");
-        log.info("postRequestDto : " + postRequestDto.getTitle());
-
-if (userDetails != null) {
-      User userDetail = userService.findByEmail(userDetails.getUsername())
-          .orElseThrow(() -> new UserNotFoundException("작성자를 확인할 수 없습니다."));
-
-
-
-        // postRequestDTO 저장
-        postService.savePost(postRequestDto, user);
-
-        log.info("******posts 게시글 저장*********");
-        return new ResponseDto<>(HttpStatus.OK.value(), "글쓰기 성공");
-    }
-
-*/
-
+    }*/
 
 }

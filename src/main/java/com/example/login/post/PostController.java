@@ -8,10 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -20,6 +17,20 @@ public class PostController {
 
     private final PostService postService;
     /** controller  return "templates path"   -form */
+
+
+
+
+//
+//    @GetMapping("/users/posts/{id}")
+//    public String getPostDetail() {
+//
+//        /*이동 확인 테이스 */
+//
+//        return "user/post/postDetailForm";
+//    }
+
+
 
     // 게시판 상세 페이지(수정,삭제 버튼) /user권한필요  getPostDetail findById user권한필요
     @GetMapping("/users/posts/{id}")
@@ -31,13 +42,12 @@ public class PostController {
     }
 
 
-    // 게시판 글쓰기 페이지(에디터 폼) user권한필요
+    // 게시판 = 글쓰기 페이지(에디터 폼) user권한필요
     @GetMapping("/users/post-edit")
-    public String getPostEdit(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
-//todo
+    public String getPostEdit() {
+
         return "user/post/postEditForm";
     }
-
 
 
     // 게시판 목록 페이지 boards-page

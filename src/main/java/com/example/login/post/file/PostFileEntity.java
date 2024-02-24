@@ -26,18 +26,21 @@ public class PostFileEntity {
     private Long fileSize; // 파일 크기
     private String fileExt; //확장자
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "postId")
-    private PostEntity postEntity;  // m:1  이미지:유저
+    private PostEntity postEntity;  // m:1  이미지:게시글
 
 
-    public PostFileEntity(String fileName, String filepath, Long fileSize, String fileExt) {
+    public PostFileEntity(Long id, String fileName, String filepath, Long fileSize, String fileExt, PostEntity postEntity) {
+        this.id = id;
         this.fileName = fileName;
         this.filepath = filepath;
         this.fileSize = fileSize;
-        this.fileExt=fileExt;
+        this.fileExt = fileExt;
+        this.postEntity = postEntity;
     }
-
-
-
 }
+
+
+
+
