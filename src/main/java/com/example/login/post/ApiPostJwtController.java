@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,11 +21,6 @@ public class ApiPostJwtController {
     public final PostRepository postRepository;
     public final MemberRepository memberRepository;
 
-    //(로그인 첫 시도, 쿠키지원x)타임리프 같은 템플릿-jsessionid 를 URL에 자동으로 포함 :: 세션
-    // :: server.servlet.session.tracking-modes=cookie   todo 리팩토링 or jwt
-    //출처: https://jddng.tistory.com/268 [IT 개발자들의 울타리:티스토리]
-
-    //HttpserveltRequest와 HttpSession 차이??
 
 
     // 게시글 삭제
@@ -32,60 +28,83 @@ public class ApiPostJwtController {
     public ResponseDto<String> deleteBoard(@PathVariable Long id, HttpSession session) {
         UserEntity userentity = (UserEntity) session.getAttribute("principal");
         //검증만 사용
-        log.info("_____ 삭제 deleteBoard : "+userentity);
-        
+        log.info("_____ 삭제 deleteBoard : " + userentity);
+
         postService.deletePost(id);
 
         return new ResponseDto<>(HttpStatus.OK.value(), "성공");
     }
 
-    // 게시글 수정
+/*
+
+    // 게시글 저장 post???
     @PutMapping("/users/posts/{id}")
-    public ResponseDto<String> updatePost(@PathVariable Long id, @RequestBody PostFormDto requestDto, HttpSession session) {
-        UserEntity userentity = (UserEntity) session.getAttribute("principal");
-        log.info("_____ 수정 updatePost : "+userentity);
+    public ResponseDto<String> updatePost(@PathVariable Long id,
+                                          @RequestBody PostRequestDto postRequestDto,
+                                          @AuthenticationPrincipal UserDetailsImpl userDetails) throws Exception {
+        log.info("**** updatePost 시작 *****");
+
+        // 로그인 확인
+        UserEntity userEntity = userDetails.getUser();
+
+        // 게시물 확인
+        PostEntity postEntity = postRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("페이지를 찾을 수 없습니다.")
+        );
+
+        postService.savePost(postEntity, postRequestDto, userEntity);
+
+        log.info("**** updatePost service 통과 *****");
 
 
-        //로그인 상태==글쓰기 가능, 접근이 불가능하지만 혹시모르니깐
-        if (userentity== null) {
-            System.out.println(session.getAttribute("loginOk"));
-            throw new IllegalArgumentException("글쓰기는 로그인 회원만 가능합니다.");
-        }
-
-        //게시글 번호로 게시글 entity   boardRepository.findByIdAndUserId(id, user.getId()).
-        PostEntity post = postService.getPost(id);
-
-        //작성자 == 수정자 동일  :: Nickname   (닉네임은 바뀔 수 있다.  
-        if (userentity.getId()== post.getUserEntity().getId()) {
-            System.out.println(session.getAttribute("loginOk"));
-            throw new IllegalArgumentException("글수정은 작성자만 가능합니다.");
-        }
-
-        postService.updatePost(id, post);
-
-        return new ResponseDto<>(HttpStatus.OK.value(), "성공");
+        return new ResponseDto<>(HttpStatus.OK.value(), "업데이트 성공");
     }
 
 
-//@RequestBody PostFormDto postFormDTO,  @AuthenticationPrincipal UserEntity userDetails
+*/
 
+//@RequestBody PostRequestDto postFormDTO,  @AuthenticationPrincipal UserEntity userDetails
     // post save
-    @GetMapping("/users/posts")
-    public ResponseDto<String> posts(@RequestBody PostFormDto postFormDTO, @AuthenticationPrincipal UserDetailsImpl userDetails, UserEntity principal) {
-        log.info("save post postFormDTO ::" + postFormDTO);
-        log.info("save post userDetails ::" + userDetails);
-        log.info("save post principal ::" + principal);
+    @PostMapping("/users/posts")
+    public ResponseDto<String> posts(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        log.info("******posts 게시글 저장*********");
 
-        // 인증 정보 확인
+
+
+        // 로그인 확인
         UserEntity user = userDetails.getUser();
 
-        log.info("save post getUser ::" + user);
+        // postRequestDTO 저장
+        postService.savePost(postRequestDto, user);
 
-        // postFormDTO 저장
-        postService.savePost(postFormDTO, user);
-        log.info("____글쓰기 postService 통과: ");
-
+        // 반환 정보 추가 :: 팔로우, 좋아요, 댓글
+        log.info("******posts 게시글 저장*********");
         return new ResponseDto<>(HttpStatus.OK.value(), "글쓰기 성공");
     }
+
+
+/*
+
+    // post save
+    @PostMapping("/users/posts")
+    public ResponseDto<String> posts(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        log.info("******posts 게시글 저장*********");
+        log.info("postRequestDto : " + postRequestDto.getTitle());
+
+if (userDetails != null) {
+      User userDetail = userService.findByEmail(userDetails.getUsername())
+          .orElseThrow(() -> new UserNotFoundException("작성자를 확인할 수 없습니다."));
+
+
+
+        // postRequestDTO 저장
+        postService.savePost(postRequestDto, user);
+
+        log.info("******posts 게시글 저장*********");
+        return new ResponseDto<>(HttpStatus.OK.value(), "글쓰기 성공");
+    }
+
+*/
+
 
 }

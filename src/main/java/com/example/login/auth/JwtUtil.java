@@ -1,6 +1,5 @@
 package com.example.login.auth;
 
-import com.example.login.user.ResponseDto;
 import com.example.login.user.UserRole;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -11,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -26,26 +24,20 @@ import java.util.Date;
 public class JwtUtil {
 
 
-    // Header KEY 값
-    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String AUTHORIZATION_HEADER = "Authorization"; // Header KEY 값
+    public static final String AUTHORIZATION_KEY = "auth";    // 사용자 권한 값의 KEY
+    public static final String BEARER_PREFIX = "Bearer ";  // Token 식별자
+    private final long TOKEN_TIME = 864000000; // 10일    60 * 60 * 1000L 60분 ....   // 토큰 만료시간
 
-    // 사용자 권한 값의 KEY
-    public static final String AUTHORIZATION_KEY = "auth";
-
-    // Token 식별자
-    public static final String BEARER_PREFIX = "Bearer ";
-
-    // 토큰 만료시간
-
-    private final long TOKEN_TIME = 864000000; // 10일    60 * 60 * 1000L 60분 ....
 
     @Value("${jwt.secretKey}") // Base64 Encode 한 SecretKey
     private String secretKey;
     private Key key;
     private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
-    // 로그 설정
+
     public static final Logger logger = LoggerFactory.getLogger("JWT 관련 로그 JwtUtil");
+
 
     @PostConstruct
     public void init() {
@@ -69,80 +61,24 @@ public class JwtUtil {
                         .compact();
     }
 
-/*
-
-    // 토큰 생성 refreshToken
-    public String createReToken(String username) {
-        logger.error("__________JwtUtil refreshToken : ");
-
-        //Date date = new Date();
-
-        return BEARER_PREFIX +
-                Jwts.builder()
-                        .setSubject(username)
-                        .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24시간
-                        .signWith(key,signatureAlgorithm)
-                        .compact();
-    }
-
-
-    // 토큰 생성 AccessToken, refreshToken
-    public JwtToken createTwoToken(String username, UserRole role) {
-        logger.error("__________JwtUtil createTwoToken : " + username);
-
-        //Access Token 생성
-        String accessToken = Jwts.builder()
-                .setSubject(username)
-                .claim(AUTHORIZATION_KEY, role) // 사용자 권한
-                .setExpiration(new Date(date.getTime() + TOKEN_TIME)) // 만료 시간
-                .setIssuedAt(date)                  // 발급일
-                .signWith(key, signatureAlgorithm) // 암호화 알고리즘
-                .compact();
-
-
-        //Refresh Token 생성
-        String refreshToken = Jwts.builder()
-                .setSubject(username)
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24시간
-                .signWith(key,signatureAlgorithm)
-                .compact();
-
-        return JwtToken.builder()
-                .grantType("Bearer")
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
-
-            // httpOnly 쿠키 :: XSS 안전, 암호화x, csrf 위협, 문자열만 저장
-            // js private variable (localStorage) :: CSRF안전, html5 지원 브라우저, xss 위협
-    }
-*/
-
-
 
     // JWT Cookie 에 저장
     public void addJwtToCookie(String token, HttpServletResponse res) {
         logger.info("***************** addJwtToCookie ******************** ");
 
         try {
-
             token = URLEncoder.encode(token, "utf-8").replaceAll("\\+", "%20"); // Cookie Value 에는 공백이 불가능해서 encoding 진행
 
             Cookie cookie = new Cookie(AUTHORIZATION_HEADER, token); // Name-Value
             cookie.setPath("/");
+            //Set-Cookie :: res.setHeader("Set-Cookie","refreshToken=" + refreshToken + "; Path=/; HttpOnly; SameSite=None; Secure; expires=" + date););
 
-            logger.info("addJwtToCookie_ cookie getName : "+cookie.getName());
-            logger.info("addJwtToCookie_ cookie getValue : "+cookie.getValue());
-            logger.info("addJwtToCookie_ cookie getHeaderNames : " +res.getHeaderNames());
-            logger.info("addJwtToCookie_ cookie getHeader(token) : " +res.getHeader(cookie.getValue()));
-
-            // Response 객체에 Cookie 추가
+            // Response 객체에 Cookie 추가, 호출시 HTTP 응답에 쿠키가 추가
             res.addCookie(cookie);
 
         } catch (UnsupportedEncodingException e) {
             logger.error(e.getMessage());
         }
-
     }
 
     // JWT 토큰 substring 접두사제거
@@ -155,11 +91,16 @@ public class JwtUtil {
         throw new NullPointerException("Not Found Token");
     }
 
+    // 토큰에서 회원 정보 추출
+    public Claims getUserInfoFromToken(String token) {  // JWT 파싱, 검증
+        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+    }
+
     // 토큰 검증
-    public boolean validateToken(String token) {
+    public boolean validateToken(String token) { //토큰 위변조 확인
         try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            return true;
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);   //  JWT 파싱, 검증 secretKey(Key)
+            return true; // Claims 객체가 반환
         } catch (SecurityException | MalformedJwtException | SignatureException e) {
             //경고:(169, 62) 'io.jsonwebtoken.SignatureException'은(는) 더 이상 사용되지 않습니다
             logger.error("Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
@@ -173,12 +114,19 @@ public class JwtUtil {
         return false;
     }
 
-    // 토큰에서 사용자 가져오기
-    public Claims getUserInfoFromToken(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+    /*
+       // header 에서 JWT 가져오기
+        public String getJwtFromHeader(HttpServletRequest request) {
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
+    }*/
 
-    // HttpServletRequest 에서 Cookie Value : JWT 가져오기 getTokenFromRequest()
+
+    // HttpServletRequest 에서 Cookie Value
     public String getTokenFromRequest(HttpServletRequest req) {
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
@@ -187,11 +135,13 @@ public class JwtUtil {
                     try {
                         return URLDecoder.decode(cookie.getValue(), "UTF-8"); // Encode 되어 넘어간 Value 다시 Decode
                     } catch (UnsupportedEncodingException e) {
+                        logger.error("getValue is empty, decode 할 수 없습니다. ");
                         return null;
                     }
                 }
             }
         }
+        logger.error("Token is empty, cookie에 토큰이 없습니다. ");
         return null;
     }
 }

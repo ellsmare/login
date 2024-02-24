@@ -1,17 +1,12 @@
 package com.example.login.post;
 
-import com.example.login.BaseTimeEntity;
+import com.example.login.common.BaseTimeEntity;
 import com.example.login.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor

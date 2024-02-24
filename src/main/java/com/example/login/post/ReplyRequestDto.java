@@ -1,6 +1,5 @@
 package com.example.login.post;
 
-import com.example.login.BaseTimeEntity;
 import com.example.login.user.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

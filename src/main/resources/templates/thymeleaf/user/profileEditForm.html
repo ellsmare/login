@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>뉴스피스</title>
+    <meta charset="UTF-8">
+    <!--Required meta tags -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--css/js start-->
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- 쿠키 -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+
+</head>
+<body>
+
+
+<a class="nav-link" th:href="@{/api/v1}"> 메인 </a>
+<div class="main-head" sec:authorize="hasRole('ROLE_USER')">
+    <span class="nav-link" sec:authentication="principal.username"></span>
+    <span class="nav-link" sec:authentication="principal.authorities"></span>
+    <hr>
+</div>
+<div>
+    <a th:text="${info}"></a>
+    <h1> 프로필 </h1>
+    <div th:each="info:${info}">
+        <div>프로필사진</div>
+        <a> img </a>
+   -->
+            <!--                <label th:for="title">Title</label>-->
+            <!--                <label><input id="title" name="title" th:value="${post.title}"> </label>-->
+            <!--            </div>-->
+        <div>자기소개</div>
+        <p class="infoContet">
+            <a th:text="${info.infoText}"></a>
+        </p>
+        <div th:for="nickname">nickname</div>
+        <p class="infoNick">
+            <a th:text="${info.nickname}"></a>
+        </p>
+        <div>email</div>
+        <p class="infoEmail">
+
+            <a th:text="${info.email}"></a>
+        </p>
+        <div>아이디</div>
+        <p class="infoName">
+            <a th:text="${info.username}"></a>
+        </p>
+    </div>
+</div>
+</body>
+</html>

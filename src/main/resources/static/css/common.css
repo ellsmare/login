@@ -1,72 +1,25 @@
-body {
-    /*box-sizing: border-box;*/
-    background: #ffffff;
+*{
+    font-size:20px;
+
 }
 
-#nav-top{
-    margin: 0 ;
-    padding: 30px 10px;
-    background: rgb(0, 122, 253);
-    color: #f1f5fa;
-}
-
-#nav-content{
-    padding: 10px;
-    /*padding-bottom: 5px;*/
-    /*-ms-flex-align: start;*/
-}
-
-.content-body {
+.container {
+    width: 500px;
     margin: 0 auto;
-    max-width: 90vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.form-sign {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-
-    min-width: 50vw;
-    margin-top: 80px;
-    padding: 32px;
-    background: #ffffff;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
-}
-
-#postForm{
-    max-width: 70vw;
-}
-
-#footer-contain{
-    color: #ffffff;
-    font-size: 20rem;
-    text-align: center;
-}
-
-#error{
-    margin-top: 10%;
-    padding :10px;
-    background: #000000;
-    color: #ffffff;
-    max-font-size: 20em;
-    min-width:45%;
-    min-height:30vh;
-}
-
-textarea {
+    margin-top: 40px;
 
 }
 
-input[type=submit] {
+.container input {
+    width: 100%;
+    box-sizing: border-box;
     margin-top: 10px;
+
 }
 
+.container textarea{
+    width: 100%;
+    margin-top: 10px;
+    min-height: 300px;
+}
 

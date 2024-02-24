@@ -3,6 +3,7 @@ package com.example.login.auth;
 import com.example.login.user.MemberRepository;
 import com.example.login.user.UserEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,9 +15,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
-   /* public UserDetailsServiceImpl(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }*/
 
     //시큐리티 로그인 가로채기:: username, password 변수 2개
     //username이 db에 있는지 확인
@@ -29,6 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         System.out.println(principal);
         return new UserDetailsImpl(principal);
     }
+
 }
 
 

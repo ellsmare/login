@@ -1,26 +1,34 @@
+function logout() {
+    const href = location.href;   //현재 페이지의 전체 URL
+    const host = 'http://' + window.location.host;
 
-    function logout() {
+    const allCookies = document.cookie;
+    const cookiesArray = allCookies.split(';');
 
-    var cookieDomain = getCookieDomain('Authorization');
-    alert(cookieDomain);
-    console.log(cookieDomain);
+    for (let i = 0; i < cookiesArray.length; i++) {
+        const cookie = cookiesArray[i].trim();
+        const [name, value] = cookie.split('=');
+        console.log('쿠키 이름:', name);
+        console.log('쿠키 값:', value);
+    }
 
     // 토큰 삭제
     Cookies.remove('Authorization', {path: '/'});
-    //window.location.href = host + '/api/user/login-page';
+    window.location.href = host + '/api/v1'   //리다이렉션
 }
 
+/*
+
+const setCookie = function(name, value, exp) {
+    const date = new Date();
+    date.setTime(date.getTime() + exp * 60 * 60 * 24 * 1000);  //1day
+    document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+};
+
+*/
 
 
 
-
-
-// // const host = 'http://' + window.location.host;
-// function logout() {
-//     // 토큰 삭제
-//     Cookies.remove('Authorization', {path: '/'});
-//     window.location.href = host + '/';
-// }
 //
 // function getToken() {
 //     let auth = Cookies.get('Authorization');
@@ -96,9 +104,7 @@
 // //     let nickname = $("#input-nickname").val()
 // //     let password2 = $("#input-password2").val()
 // //     console.log(username, nickname, password, password2)
-// //
-// //
-// //
+
 // //     if ($("#help-id").hasClass("is-danger")) {
 // //         alert("아이디를 다시 확인해주세요.")
 // //         return;

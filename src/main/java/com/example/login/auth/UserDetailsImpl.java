@@ -2,6 +2,7 @@ package com.example.login.auth;
 
 import com.example.login.user.UserEntity;
 import com.example.login.user.UserRole;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
+@Getter
 @Slf4j(topic = "UserDetailsImpl ")
 public class UserDetailsImpl implements UserDetails { // 시큐리티의 세션저장소에 UserDetailsImpl가 저장
 

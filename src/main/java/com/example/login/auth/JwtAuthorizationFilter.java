@@ -5,6 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,11 +15,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-
 import java.io.IOException;
 
 @Slf4j(topic = "JWT 검증 및 인가")
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
+    /* 동일한 요청에 대해 필터가 여러 번 적용되는 것을 방지 */
 
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
@@ -30,39 +31,46 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain filterChain) throws ServletException, IOException {
-        log.info("***************************doFilterInternal*********************");
-        log.info("tokenValue: " + req);
-
-        //OncePerRequestFilter클래스에서 재정의되며 들어오는 각 HTTP 요청을 처리
+    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, @NonNull FilterChain filterChain) throws ServletException, IOException {
+        log.info("***************************doFilterInternal *********************");
 
         //JWT 토큰을 추출
-        String tokenValue = jwtUtil.getTokenFromRequest(req);
-        log.info("getTokenFromRequest tokenValue: " + req);
+        //String tokenValue = jwtUtil.getJwtFromHeader(req);    //헤더
+        String tokenValue = jwtUtil.getTokenFromRequest(req);  //쿠키
+        log.info("[+] cookieCheck: " + tokenValue);
 
-        if (StringUtils.hasText(tokenValue)) {
+        if (StringUtils.hasText(tokenValue)) {  //null, 공백
+
             // JWT 토큰 substring
-            tokenValue = jwtUtil.substringToken(tokenValue);
-            log.info("substringToken tokenValue: "+tokenValue);
+            tokenValue = jwtUtil.substringToken(tokenValue);  //순수 jwtToken
+            log.info("substringToken jwtToken: " + tokenValue);
 
-            //토큰이 발견, 토큰의 유효성을 검사 :: 검증 실패, 다시 로그인 진행??
-            if (!jwtUtil.validateToken(tokenValue)) {
-                log.error("Token Error");
+
+            if (!jwtUtil.validateToken(tokenValue)) { // 토큰의 유효성을 검사
+                log.error("Token validateToken Error");
+                res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "try login");
                 return;
             }
 
-            // 토큰에서 사용자 정보 가져오기
-            Claims info = jwtUtil.getUserInfoFromToken(tokenValue);
+            // 토큰에서 사용자 정보 반환
+            Claims info = jwtUtil.getUserInfoFromToken(tokenValue);          
 
             try {
-                log.info("getUserInfoFromToken  tokenValue: "+info.getSubject());
 
-                // 호출, 토큰에서 추출된 사용자 이름을 전달, 사용자 인증을 시도
+                // 토큰에서 추출된 사용자 이름을 전달, 사용자 인증을 시도
                 setAuthentication(info.getSubject());
 
+                log.info("*******  end  ********** "+ res.getStatus());
+
+                // 인증 사용자 정보 조회
+                UserDetails principal = getAuthentication(info.getSubject());
+                log.info("*******  end point ********** "+ principal);
+
+
             } catch (Exception e) {
-                log.error(e.getMessage());
+                log.error("null" + e.getMessage());
                 return;
+
             }
         }
         //다음 필터
@@ -77,17 +85,11 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
 
         //제공된 사용자 이름을 사용하여 객체를 생성
-        //
         Authentication authentication = createAuthentication(username);
         log.info("createAuthentication  authentication: " + authentication);
-
-        //context에 할당
-        context.setAuthentication(authentication);
-        log.info(" context.setAuthentication(authentication  : " + context);
-
-        //보안컨텍스트 홀더에 현재 인증 토큰으로 설정
-        SecurityContextHolder.setContext(context);
-
+        
+        context.setAuthentication(authentication);  //context에 할당        
+        SecurityContextHolder.setContext(context);  //보안컨텍스트 홀더에 현재 인증 토큰으로 설정
     }
 
     // 인증 객체 생성
@@ -95,13 +97,35 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         log.info("***************************createAuthentication*********************");
 
         // username가 DB에 있는지 확인 후 객체 생성
-        log.info("__________ Authentication  username _________:: " + username);
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        log.info("__________ Authentication  userDetails _________:: " + userDetails);
-
+        log.info(" userDetails :: " + userDetails);    
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
     }
+
+    // 인증 정보 조회
+    public UserDetails getAuthentication(String username) {
+            log.info("***************************getAuthentication*********************");
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        log.info("userDetails"+ userDetails);
+        return userDetails;
+    }
+
 }
 
-//JwtUtil.java 토큰
-//getTokenFromRequest -> getJwtFromHeader 메서드 사용
+
+/*
+	public UsernamePasswordAuthenticationToken(Object principal, Object credentials,
+			Collection<? extends GrantedAuthority> authorities) {
+		super(authorities);
+		this.principal = principal;
+		this.credentials = credentials;
+		super.setAuthenticated(true); // must use super, as we override
+	}
+
+
+
+
+
+            */

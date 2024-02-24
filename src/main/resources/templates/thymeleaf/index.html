@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>뉴스피스</title>
+    <!--Required meta tags -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--css/js start-->
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- 쿠키 -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+
+</head>
+<body>
+<button onclick=`${window.location.href='/'}`>홈으로</button>
+<h1> 메인페이지</h1>
+<hr>
+<div sec:authorize="isAnonymous()">
+    <h3>isAnonymous 비로그인 상태 </h3>
+    <a class="nav-link" th:href="@{/api/v1/auth/login-page}">login</a>
+    <a class="nav-link" th:href="@{/api/v1/auth/signup}">회원가입</a>
+    <a class="nav-link" th:href="@{/api/v1/auth/posts}">게시판</a>
+</div>
+
+<div sec:authorize="isAuthenticated()">
+    <h3>isAuthenticated 로그인 상태 </h3>
+    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/api/v1/users/post-edit}">post edit </a>
+    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/api/v1/users/info}">내정보</a>
+    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/api/v1/users/profile}">프로필 -- 메인화면 출력</a>
+    <button onclick="logout()"> 로그아웃</button>
+    <!-- 로그인을 하면 표시 -->
+
+</div>
+<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/api/v1/users/post-edit}">post edit </a>
+<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/api/v1/users/info}">내정보</a>
+<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/api/v1/users/profile}">프로필 -- 메인화면 출력</a>
+
+<div>
+    <h3> 모든 링크 표시 </h3>
+    <a class="nav-link" th:href="@{/api/v1/auth/signup}">회원가입</a>
+    <a class="nav-link" th:href="@{/api/v1/auth/login-page}">login</a>
+    <a class="nav-link" th:href="@{/api/v1/auth/posts}">List</a>
+    <br>
+    <a class="nav-link" th:href="@{/api/v1/users/info}">내정보</a>
+    <a class="nav-link" th:href="@{/api/v1/users/profile}">프로필(메인화면 출력)</a>
+    <br>
+</div>
+<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/api/v1/auth/posts}">post</a>
+<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/api/v1/users/post-edit}">post edit </a>
+
+
+<form id="logoutForm"
+      sec:authorize="isAuthenticated()" >
+    <span sec:authentication="name">사용자</span>
+    <span sec:authentication="principal.authorities">권한</span>
+</form>
+
+
+<!-- 로그인 한다면 보이게-->
+<!--<li class="nav-item" th:classappend="${menu} == 'board'? 'active'">-->
+<!--    <a class="nav-link" href="#" th:href="@{/board/list}">-->
+<!--        게시판-->
+<!--        <span class="sr-only" th:if="${menu} == 'board'">(current)</span>-->
+<!--    </a>-->
+<!--</li>-->
+
+<!--
+
+<form >
+<div class="main-head" sec:authorize="hasRole('ROLE_USER')">
+    <span class="nav-link" sec:authentication="principal.username"></span>
+    <span class="nav-link" sec:authentication="principal.authorities"></span>
+    <hr>
+     <h1> 프로필 </h1>
+    <div th:each="info:${info}">
+        <div>프로필사진</div>
+        <a > img </a>
+
+        <div>자기소개</div>
+        <p class="infoContet" >
+            <a th:text="${info.infoText}"></a>
+        </p>
+        <div>nickname</div>
+        <p class="infoNick">
+            <a th:text="${info.nickname}"></a>
+        </p>
+        <div>email</div>
+        <p class="infoEmail">
+
+            <a th:text="${info.email}"></a>
+        </p>
+        <div>아이디</div>
+        <p class="infoName">
+            <a th:text="${info.username}"></a>
+        </p>
+        <b>Authenticated DTO:</b>
+        <div sec:authentication="principal"></div>
+    </div>
+</div>
+</form>-->
+
+<hr>
+<!--https://chung-develop.tistory.com/75-->
+<!--https://cdnjs.com/  cdn-->
+
+
+<!--(로그인 첫 시도, 쿠키지원x)타임리프 같은 템플릿-jsessionid 를 URL에 자동으로 포함 :: 세션-->
+<!-- :: server.servlet.session.tracking-modes=cookie   todo 리팩토링 or jwt-->
+<!--출처: https://jddng.tistory.com/268 [IT 개발자들의 울타리:티스토리]-->
+<!--HttpserveltRequest와 HttpSession 차이-->
+
+<script src="/js/basic.js"></script>
+</body>
+
+</html>

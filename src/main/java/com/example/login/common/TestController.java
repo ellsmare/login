@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.common;
 
 import com.example.login.user.*;
 import lombok.RequiredArgsConstructor;
@@ -8,15 +8,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class TestController {
 
-   // private final MemberRepository memberRepository;
+    // private final MemberRepository memberRepository;
     //private final MemberService memberService;
-
-
-
-
-
-
-
 
 
     //findPassword 찾기  -- 비밀번호 post
@@ -43,7 +36,7 @@ public class TestController {
 //        return response;
 //    }
 
-//    @PutMapping("/test/user/chagePw")
+    //    @PutMapping("/test/user/chagePw")
 //    public  Optional<UserEntity> chagePassword(@RequestBody InfoRequestDto pwRequestDto){
 //        System.out.println(pwRequestDto.getIdx());
 //        System.out.println(pwRequestDto.getPassword());
@@ -59,6 +52,26 @@ public class TestController {
 //    }
     // 비번 3번
 
+    @GetMapping("/test/te/ef")
+    public String fef() {
+        //  model.addAttribute("username", "username");
+        return "test//////";
+    }
 
+
+
+
+    @GetMapping("/test/te")
+    public String test() {
+        //  model.addAttribute("username", "username");
+        return "test";
+    }
+
+
+    @GetMapping("/")
+    public String index() {
+        //  model.addAttribute("username", "username");
+        return "index";
+    }
 
 }

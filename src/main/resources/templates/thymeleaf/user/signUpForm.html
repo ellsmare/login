@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>뉴스피스</title>
+    <meta charset="UTF-8">
+    <!--Required meta tags -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--css/js start-->
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- 쿠키 -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+
+</head>
+<body>
+<a class="nav-link" th:href="@{/api/v1}">  메인 </a>
+<br>
+<h4 class="mb-3 boxTitle" id="signBoxTitle"> 회원가입</h4>
+<hr>
+
+<form>
+    <div>
+        <!-- 아이디-->
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="username">아이디</label>
+                <input type="text" name="username" id="username" class="form-control" placeholder="아이디는 4~10자입니다"
+                       autocomplete="on" required autofocus>
+            </div>
+        </div>
+        <!--비밀번호-->
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="password">비밀번호</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="패스워드를 입력해주세요"
+                       autocomplete="current-password" required>
+                <!--비밀번호 보이기 체크박스, 비밀번호 재확인-->
+            </div>
+        </div>
+        <!--  이메일-->
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="email">이메일</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com"
+                       autocomplete="current-password" required>
+            </div>
+        </div>
+        <!--관리자 이메일 :: 이메일 인증 리패토링 수정-->
+        <div class="mb-3">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="admin-check" name="admin"
+                       onclick="onclickAdmin()">
+                <label class="custom-control-label" for="admin-check">관리자</label>
+            </div>
+        </div>
+    </div>
+</form>
+<button class="btn btn-lg btn-primary btn-block" id="btn-save" onclick="singUp()">가입 완료</button>
+<script type="text/javascript" th:src="@{/js/sign.js}"></script>
+</body>
+</html>

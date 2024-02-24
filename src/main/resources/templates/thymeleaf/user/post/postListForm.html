@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>뉴스피스</title>
+    <meta charset="UTF-8">
+    <!--Required meta tags -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--css/js start-->
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- 쿠키 -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+
+</head>
+<body>
+<a class="nav-link" th:href="@{/api/v1}"> 메인 </a>
+
+
+
+
+
+<!--&lt;!&ndash; freeBoard  Content &ndash;&gt;-->
+
+<!--<div class="container">-->
+<!--    <div class="content-body">-->
+
+<!--&lt;!&ndash;        <button type="submit" class="btn btn-secondary" id="btn-save">게시판 목록 </button>&ndash;&gt;-->
+<!--        <a th:href="@{/api/v1}" class="btn btn-secondary">메인페이지</a>-->
+<!--        <a th:href="@{/api/v1/users/info}" class="btn btn-secondary">info</a>-->
+<!--        <a th:href="@{/api/v1/auth/posts}" class="btn btn-secondary">게시판</a>-->
+<!--        <a th:href="@{/api/v1/users/post-edit}" class="btn btn-secondary">글쓰기</a>-->
+
+<!--        <div class="row">-->
+<!--            <div class="col-xs-12">-->
+<!--                <table class="freeBoard">-->
+<!--                    <caption>자유게시판</caption>-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th class="number">No</th>-->
+<!--                        <th class="title">제목</th>-->
+<!--                        <th class="time">작성시간</th>-->
+<!--                        <th class="count">조회수</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr>-->
+<!--                    <tr th:each="post:${posts}">-->
+<!--                        <td class="number" th:text="${post.id}"></td>-->
+<!--                        <td class="number">[[{$|post.id}|]]</td>-->
+<!--                        <td class="title">-->
+<!--                            <a th:href="@{/api/v1/users/posts/{id}(id=${post.id})}" th:text="${post.title}"></a>-->
+<!--                        </td>-->
+<!--                        <td class="time" th:text="${#temporals.format(post.createdDate, 'yy-mm-dd HH:mm')}"></td>-->
+<!--                        &lt;!&ndash;시간 포맷&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            <p th:text="${#temporals.format(orderDto.orderDate, 'yy-mm-dd HH:mm')}"></p>&ndash;&gt;-->
+<!--                        <td class="count" th:text="${post.count}"></td>-->
+<!--                    </tr>-->
+
+<!--                    </tbody>-->
+<!--                </table>-->
+
+<!--                &lt;!&ndash; 페이징 번호 todo&ndash;&gt;-->
+<!--                <ul class="pagination">-->
+<!--                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>-->
+<!--                    <li class="page-item"><a class="page-link" href="#">1</a></li>-->
+<!--                    <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--                    <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--                    <li class="page-item"><a class="page-link" href="#">Next</a></li>-->
+<!--                </ul>-->
+
+
+<!--&lt;!&ndash;                &lt;!&ndash; Pagination &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                <div style="margin: 10px">&ndash;&gt;-->
+<!--&lt;!&ndash;            <span th:each="pageNum : ${pageList}" th:inline="text">&ndash;&gt;-->
+<!--&lt;!&ndash;                <a th:href="@{'/api/v1/auth/posts?page=' + ${pageNum}}">[[${pageNum}]]</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </span>&ndash;&gt;-->
+
+
+<!--            </div>-->
+
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<script th:src="@{/js/post.js}"></script>
+</body>
+</html>

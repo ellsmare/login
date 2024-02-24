@@ -1,6 +1,7 @@
 package com.example.login.user;
 
 import com.example.login.auth.JwtUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -22,29 +24,17 @@ public class MemberService {
     private final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
 
-    //내 정보 수정
 
 
 
 
 
-    /* getInfo */
-    public UserEntity getInfo(long id) {
-
-        UserEntity userEntity = memberRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
-        );
-
-        //model.addAttribute("userEntity",userEntity.); , Model model
-        return userEntity;
-    }
-
-    /* findUsername  */
-    public String findUsernameByEmail (String email){
+    /* findUsername :: 아이디 찾기 */
+    public String findUsernameByEmail(String email) {
         System.out.println(email);
         boolean ok = memberRepository.existsByEmail(email);
         System.out.println(ok);
-        if (!ok ) {
+        if (!ok) {
             System.out.println("existsByEmail 실패했습니다:: existsByEmail null");
             throw new IllegalArgumentException("등록된 사용자가 없습니다.");
         }
@@ -58,11 +48,13 @@ public class MemberService {
         return username;
     }
 
-    //*로그인- (jwt) -> security  sesssion--> jwt*/
+
+
     /**
      * 로그인
-     * @param //username - 로그인 ID
-     * @param //password - 비밀번호
+     * sesssion to jwt
+     * @param //username
+     * @param //password
      * @return 회원 상세정보
      */
     // @Transactional(readOnly = true)
@@ -96,9 +88,12 @@ public class MemberService {
         return principal;
     }*/
 
+
+
+
     /*회원가입 */   // 문제 :: 관리자 전환 안됨 id="btn-login  함수
-     @Transactional
-    public void register (@Valid RegisterRequestDto requestDto){
+    @Transactional
+    public void register(@Valid RegisterRequestDto requestDto) {
         System.out.println("register::" + requestDto);
 
         String password = passwordEncoder.encode(requestDto.getPassword());
@@ -132,12 +127,12 @@ public class MemberService {
 
         try {
             System.out.println("save resiger try::" + username);
-            System.out.println("save resiger try::" + password);
-            System.out.println("save resiger try::" + email);
             memberRepository.save(userEntity);
 
         } catch (Exception e) {
             System.out.println("service -signupFailed : " + e.getMessage());
         }
     }
+
+
 }

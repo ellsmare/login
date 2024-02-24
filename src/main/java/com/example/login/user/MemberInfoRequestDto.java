@@ -13,6 +13,7 @@ public class MemberInfoRequestDto {
     private String nickname;
     private String password;
     private String infoText;   //코멘트창
+    boolean checkPw; // false 수정 x
 
     @Builder
     public MemberInfoRequestDto(UserEntity userEntity){

@@ -1,8 +1,9 @@
 package com.example.login.user;
 
-import com.example.login.BaseTimeEntity;
+import com.example.login.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
+
 
 @Data
 @ToString
@@ -31,6 +32,9 @@ public class UserEntity extends BaseTimeEntity{
 
     private String nickname;   //별명, 기본값 loginId
     private String infoText;   //코멘트창
+
+   /* private String filename; // 파일 이름   -- 리스트
+    private String filepath; // 파일이 저장된 경로*/
 
 //    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER)  //fk x
 //    private List<ReplyEntity> replyEntityList;

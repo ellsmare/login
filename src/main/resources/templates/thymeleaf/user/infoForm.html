@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ko">
+<head>
+    <title>뉴스피스</title>
+    <meta charset="UTF-8">
+    <!--Required meta tags -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--css/js start-->
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- 쿠키 -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+
+</head>
+<body>
+<a class="nav-link" th:href="@{/api/v1}"> 메인 </a>
+
+<div class="main-head" sec:authorize="hasRole('ROLE_USER')">
+    <span class="nav-link" sec:authentication="principal.username"></span>
+    <span class="nav-link" sec:authentication="principal.authorities"></span>
+    <a th:text="${info}"></a>
+    <hr>
+</div>
+
+<div>
+    <h1> 개인 정보 수정 페이지 </h1>
+    <div th:each="info:${info}">
+        <div>프로필사진</div>
+        <a> img </a><button  class="btn btn-secondary"  type="submit"  id="btn-img-save">불러오기</button>
+        <br>
+
+        <div>자기소개</div>
+        <div class="infoContet">
+            <a th:text="${info.infoText}"></a>
+        </div>
+        <div th:for="nickname">nickname</div>
+        <div class="infoNick">
+            <a th:text="${info.nickname}"></a>
+        </div>
+        <div>비밀번호</div>
+        <div class="infoName">
+            <label>
+                <input id="title" name="password">
+                <button  class="btn btn-secondary"  type="submit"  id="btn-pw-check">비밀번호 확인</button>
+            </label>
+        </div>
+
+        <!--수정할 수 없는 정보 -->
+        <div>email</div>
+        <div class="infoEmail">
+            <a th:text="${info.email}"></a>
+        </div>
+        <div>아이디</div>
+        <div class="infoName">
+            <a th:text="${info.username}"></a>
+        </div>
+    </div>
+</div>
+
+<button  class="btn btn-secondary" type="submit" id="btn-save">저장하기</button>
+<button type="submit" class="btn btn-secondary"
+        onclick="document.location.href='/bbs/content.bbs?articleNumber=${articleNumber}&pageNum=${pageNum}'">취소</button>
+<!-- <input type="button" class="btn btn-default" value="취소" onclick="document.location.href='/bbs/content.bbs?articleNumber=${articleNumber}&pageNum=${pageNum}'">-->
+
+<!--<form class="form-signin" action="/api/common/join" method="post" name="joinForm" object="dto">-->
+
+<!--enctype="multipart/form-data"-->
+    <!--  https://chung-develop.tistory.com/75-->
+
+
+</body>
+</html>
+

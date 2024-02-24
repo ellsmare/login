@@ -3,7 +3,7 @@ server:
   port: 8081
   servlet:
     session:
-      timeout: 1800
+      timeout: 43200
     context-path: /
 spring:
   datasource:
@@ -16,7 +16,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
@@ -24,11 +24,12 @@ spring:
         format_sql: true
     open-in-view: true
   thymeleaf:
+    cache: false # default true
     encoding: UTF-8
     check-template: true
     check-template-location: true
     enabled: true
-    prefix: classpath:/templates/
+    prefix: classpath:/templates/thymeleaf/
     suffix: .html
   devtools:
     livereload:
@@ -36,6 +37,12 @@ spring:
     remote:
       restart:
         enabled: true   #변화감지 자동재시작
+  servlet:
+    multipart:
+      maxFileSize: 10MB    #개별 파일 크기
+      maxRequestSize: 20MB # 전송된 크기
+      enabled: true  #업로드지원
+      location: c:/intellij/post/
 logging:
   level:
     org.hibernate.SQL: debug

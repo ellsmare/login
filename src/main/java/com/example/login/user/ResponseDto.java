@@ -15,6 +15,8 @@ public class ResponseDto<T> {
     int status;
     T data;
 
+
+
     //private String error;
     //private List<T> data;
 }
